@@ -1,4 +1,24 @@
 # Linux
+## Directories
+| **Directory Name**       | **Directory Path** | **Directory Description**                                                                 |
+|---------------------------|--------------------|------------------------------------------------------------------------------------------|
+| **Etcetera**             | `/etc`            | Contains system configuration files, such as `passwd`, `shadow`, and `sudoers`.          |
+| **Variable Data**        | `/var`            | Stores frequently updated data like logs, backups, and temporary files.                 |
+| **Root User Home**       | `/root`           | Home directory for the `root` user.                                                     |
+| **Temporary**            | `/tmp`            | Stores temporary files; contents are cleared on system reboot.                          |
+| **User System Resources**| `/usr`            | Contains system applications, libraries, and documentation for user programs.           |
+| **Home Directories**     | `/home`           | Stores personal directories for all non-root users.                                      |
+| **Boot Files**           | `/boot`           | Files required for booting the system, including the kernel and bootloader.             |
+| **Device Files**         | `/dev`            | Contains device files for accessing hardware and peripherals.                           |
+| **System Binaries**      | `/bin`            | Essential system commands and binaries (e.g., `ls`, `cp`).                              |
+| **System Libraries**     | `/lib`            | Shared libraries and kernel modules required for system binaries in `/bin` and `/sbin`. |
+| **Optional Packages**    | `/opt`            | Used for optional or third-party software installations.                                |
+| **Process Files**        | `/proc`           | Virtual filesystem providing information about running processes and system resources.  |
+| **System Information**   | `/sys`            | Virtual filesystem providing information about hardware and system configurations.       |
+| **System Administration**| `/sbin`           | System administration commands (e.g., `ifconfig`, `reboot`).                            |
+| **Media Mount Points**   | `/media`          | Temporary mount points for removable media like USB drives and CDs.                     |
+| **Mount Points**         | `/mnt`            | Temporary mount points for manually mounted filesystems.                                |
+
 ## Commands
 | Command               | Description                                         | Example                                    |
 |-----------------------|-----------------------------------------------------|--------------------------------------------|
