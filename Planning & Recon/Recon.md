@@ -17,3 +17,15 @@
 | **OSINT Framework**| Collection of links and resources for conducting OSINT investigations. | `https://osintframework.com/`                                                     |
 | **Pipl**        | People search engine for gathering information on individuals. | `pipl.com`                                                                        |
 | **PublicWWW**   | Search engine for discovering source code snippets and web technologies. | `https://publicwww.com/websites?q="example"`                                      |
+| **Wappalyzer** | online tool and browser extension that helps identify what technologies a website uses | `https://www.wappalyzer.com/` |
+| **Wayback Machine** | A historical archive of websites that dates back to the late 90s | `https://archive.org/web/` |
+| **GitHub** | A version control system that tracks changes to files in a project | `https://github.com/` |
+| **S3 Buckets** | A storage service provided by Amazon AWS | `http(s)://[name].s3.amazonaws.com ` |
+
+## Google Dorking
+| Filter    | Example   | Description   |
+|-----------|-----------|---------------|
+| `site`    | site:tryhackme.com    | returns results only from the specified website address |
+| `inurl`   | site:tryhackme.com    | returns results that have the specified word in the URL |
+| `filetype` | site:tryhackme.com   | returns results which are a particular file extension |
+| `intitle` | intitle:admin         | returns results that contain the specified word in the title |
