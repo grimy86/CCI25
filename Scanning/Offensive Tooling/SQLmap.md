@@ -23,5 +23,6 @@ SQLmap is an automated tool for detecting and exploiting SQL injection vulnerabi
 ## Common SQLmap Workflow
 
 1. **Basic SQL Injection Test**
-   ```bash
-   sqlmap -u "http://example.com/vulnerable.php?id=1"
+```bash
+sqlmap -u "http://example.com/vulnerable.php?id=1"
+```
