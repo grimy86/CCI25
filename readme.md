@@ -1,27 +1,27 @@
 # Cyber Security Summary '25
-## 0. Fundamentals Cheat Sheets
-1. [Networking](./Cheat\ Sheets/Networking.md)
-2. [Linux](./Cheat\ Sheets/Linux.md)
-3. [Windows](./Cheat\ Sheets/Windows.md)
-4. [Windows CLI](./Cheat\ Sheets/WindowsCLI.md)
-5. [Cryptography](./Cheat\ Sheets/Cryptography.md)
+## Fundamentals Cheat Sheets
+1. [Networking](/Cheat%20Sheets/Networking.md)
+2. [Linux](/Cheat%20Sheets/Linux.md)
+3. [Windows](/Cheat%20Sheets/Windows.md)
+4. [Windows CLI](/Cheat%20Sheets/WindowsCLI.md)
+5. [Cryptography](/Cheat%20Sheets/Cryptography.md)
 
-## 1. Planning & Recon
-1. [Planning](./Planning\ \&\ Recon/Planning.md)
-2. [Recon](./Planning\ \&\ Recon/Recon.md)
+## Planning & Recon
+1. [Planning](/Planning%20%26%20Recon/Planning.md)
+2. [Recon](/Planning%20%26%20Recon/Recon.md)
 
-## 2. Scanning
-1. [Hydra](./Scanning\ \&\ Offensive\ Tooling/Hydra.md)
-2. [SQLmap](./Scanning\ \&\ Offensive\ Tooling/SQLmap.md)
-3. [Directory Scanners](./Scanning\ \&\ Offensive\ Tooling/DirectoryScanners.md)
+## Scanning
+1. [Hydra](/Scanning/Offensive%20Tooling/Hydra.md)
+2. [SQLmap](/Scanning/Offensive%20Tooling/SQLmap.md)
+3. [Directory Scanners](/Scanning/Offensive%20Tooling/DirectoryScanners.md)
 
-## 3. Gaining Access
-1. [Exploitation](./Gaining\ Access/Exploitation.md)
-2. [OWASP10](./Gaining\ Access/OWASP10.md)
+## Gaining Access
+1. [Exploitation](/Gaining%20Access/Exploitation.md)
+2. [OWASP10](/Gaining%20Access/OWASP10.md)
 
-## 4. Maintaining Access
-1. (Your files here)
+## Maintaining Access
+1. [Post-Exploitation](/Maintaining%20Access)
 
-## 5. Analysis
-1. [CAPA](./Analysis\ \&\ Defensive\ Tooling/CAPA.md)
-2. [REMnux & FlareVM](./Analysis\ \&\ Defensive\ Tooling/REMnux&FlareVM.md)
+## Analysis
+1. [CAPA](/Analysis/Defensive%20Tooling/CAPA.md)
+2. [REMnux & FlareVM](/Analysis/Defensive%20Tooling/REMnux&FlareVM.md)
