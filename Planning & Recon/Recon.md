@@ -21,6 +21,8 @@
 | **Wayback Machine** | A historical archive of websites that dates back to the late 90s | `https://archive.org/web/` |
 | **GitHub** | A version control system that tracks changes to files in a project | `https://github.com/` |
 | **S3 Buckets** | A storage service provided by Amazon AWS | `http(s)://[name].s3.amazonaws.com ` |
+| **crt.sh**     | Certificate Search | `https://crt.sh/` |
+| **Certificate Transparency Search Tool** | See Who’s Issued SSL/TLS Certificates to Your Domain Name | `https://ui.ctsearch.entrust.com/ui/ctsearchui` |
 
 ## Google Dorking
 | Filter    | Example   | Description   |
@@ -29,3 +31,46 @@
 | `inurl`   | site:tryhackme.com    | returns results that have the specified word in the URL |
 | `filetype` | site:tryhackme.com   | returns results which are a particular file extension |
 | `intitle` | intitle:admin         | returns results that contain the specified word in the title |
+| `subdomain enumeration` | site:*.tryhackme.com -site:www.tryhackme.com | Used as an OSINT method |
+
+## Content Discovery / Web Walking
+| Where to look | Description |
+|---------------|-------------|
+| `view-source:`    | Source of the web-app |
+| `HTML comments`   | Could contain valuabe info |
+| `Editing a style` | E.g: `Display: none` is a common way to hide HTML elements |
+| `Breakpoints` | Force the browser to stop processing the JavaScript and pause the current execution |
+| Network tab   | Examine network entries, server responses, etc.   |
+| `robots.txt`  | Tells search engines which pages they are and aren't allowed to show on their search engine results |
+| favicon       | Tells search engines which pages they are and aren't allowed to show on their search engine results, try parse it. |
+| `Sitemap.xml` | Sitemap.xml file gives a list of every file the website owner wishes to be listed on a search engine |
+| HTTP headers  | Headers can sometimes contain useful information such as the webserver software and possibly the programming/scripting language in use. |
+| Framework Stack | Establish the framework used to build the site from: favicon, HTML comments, copyright notices, credits, etc. and enumerate from there |
+| OSINT         | Use OSINT methods like google dorking, etc. |
+| `DNSrecon` | Bruteforce DNS subdomain enumeration |
+| `Sublist3r` (& `dnsenum`) | Speed up the process of OSINT subdomain discovery, bruteforce, google, etc. |
+| `Ffuf` | Test for virtual hosts |
+
+
+## Subdomain Enumeration
+When an `SSL/TLS` certificate is created for a domain by a CA, CA's create publicly accessible logs of every SSL/TLS certificate created for a domain name. The purpose of `Certificate Transparency logs` is to stop malicious and accidentally made certificates from being used. We can use this service to our advantage to discover subdomains belonging to a domain, sites like `https://crt.sh` and `https://ui.ctsearch.entrust.com/ui/ctsearchui` offer a searchable database of certificates that shows current and historical results.
+
+## Bruteforce DNS enumeration
+Trying tens, hundreds, thousands or even millions of different possible subdomains from a pre-defined list of commonly used subdomains.
+E.g: `admin.example.com` or `staging.example.com`
+
+Note: this IS `NOT like go/dirbuster`, they focus on directories and files so `example.com/directory` or `example.com/file.extension`.
+
+Note: `Sublist3r` automates this process and does some google dorking too.
+
+## Virtual Hosts
+A web server can host multiple websites on the same IP address. It uses the Host header in the HTTP request to figure out which website to serve.
+
+Example: Server at 192.168.1.1 hosts: `example.com` & `admin.example.com`
+
+Some subdomains aren't always hosted in publically accessible DNS results, such as development versions of a web application or administration portals.
+Instead, the DNS record could be kept on a private DNS server or recorded on the developer's machines in their `Linux: /etc/hosts file` or `Windows: c:\windows\system32\drivers\etc\hosts` which maps domain names to IP addresses.
+
+Because web servers can host multiple websites from one server when a website is requested from a client, the server knows which website the client wants from the Host header. We can `utilise this host header by making changes to it` and monitoring the response to see if we've discovered a new website.
+
+Like with DNS Bruteforce, we can automate this process by using a `wordlist of commonly used subdomains`.
