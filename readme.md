@@ -1,5 +1,5 @@
 # Cyber Security Summary '25
-## Fundamentals Cheat Sheets
+## Cheat Sheets
 1. [Networking](/Cheat%20Sheets/Networking.md)
 2. [Linux](/Cheat%20Sheets/Linux.md)
 3. [Windows](/Cheat%20Sheets/Windows.md)
@@ -18,6 +18,8 @@
 ## Gaining Access
 1. [Exploitation](/Gaining%20Access/Exploitation.md)
 2. [OWASP10](/Gaining%20Access/OWASP10.md)
+3. [Web Enumeration](/Gaining%20Access/Web/WebEnum.md)
+4. [Burpsuite](/Gaining%20Access/Web/Burpsuite.md)
 
 ## Maintaining Access
 1. [Shells](/Maintaining%20Access/Shells.md)
