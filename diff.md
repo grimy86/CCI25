@@ -112,3 +112,13 @@ Command injection is the abuse of an application's behaviour to execute commands
 
 Command injection is also often known as “Remote Code Execution” (RCE) because of the ability to remotely execute code within an application.
 
+[Cheat Sheet](https://github.com/payloadbox/command-injection-payload-list)
+
+## SQL Injection
+`SQL` (Structured Query Language) Injection, mostly referred to as `SQLi`, is an attack on a web application database server that causes malicious queries to be executed. A database is controlled by a `DBMS`, which is an acronym for  Database Management System.
+
+|SQLi type | Description | Example
+| - | - | - |
+| In-Band | In-Band just refers to the `same method of communication` being used to exploit the vulnerability and also receive the results.  | Discovering an SQL Injection vulnerability on a website page and then being able to extract data from the database to the same page. |
+| Blind SQLi | We get little to no feedback to confirm whether our injected queries were, in fact, successful or not | Authentication bypass, boolean based, time based |
+| Out-of-band | Isn't as common as it either depends on specific features being enabled on the database server or the web application's business logic, which makes some kind of `external network call` based on the results from an SQL query. | The attack channel could be a web request, and the data gathering channel could be monitoring HTTP/DNS requests made to a service you control. |
