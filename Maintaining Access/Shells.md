@@ -17,8 +17,7 @@
 
 ---
 
-### Common Shell Commands and Tips
-
+## Common Shell Commands and Tips
 | **Command**                                | **Purpose**                                                                       |
 |--------------------------------------------|-----------------------------------------------------------------------------------|
 | `python3 -c 'import pty; pty.spawn("/bin/bash")'` | Upgrade to a fully interactive shell.                                            |

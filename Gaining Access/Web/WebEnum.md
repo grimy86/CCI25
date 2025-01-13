@@ -21,4 +21,8 @@ Sometimes endpoints could have an unreferenced parameter that may have been of s
 | Encoded IDOR IDs | Web developers will often encode data into some type of ASCII string commonly using a-z, A-Z, 0-9 and = characters for padding | Base64: `{"id":30}` becomes `eyJpZCI6MzB9` |
 | Hashed IDs | A bit more complicated to deal with than encoded ones, but they may follow a predictable pattern | md5: `123` becomes `202cb962ac59075b964b07152d234b70` |
 | Unpredictable IDs | If the Id cannot be detected using the above methods, an excellent method of IDOR detection is to create two accounts and swap the Id numbers between them. | Swap `two` account IDs |
-|
+
+## Local File Inclusion (LCI)
+| Type | Description | Example |
+|-|-|-|
+| Path traversal or dot-dot-slash attack | A web security vulnerability allows an attacker to read operating system resources, such as local files on the server running an application. The attacker exploits this vulnerability by manipulating and abusing the web application's URL to locate and access files or directories stored outside the application's root directory. | `http://webapp.thm/get.php?file=../../../../etc/passwd` |
