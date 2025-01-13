@@ -87,10 +87,9 @@ Passive reconnaissance activities include many activities, for instance:
 | - | - | - |
 | Whois | request and response protocol that follows the RFC 3912 specification. A WHOIS server listens on TCP port 43 for incoming requests. The domain registrar is responsible for maintaining the WHOIS records for the domain names it is leasing. The WHOIS server replies with various information related to the domain requested. Of particular interest, we can learn. | `Registrar`, `Contact info` of registrant, `Creation-, Update- and Expiration dates`, `Name Server` |
 | nslookup | Find the IP address of a domain name using nslookup, which stands for Name Server Look Up. | `nslookup -type=[A(ipv4) or AAAA(ipv6)m CNAME, MX, SOA, TXT] [DOMAIN_NAME] [SERVER].` |
-|  |  |  |
-|  |  |  |
-
-
+| dig | For more advanced DNS queries and additional functionality, you can use dig, the acronym for “Domain Information Groper” | `dig [SERVER] [DOMAIN_NAME] [TYPE]`, e.g: `dig tryhackme.com MX` |
+| DNSDumpster | Dump subdomain records | `https://dnsdumpster.com/` |
+| Shodan.io | Helpful to learn various pieces of information about the client’s network, without actively connecting to it. | `https://www.shodan.io/` |
 
 ## Active reconnaissance
 Cannot be achieved so discreetly as it requires direct engagement with the target. Think of it like you check the locks on the doors and windows, among other potential entry points.
@@ -99,3 +98,11 @@ Examples of active reconnaissance activities include:
 - Connecting to one of the company servers such as HTTP, FTP, and SMTP.
 - Calling the company in an attempt to get information (social engineering).
 - Entering company premises pretending to be a repairman.
+
+| Tool | Description | Example |
+| - | - | - |
+| Web browser | Connecting to TCP ports. There are also plenty of add-ons: `FoxyProxy`, `User-Agent Switcher and Manager`, `Wappalyzer`, etc. | Connect to a `port` that has a supported web-service and look at the `developer tools` |
+| Ping | Check whether you can reach the remote system and that the remote system can reach you back. The ping command sends a packet to a remote system, and the remote system replies. This way, you can conclude that the remote system is `online` and that the network is working between the two systems. | `ping -c 5 10.10.228.63`, pings the machine 5 times |
+| traceroute | Traces the route taken by the packets from your system to another host. | `traceroute 10.10.228.63` on linux or `tracert 10.10.228.63` on windows |
+| Telnet | The default port used by telnet is 23 and it sends all data in **cleartext**. You can use Telnet to connect to any service and grab its banner since it relies on TCP. | `telnet 10.10.228.63 80` |
+| Netcat or nc (as client or as server) | Netcat supports both TCP and UDP protocols. It can function as a client that connects to a listening port; alternatively, it can act as a server that listens on a port of your choice. | `nc 10.10.228.63 80` or `nc -lvnp 80` where l = listen, v = verbose, n = numeric only, no DNS resolution, p = port specification |
