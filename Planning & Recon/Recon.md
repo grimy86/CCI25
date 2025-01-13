@@ -74,3 +74,28 @@ Instead, the DNS record could be kept on a private DNS server or recorded on the
 Because web servers can host multiple websites from one server when a website is requested from a client, the server knows which website the client wants from the Host header. We can `utilise this host header by making changes to it` and monitoring the response to see if we've discovered a new website.
 
 Like with DNS Bruteforce, we can automate this process by using a `wordlist of commonly used subdomains`.
+
+## Passive recon
+In passive reconnaissance, you rely on publicly available knowledge. Think of it like you are looking at target territory from afar without stepping foot on that territory.
+
+Passive reconnaissance activities include many activities, for instance:
+- Looking up DNS records of a domain from a public DNS server.
+- Checking job ads related to the target website.
+- Reading news articles about the target company.
+
+| Tool | Description | Example |
+| - | - | - |
+| Whois | request and response protocol that follows the RFC 3912 specification. A WHOIS server listens on TCP port 43 for incoming requests. The domain registrar is responsible for maintaining the WHOIS records for the domain names it is leasing. The WHOIS server replies with various information related to the domain requested. Of particular interest, we can learn. | `Registrar`, `Contact info` of registrant, `Creation-, Update- and Expiration dates`, `Name Server` |
+| nslookup | Find the IP address of a domain name using nslookup, which stands for Name Server Look Up. | `nslookup -type=[A(ipv4) or AAAA(ipv6)m CNAME, MX, SOA, TXT] [DOMAIN_NAME] [SERVER].` |
+|  |  |  |
+|  |  |  |
+
+
+
+## Active reconnaissance
+Cannot be achieved so discreetly as it requires direct engagement with the target. Think of it like you check the locks on the doors and windows, among other potential entry points.
+
+Examples of active reconnaissance activities include:
+- Connecting to one of the company servers such as HTTP, FTP, and SMTP.
+- Calling the company in an attempt to get information (social engineering).
+- Entering company premises pretending to be a repairman.
