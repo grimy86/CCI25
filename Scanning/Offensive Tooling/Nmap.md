@@ -135,3 +135,71 @@ Unprivileged users are limited to connect scan. However, the default scan mode i
 ### UDP scan
 UDP is a connectionless protocol, and hence it does not require any handshake for connection establishment. We cannot guarantee that a service listening on a UDP port would respond to our packets. However, if a UDP packet is sent to a closed port, an ICMP port unreachable error (type 3, code 3) is returned. You can select UDP scan using the -sU option; moreover, you can combine it with another TCP scan.
 
+### Fine-Tuning Scope and Performance
+Port Scan Type	Example Command
+TCP Connect Scan	nmap -sT 10.10.238.113
+TCP SYN Scan	sudo nmap -sS 10.10.238.113
+UDP Scan	sudo nmap -sU 10.10.238.113
+
+Option	Purpose
+-p-	all ports
+-p1-1023	scan ports 1 to 1023
+-F	100 most common ports
+-r	scan ports in consecutive order
+-T<0-5>	-T0 being the slowest and T5 the fastest
+--max-rate 50	rate <= 50 packets/sec
+--min-rate 15	rate >= 15 packets/sec
+--min-parallelism 100	at least 100 probes in parallel
+
+## Nmap Advanced Port Scans
+### Null Scan
+The null scan does not set any flag; all six flag bits are set to zero.
+You can choose this scan using the -sN option.
+A TCP packet with no flags set will not trigger any response when it reaches an open port, as shown in the figure below. Therefore, from Nmap’s perspective, a lack of reply in a null scan indicates that either the port is open or a firewall is blocking the packet.
+However, we expect the target server to respond with an RST packet if the port is closed. Consequently, we can use the lack of RST response to figure out the ports that are not closed: open or filtered.
+Note that many Nmap options require root privileges. Unless you are running Nmap as root, you need to use sudo as in the example above using the -sN option.
+
+### FIN Scan
+The FIN scan sends a TCP packet with the FIN flag set.
+You can choose this scan type using the -sF option.
+Similarly, no response will be sent if the TCP port is open.
+Again, Nmap cannot be sure if the port is open or if a firewall is blocking the traffic related to this TCP port.
+
+However, the target system should respond with an RST if the port is closed.
+Consequently, we will be able to know which ports are closed and use this knowledge to infer the ports that are open or filtered. It's worth noting some firewalls will 'silently' drop the traffic without sending an RST.
+
+### Xmas Scan
+The Xmas scan gets its name after Christmas tree lights.
+An Xmas scan sets the FIN, PSH, and URG flags simultaneously.
+You can select Xmas scan with the option -sX.
+Like the Null scan and FIN scan, if an RST packet is received, it means that the port is closed.
+Otherwise, it will be reported as open|filtered.
+The following two figures show the case when the TCP port is open and the case when the TCP port is closed.
+
+### TCP Maimon Scan
+In this scan, the FIN and ACK bits are set. The target should send an RST packet as a response. However, certain BSD-derived systems drop the packet if it is an open port exposing the open ports. This scan won’t work on most targets encountered in modern networks; however, we include it in this room to better understand the port scanning mechanism and the hacking mindset. To select this scan type, use the -sM option.
+
+Most target systems respond with an RST packet regardless of whether the TCP port is open. In such a case, we won’t be able to discover the open ports. The figure below shows the expected behaviour in the cases of both open and closed TCP ports.
+
+The console output below is an example of a TCP Maimon scan against a Linux server. As mentioned, because open ports and closed ports are behaving the same way, the Maimon scan could not discover any open ports on the target system.
+
+## TCP ACK, Window, and Custom Scan
+Let’s start with the TCP ACK scan. As the name implies, an ACK scan will send a TCP packet with the ACK flag set. Use the -sA option to choose this scan. As we show in the figure below, the target would respond to the ACK with RST regardless of the state of the port. This behaviour happens because a TCP packet with the ACK flag set should be sent only in response to a received TCP packet to acknowledge the receipt of some data, unlike our case. Hence, this scan won’t tell us whether the target port is open in a simple setup.
+
+This kind of scan would be helpful if there is a firewall in front of the target. Consequently, based on which ACK packets resulted in responses, you will learn which ports were not blocked by the firewall. In other words, this type of scan is more suitable to discover firewall rule sets and configuration.
+
+After setting up the target VM 10.10.0.50 with a firewall, we repeated the ACK scan. This time, we received some interesting results. As seen in the console output below, we have three ports that aren't being blocked by the firewall. This result indicates that the firewall is blocking all other ports except for these three ports.
+
+## Window Scan
+Another similar scan is the TCP window scan. The TCP window scan is almost the same as the ACK scan; however, it examines the TCP Window field of the RST packets returned. On specific systems, this can reveal that the port is open. You can select this scan type with the option -sW. As shown in the figure below, we expect to get an RST packet in reply to our “uninvited” ACK packets, regardless of whether the port is open or closed.
+
+Similarly, launching a TCP window scan against a Linux system with no firewall will not provide much information. As we can see in the console output below, the results of the window scan against a Linux server with no firewall didn’t give any extra information compared to the ACK scan executed earlier.
+
+However, as you would expect, if we repeat our TCP window scan against a server behind a firewall, we expect to get more satisfying results. In the console output shown below, the TCP window scan pointed that three ports are detected as closed. (This is in contrast with the ACK scan that labelled the same three ports as unfiltered.) Although we know that these three ports are not closed, we realize they responded differently, indicating that the firewall does not block them.
+
+## Custom Scan
+If you want to experiment with a new TCP flag combination beyond the built-in TCP scan types, you can do so using --scanflags. For instance, if you want to set SYN, RST, and FIN simultaneously, you can do so using --scanflags RSTSYNFIN. As shown in the figure below, if you develop your custom scan, you need to know how the different ports will behave to interpret the results in different scenarios correctly.
+
+Finally, it is essential to note that the ACK scan and the window scan were very efficient at helping us map out the firewall rules. However, it is vital to remember that just because a firewall is not blocking a specific port, it does not necessarily mean that a service is listening on that port. For example, there is a possibility that the firewall rules need to be updated to reflect recent service changes. Hence, ACK and window scans are exposing the firewall rules, not the services.
+
+## Spoofing and decoys
