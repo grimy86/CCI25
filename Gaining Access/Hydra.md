@@ -1,4 +1,6 @@
 ## Hydra Cheat Sheet
+Hydra is a parallelized login cracker which supports numerous protocols to attack. It is very fast and flexible, and new modules are easy to add.
+
 | Command                                           | Description                                               | Example                                             |
 |---------------------------------------------------|-----------------------------------------------------------|-----------------------------------------------------|
 | `hydra -l [user] -p [password] [target] [service]`| Performs a brute-force attack with one username and one password. | `hydra -l admin -p password123 192.168.1.10 ssh`    |
