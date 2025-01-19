@@ -48,6 +48,20 @@ If you want to check the list of hosts that Nmap will scan, you can use `nmap -s
 | Fragment packets | Add `-f` or `-ff` for further fragmentation. |
 | Increase packet size | `--data-length NUM` |
 | Change the default fragment size value | Use `--mtu`. |
+| **Post port scanning** | - |
+| Service and version | `nmap -sV MACHINE_IP` |
+| Control detection intensity | `--version-intensity LEVEL` where levels are between 0 and 9. |
+| Higest intensity detection | `-sV --version-all` |
+| OS detection | `nmap -O MACHINE_IP` |
+| Traceroute | `nmap --traceroute MACHINE_IP` |
+| Run default scripts | `nmap --script=default MACHINE_IP` or `nmap -sC MACHINE_IP` or `nmap --script "SCRIPT-NAME" MACHINE_IP`|
+| All | `-A`, equivalent to `-sV -O -sC --traceroute` |
+| **Saving output** | - |
+| Normal format | `-oN FILENAME` |
+| Grepable format | `-oG FILENAME` |
+| XML format | `-oX FILENAME` |
+| Use all formats | `-oA FILENAME` |
+| Script kiddie | `-oS FILENAME` |
 | **Misc** | - |
 | Enable fast mode | `sudo nmap -F MACHINE_IP` |
 | Scan ports in consecutive order | `sudo nmap -r MACHINE_IP` |
@@ -59,8 +73,10 @@ If you want to check the list of hosts that Nmap will scan, you can use `nmap -s
 | Control probing parallelization | `--min-parallelism <numprobes>` & `--max-parallelism <numprobes>` = Nmap probes the targets to discover which hosts are live and which ports are open; probing parallelization specifies the number of such probes that can be run in parallel. |
 | Specify the network interface | `-e NET_INTERFACE` |
 | Specify source port number | `--source-port PORT_NUM` |
-| Let Nmap provice more detailed reasoning | `--reason` |
-| Let Nmap provice more detailed output | Use `-v` or `-vv` for even more verbosity. |
+| Let Nmap provide more detailed reasoning | `--reason` |
+| Let Nmap provide more detailed output | Use `-v` or `-vv` for even more verbosity. |
+| Denugging | `-d` |
+| More details for debugging | `-dd` |
 
 
 ## The process of network mapping
@@ -270,3 +286,48 @@ This is accomplished by checking the IP identification (IP ID) value in the IP h
 
 ![Spoofed IP ID scan](https://tryhackme-images.s3.amazonaws.com/user-uploads/5f04259cf9bf5b57aed2c476/room-content/2b0de492e2154a30760852e07cebae0e.png)
 
+## Nmap Post port scans
+### Service detection
+Once you discover open ports, you can probe the available port to detect the running service.
+`-sV` will force Nmap to proceed with the TCP 3-way handshake and establish the connection in order to discover versions, etc.
+
+### OS detection
+Nmap can detect the Operating System (OS) based on its behaviour and any telltale signs in its responses.
+
+### Traceroute
+Traceroute finds the routers between you and the target. Note that Nmap’s traceroute works slightly different than the `traceroute` command found on Linux and macOS or `tracert` found on MS Windows.
+
+ Standard traceroute starts with a packet of low TTL (Time to Live) and keeps increasing until it reaches the target. Remember, TTL refers to the `amount of time or “hops” that a packet is set to exist` inside a network before being discarded by a router.
+
+### Nmap scripting engine
+Scripts make it possible to add custom functionality that do not exist via the built-in commands. Nmap provides support for scripts using the `Lua` language. `Nmap Scripting Engine (NSE) is a Lua interpreter` that allows Nmap to execute Nmap scripts written in Lua language.
+
+However, we don’t need to learn Lua to make use of Nmap scripts. Your Nmap default installation can easily contain close to 600 scripts.
+
+You can specify to use any or a group of these installed scripts; moreover, you can install other user’s scripts and use them for your scans. Let’s begin with the default scripts. You can choose to run the scripts in the default category using `--script=default` or simply adding `-sC`.
+
+In addition to default, categories include:
+- auth
+- broadcast
+- brute
+- default
+- discovery
+- dos
+- exploit
+- external
+- fuzzer
+- intrusive
+- malware
+- safe
+- version
+- vuln
+
+### Saving the scan results
+Whenever you run a Nmap scan, it is only reasonable to save the results in a file. 
+
+The three main formats are:
+1. **Normal format:** similar to the output you get on the screen when scanning a target.
+2. **Grepable format:** makes filtering the scan output for specific keywords or terms efficient.
+3. XML
+
+There is a fourth one that we **cannot recommend**: Script Kiddie
