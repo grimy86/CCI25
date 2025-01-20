@@ -17,8 +17,8 @@
 3. [SQLmap](/Scanning/SQLmap.md)
 
 ## Gaining Access
-1. [Web Enumeration](/Gaining%20Access/Web/WebEnum.md)
-2. [OWASP Top 10](/Gaining%20Access/Web/OWASP10.md)
+1. [Web Enumeration](/Gaining%20Access/WebEnum.md)
+2. [OWASP Top 10](/Gaining%20Access/OWASP10.md)
 3. [Exploitation](/Gaining%20Access/Exploitation.md)
 
 ### Tools used to gain access
