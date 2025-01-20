@@ -75,7 +75,7 @@ Because web servers can host multiple websites from one server when a website is
 
 Like with DNS Bruteforce, we can automate this process by using a `wordlist of commonly used subdomains`.
 
-## Passive recon
+## Passive reconnaissance
 In passive reconnaissance, you rely on publicly available knowledge. Think of it like you are looking at target territory from afar without stepping foot on that territory.
 
 Passive reconnaissance activities include many activities, for instance:
