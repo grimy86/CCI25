@@ -12,9 +12,9 @@
 2. [Recon](/Planning%20%26%20Recon/Recon.md)
 
 ## Scanning
-1. [Nmap](/Scanning/Offensive%20Tooling/Nmap.md)
-2. [Directory Scanners](/Scanning/Offensive%20Tooling/DirectoryScanners.md)
-3. [SQLmap](/Scanning/Offensive%20Tooling/SQLmap.md)
+1. [Nmap](/Scanning/Nmap.md)
+2. [Directory Scanners](/Scanning/DirectoryScanners.md)
+3. [SQLmap](/Scanning/SQLmap.md)
 
 ## Gaining Access
 1. [Web Enumeration](/Gaining%20Access/Web/WebEnum.md)
@@ -30,5 +30,5 @@
 2. [Priveledge escalation](/Maintaining%20Access/Privesc.md)
 
 ## Analysis
-1. [CAPA](/Analysis/Defensive%20Tooling/CAPA.md)
-2. [REMnux & FlareVM](/Analysis/Defensive%20Tooling/REMnux&FlareVM.md)
+1. [CAPA](/Analysis/CAPA.md)
+2. [REMnux & FlareVM](/Analysis/REMnux&FlareVM.md)
