@@ -328,6 +328,6 @@ Whenever you run a Nmap scan, it is only reasonable to save the results in a fil
 The three main formats are:
 1. **Normal format:** similar to the output you get on the screen when scanning a target.
 2. **Grepable format:** makes filtering the scan output for specific keywords or terms efficient.
-3. XML
+3. **XML format:** most convenient to process the output in other programs.
 
-There is a fourth one that we **cannot recommend**: Script Kiddie
+There is a fourth one that we **cannot recommend**: Script Kiddie.
