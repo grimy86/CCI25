@@ -170,3 +170,36 @@ SERVICE_NAME: apphostsvc
         DEPENDENCIES       :
         SERVICE_START_NAME : localSystem
 ```
+
+Here we can see that the associated executable is specified through the `BINARY_PATH_NAME` parameter, and the account used to run the service is shown on the `SERVICE_START_NAME` parameter.
+
+Services have a `Discretionary Access Control List (DACL)`, which indicates who has permission to start, stop, pause, query status, query configuration, or reconfigure the service, amongst other privileges.
+The DACL can be seen from Process Hacker (available on your machine's desktop):
+
+![DACL](https://tryhackme-images.s3.amazonaws.com/user-uploads/5ed5961c6276df568891c3ea/room-content/d8244cfd9d64a7be30f5fb0308fd0806.png)
+
+All of the services configurations are stored on the registry under `HKLM\SYSTEM\CurrentControlSet\Services\`:
+
+![HKLM](https://tryhackme-images.s3.amazonaws.com/user-uploads/5ed5961c6276df568891c3ea/room-content/06c05c134e4922ec8ff8d9b56382c58f.png)
+
+A subkey exists for every service in the system.
+Again, we can see the associated executable on the `ImagePath` value and the account used to start the service on the `ObjectName` value.
+If a DACL has been configured for the service, it will be stored in a subkey called `Security`.
+As you have guessed by now, only administrators can modify such registry entries by default.
+
+### Insecure Permissions on Service Executable
+If the executable associated with a service has weak permissions that allow an attacker to modify or replace it, the attacker can gain the privileges of the service's account trivially.
+
+To understand how this works, let's look at a vulnerability found on Splinterware System Scheduler.
+
+Example:
+1. To start, we will query the service configuration using `sc`.
+2. We can see that the service installed by the vulnerable software runs as `.\svcuser1` and the executable associated with the service is in `C:\Progra~2\System~1\WService.exe`.
+3. We then proceed to check the permissions on the executable: And here we have something interesting. The `Everyone` group has `modify permissions (M)` on the service's executable.
+4. Generate an exe-service payload using msfvenom and serve it through a python webserver.
+5. Once the payload is in the Windows server, we proceed to replace the service executable with our payload.
+6. Since we need another user to execute our payload, we'll want to grant `full permissions to the Everyone group` as well.
+7. We start a reverse listener on our attacker machine.
+8. And finally, restart the service. While in a normal scenario, you would likely have to wait for a service restart, you have been assigned privileges to restart the service yourself to save you some time. Use `sc stop windowsscheduler` and then `sc start windowsscheduler`.
+
+### Unquoted Service Paths
