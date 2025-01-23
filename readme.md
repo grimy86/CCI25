@@ -27,7 +27,8 @@
 
 ## Maintaining Access
 1. [Shells](/Maintaining%20Access/Shells.md)
-2. [Priveledge escalation](/Maintaining%20Access/Privesc.md)
+2. [Linux priveledge escalation](/Maintaining%20Access/LinPrivesc.md)
+3. [Windows priveledge escalation](/Maintaining%20Access/WinPrivesc.md)
 
 ## Analysis
 1. [CAPA](/Analysis/CAPA.md)
