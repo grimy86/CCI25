@@ -3,7 +3,8 @@
 1. [Pentesting Fundamentals](/General/PentestingFundamentals.md)
 2. [Governance & Regulation](/General/Governance%26Regulation.md)
 3. [Principles of Security](/General/SecurityPrinciples.md)
-4. [Red teaming specific](/General/RedTeam.md)
+4. [Red teaming fundamentals](/General/RTFundamentals.md)
+5. [Red teaming engagements](/General/RTEngagements)
 
 ## Cheat Sheets
 1. [Networking](/Cheat%20Sheets/Networking.md)
