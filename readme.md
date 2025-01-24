@@ -40,3 +40,6 @@
 ## Analysis
 1. [CAPA](/Analysis/CAPA.md)
 2. [REMnux & FlareVM](/Analysis/REMnux&FlareVM.md)
+
+## Scripting
+1. [Python for pentesters](/Scripting/PythonForPentesters.md)
