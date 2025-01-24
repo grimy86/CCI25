@@ -1,10 +1,10 @@
 # Cyber Security Summary '25
 ## General info
 1. [Pentesting Fundamentals](/General/PentestingFundamentals.md)
-2. [Governance & Regulation](/General/Governance%26Regulation.md)
-3. [Principles of Security](/General/SecurityPrinciples.md)
-4. [Red teaming fundamentals](/General/RTFundamentals.md)
-5. [Red teaming engagements](/General/RTEngagements)
+2. [Principles of Security](/General/SecurityPrinciples.md)
+3. [Red teaming fundamentals](/General/RTFundamentals.md)
+4. [Red teaming engagements](/General/RTEngagements)
+5. [Governance & Regulation](/General/Governance%26Regulation.md)
 
 ## Cheat Sheets
 1. [Networking](/Cheat%20Sheets/Networking.md)
