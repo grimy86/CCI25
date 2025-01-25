@@ -81,3 +81,51 @@ Some of the above infrastructures can be quickly automated by using the below to
     The Social Engineering Toolkit contains a multitude of tools, but some of the important ones for phishing are the ability to create spear-phishing attacks and deploy fake versions of common websites to trick victims into entering their credentials.
 
 ![Phishing infrastructure](/Img/Phishing.png)
+
+## Droppers
+Droppers are `software` that phishing victims tend to be tricked into downloading and running on their system. The dropper may advertise itself as something useful or legitimate such as a codec to view a certain video or software to open a specific file.
+
+The droppers are not usually malicious themselves, so they tend to pass antivirus checks. `Once installed, the intended malware is either unpacked or downloaded from a server` and installed onto the victim's computer. The malicious software usually `connects back to the attacker's infrastructure`. The attacker can take control of the victim's computer, which can further explore and exploit the local network.
+
+## Choosing a phishing domain
+Choosing the right Phishing domain to launch your attack from is essential to ensure you have the psychological edge over your target. A red team engagement can use some of the below methods for choosing the perfect domain name.
+
+**Expired Domains:**
+
+Although not essential, buying a domain name with some history `may lead to better scoring of your domain when it comes to spam filters`. Spam filters have a tendency to not trust brand new domain names compared to ones with some history.
+
+**Typosquatting:**
+
+Typosquatting is when a registered domain `looks very similar to the target domain you're trying to impersonate`. Here are some of the common methods:
+- Misspelling: goggle.com Vs google.com
+- Additional Period: go.ogle.com Vs google.com
+- Switching numbers for letters: g00gle.com Vs google.com
+- Phrasing: googles.com Vs google.com
+- Additional Word: googleresults.com Vs google.com
+
+These changes might look unrealistic, but `at a glance, the human brain tends to fill in the blanks` and see what it wants to see, i.e. the correct domain name.
+
+**TLD Alternatives:**
+
+A TLD (Top Level Domain) is the .com .net .co.uk .org .gov e.t.c part of a domain name, there are 100's of variants of TLD's now. A common trick for choosing a domain would be to use the `same name but with a different TLD`. For example, register tryhackme.co.uk to impersonate tryhackme.com.
+
+**IDN Homograph Attack/Script Spoofing:**
+
+Originally domain names were made up of Latin characters a-z and 0-9, but in 1998, `IDN (internationalized domain name)` was implemented to support language-specific script or alphabet from other languages such as Arabic, Chinese, Cyrillic, Hebrew and more. An issue that arises from the IDN implementation is that different letters from different languages can actually appear identical. For example, Unicode character U+0430 (Cyrillic small letter a) looks identical to Unicode character U+0061 (Latin small letter a) used in English, enabling attackers to register a domain name that looks almost identical to another.
+
+![IDN Homograp](/Img/IDN.png)
+
+## Using MS Office in phishing
+Often during phishing campaigns, a Microsoft Office document (typically Word, Excel or PowerPoint) will be included as an attachment. `Office documents can contain macros`; macros do have a legitimate use but can also be used to run computer commands that can cause malware to be installed onto the victim's computer or connect back to an attacker's network and allow the attacker to take control of the victim's computer.
+
+## Using browser exploits
+Another method of gaining control over a victim's computer could be through browser exploits; this is when there is a `vulnerability against a browser itself` (Internet Explorer/Edge, Firefox, Chrome, Safari, etc.), which allows the attacker to run remote commands on the victim's computer.
+
+Browser exploits aren't usually a common path to follow in a red team engagement unless you have prior knowledge of old technology being used on-site. Many browsers are kept up to date, hard to exploit due to how browsers are developed, and the exploits are often worth a lot of money if reported back to the developers.
+
+That being said, it can happen, and as previously mentioned, it could be used to target old technologies on-site because possibly the browser software cannot be updated due to incompatibility with commercial software/hardware, which can happen quite often in big institutions such as education, government and especially health care.
+
+Usually, the victim would receive an email, convincing them to visit a particular website set up by the attacker. Once the victim is on the site, the exploit works against the browser, and now the attacker can perform any commands they wish on the victim's computer.
+
+An example of this is CVE-2021-40444 from September 2021, which is a vulnerability found in Microsoft systems that allowed the execution of code just from visiting a website.
+
