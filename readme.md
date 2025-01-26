@@ -1,18 +1,19 @@
 # Cybersecurity & Code Insights '25
 
-**An open-source guide / summary / insights combining x86 assembly, x86-64 assembly, C++ and cybersecurity operations into a unified learning resource.**
+**An open-source guide / insights to x86, x86-64 assembly, C-style C++, cybersecurity operations and Windows internals into a unified learning resource.**
+
+Disclaimer: This guide is catered towards cybersecurity development, not as much to cybersecurity operations / red teaming or blue teaming.
 
 **🛠 Prerequisites :** 
-No prior knowledge is needed. However, if you are starting from the ground up I would recommend following path:
+ No prior knowledge is needed.
 
-
+However, if you are starting from the ground up I would recommend following path:
 ```mermaid
 graph TD;
-	cpp[Study C++ & how memory works] --> x86[x86 assembly]
-	x86 --> x86-64[x86-64 assembly]
-	x86-64 --> offsec[offensive cybersecurity fundamentals]
-	offsec --> winint[Windows system internals]
-	winint --> PE[PE headers / PE file format]
+	cpp[C-style C++] --> x86-64[x86 & x86-64 assembly]
+	x86-64 --> nf[Networking fundamentals]
+    nf --> csec[Cybersecurity operations]
+	csec --> winint[Windows internals]
 ```
 
 
@@ -20,6 +21,8 @@ graph TD;
 - Add this folder to your windows defender exclusions as it might remove valuable resources.
 - Don't jump from topic to topic unless you know what you're doing. Most of the "steps" build on top of eachother.
 - Install add-ons like [dark reader](https://darkreader.org/) and [remove HTML elements](https://chromewebstore.google.com/detail/remove-html-elements/enegojdnkeicfoiknhfjaedhlckeahmf?hl=en&pli=1) that make reading better.
+- If you really can't wrap your head around something, just ask [ChatGPT](https://chatgpt.com/) to clarify it.
+- Keep note of where you left off studying and make bookmarks in your browser application.
 
 ## 📂 Repository Structure
 ```mermaid
@@ -159,25 +162,23 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 1. [Python for pentesters](/Cybersecurity_Operations/Scripting/PythonForPentesters.md)
 
 
-## 3. Windows System Internals
-- Windows internals?
+## 3. Windows Internals
+### 3.1 Windows internal fundamentals
+1. [Windows Internals Overview](/Windows_Internals/Internals.md)
 
-### 3.1 Memory
+### 3.2 Memory
 1. [Take a look at the x86-64 file on memory](/Programming_Foundations/Assembly/Architecture/Memory.md)
 
 ### 3.2 PE file format
-1. [PE](/Windows_System_Internals/PE.md)
+1. [PE file format](/Windows_System_Internals/PE.md)
 
-### 3.3 Processes
-1. [Processes](/Windows_System_Internals/Processes.md)
-
-### 3.4 Reverse engineering
+### 3.3 Reverse engineering
 - Basic dynamic analysis
 - Dynamic analysis: debugging
 - Windows reversing intro
 - Anti Reverse Engineering
 
-### 3.5 Tooling
+### 3.4 Tooling
 1. Introduction to Windows API (win32 API)
 2. Cheat engine
 3. ReClass.NET
@@ -187,6 +188,10 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 
 #### References
 - [Pavel Yosifovich's windows internals](https://scorpiosoftware.net/)
+- [Pavel Yosifovich's youtube channel](https://www.youtube.com/@zodiacon)
 - [0xRick's dive into PE file format](https://0xrick.github.io/)
 - [Empyreal96's info depot](https://empyreal96.github.io/nt-info-depot/index.html)
 - [Alex Ionescu's blog](https://www.alex-ionescu.com/)
+- [Duncan Ogilvie's internals crash course](https://www.youtube.com/watch?v=I_nJltUokE0)
+- [Alexander Sotirov's internals talk](https://www.youtube.com/watch?v=vz15OqiYYXo&t=194s)
+- [Crow's malware development playlist](https://www.youtube.com/playlist?list=PL_z_ep2nxC57sHAlCcvvaYRrpdMIQXri1)
