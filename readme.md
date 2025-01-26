@@ -43,8 +43,8 @@ graph LR;
 ```
 
 
-## Core programming and assembly foundations
-### C-style C++
+## 1. Core programming and assembly foundations
+### 1.1 C-style C++
 A C-style C++ summary of 2024. This summary is entirely possible thanks to the authors of the Learncpp website (Alex, Nascardriver and James C.) who made their knowledge available for public use.
 
 - [Summary PDF](/Programming_Foundations/Cpp/C-Style_CPP_24.pdf)
@@ -56,7 +56,7 @@ A C-style C++ summary of 2024. This summary is entirely possible thanks to the a
 - [hackingcpp cheat sheets](https://hackingcpp.com/cpp/cheat_sheets.html)
 
 
-### x86 & x86-64 assembly
+### 1.2 x86 & x86-64 assembly
 > [!IMPORTANT]
 > Some of the references / material are for the MASM32 SDK and some are for NASM.
 >
@@ -100,8 +100,8 @@ A C-style C++ summary of 2024. This summary is entirely possible thanks to the a
 > See [x86 and amd64 instruction reference](https://www.felixcloutier.com/x86/) for more information on x86 instructions.
 
 
-## Cybersecurity operations
-### General info
+## 2. Cybersecurity operations
+### 2.1 General info
 1. [Pentesting Fundamentals](/Cybersecurity_Operations/General/PentestingFundamentals.md)
 2. [Principles of Security](/Cybersecurity_Operations/General/SecurityPrinciples.md)
 3. [Red teaming fundamentals](/Cybersecurity_Operations/General/RTFundamentals.md)
@@ -109,7 +109,7 @@ A C-style C++ summary of 2024. This summary is entirely possible thanks to the a
 5. [Governance & Regulation](/Cybersecurity_Operations/General/Governance%26Regulation.md)
 
 
-### Cheat Sheets
+### 2.2 Cheat Sheets
 1. [Networking](/Cybersecurity_Operations/Cheat%20Sheets/Networking.md)
 2. [Linux](/Cybersecurity_Operations/Cheat%20Sheets/Linux.md)
 3. [Windows](/Cybersecurity_Operations/Cheat%20Sheets/Windows.md)
@@ -118,18 +118,18 @@ A C-style C++ summary of 2024. This summary is entirely possible thanks to the a
 6. [Vulnerabilities](/Cybersecurity_Operations/Cheat%20Sheets/Vulnerabilities.md)
 
 
-### Planning & Recon
+### 2.3 Planning & Recon
 1. [Planning](/Cybersecurity_Operations/Planning%20%26%20Recon/Planning.md)
 2. [Recon](/Cybersecurity_Operations/Planning%20%26%20Recon/Recon.md)
 
 
-### Scanning
+### 2.4 Scanning
 1. [Nmap](/Cybersecurity_Operations/Scanning/Nmap.md)
 2. [Directory Scanners](/Cybersecurity_Operations/Scanning/DirectoryScanners.md)
 3. [SQLmap](/Cybersecurity_Operations/Scanning/SQLmap.md)
 
 
-### Gaining Access
+### 2.5 Gaining Access
 1. [Web Enumeration](/Cybersecurity_Operations/Gaining%20Access/WebEnum.md)
 2. [OWASP Top 10](/Cybersecurity_Operations/Gaining%20Access/OWASP10.md)
 3. [Exploitation](/Cybersecurity_Operations/Gaining%20Access/Exploitation.md)
@@ -140,16 +140,16 @@ A C-style C++ summary of 2024. This summary is entirely possible thanks to the a
 2. [Hydra](/Cybersecurity_Operations/Gaining%20Access/Hydra.md)
 
 
-### Maintaining Access
+### 2.6 Maintaining Access
 1. [Shells](/Cybersecurity_Operations/Maintaining%20Access/Shells.md)
 2. [Linux priveledge escalation](/Cybersecurity_Operations/Maintaining%20Access/LinPrivesc.md)
 3. [Windows priveledge escalation](/Cybersecurity_Operations/Maintaining%20Access/WinPrivesc.md)
 
 
-### Analysis
+### 2.7 Analysis
 1. [CAPA](/Analysis/CAPA.md)
 2. [REMnux & FlareVM](/Cybersecurity_Operations/Analysis/REMnux&FlareVM.md)
 
 
-### Scripting
+### 2.8 Scripting
 1. [Python for pentesters](/Cybersecurity_Operations/Scripting/PythonForPentesters.md)
