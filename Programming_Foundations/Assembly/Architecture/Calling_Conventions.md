@@ -142,3 +142,7 @@ c++ member func:
     pop ebp            ; Restore the old base pointer
     ret 0x8            ; Clean up 8 bytes of arguments (2 arguments, 4 bytes each)
 ```
+
+For calling conventions in x86-64 take a loot at [microsoft learn x64 calling convention](https://learn.microsoft.com/en-us/cpp/build/x64-calling-convention?view=msvc-170&viewFallbackFrom=vs-2019) and its [x64 ABI conventions](https://learn.microsoft.com/en-us/cpp/build/x64-software-conventions?view=msvc-170&viewFallbackFrom=vs-2019).
+
+Additionally, for more info about pro- and epilogue look at [microsoft learn prologue and epilogue](https://learn.microsoft.com/en-us/cpp/build/prolog-and-epilog?view=msvc-170&viewFallbackFrom=vs-2019).

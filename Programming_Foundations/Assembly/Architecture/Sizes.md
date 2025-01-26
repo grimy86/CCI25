@@ -1,6 +1,8 @@
 # Sizes / Words
 | Type       | byte(s)           | bits     |
 |------------|-------------------|----------|
+| BIT        | 0 bytes           | 1 bit    |
+| Nibble     | 0 bytes           | 4 bits   |
 | BYTE       | 1 byte            | 8 bits   |
 | WORD       | 2 bytes           | 16 bits  |
 | DWORD      | 4 bytes           | 32 bits  |

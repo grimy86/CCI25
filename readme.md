@@ -57,6 +57,30 @@ A C-style C++ summary of 2024. This summary is entirely possible thanks to the a
 
 
 ### 1.2 x86 & x86-64 assembly
+Note this guide was reworked from x86 to x86-64 for really exact and specific differences you should do your own research.
+
+#### Architecture
+1. [Intro](/Programming_Foundations/Assembly/Architecture/Intro.md)
+2. [x86 Architecture](/Programming_Foundations/Assembly/Architecture/Architecture.md)
+3. [Modes of operation](/Programming_Foundations/Assembly/Architecture/Operating_Modes.md)
+4. [Memory](/Programming_Foundations/Assembly/Architecture/Memory.md)
+5. [CPU Registers](/Programming_Foundations/Assembly/Architecture/CPU_Registers.md)
+6. [E Flags](/Programming_Foundations/Assembly/Architecture/E_Flags.md)
+7. [Word Sizes](/Programming_Foundations/Assembly/Architecture/Sizes.md)
+8. [The Stack](/Programming_Foundations/Assembly/Architecture/Call_Stack.md)
+9. [Calling Conventions](/Programming_Foundations/Assembly/Architecture/Calling_Conventions.md)
+10. [Instructions / Opcodes](/Programming_Foundations/Assembly/Architecture/Instructions.md)
+
+#### x86 Syntax
+1. [Directives](/Programming_Foundations/Assembly/Architecture/Directives.md)
+2. [Instructions](/Programming_Foundations/Assembly/Architecture/Instructions.md)
+3. [Radix characters](/Programming_Foundations/Assembly/Architecture/Radix_Chars.md)
+4. [Character constants](/Programming_Foundations/Assembly/Architecture/Character_Constants.md)
+5. [Reserved words](/Programming_Foundations/Assembly/Architecture/Reserved_words.md)
+6. [Identifiers](/Programming_Foundations/Assembly/Architecture/Identifiers.md)
+7. [Declaring variables](/Programming_Foundations/Assembly/Architecture/Declaring_Variables.md)
+8. [Operator presedence](/Programming_Foundations/Assembly/Architecture/Operator_Presedence.md)
+
 > [!IMPORTANT]
 > Some of the references / material are for the MASM32 SDK and some are for NASM.
 >
@@ -72,27 +96,6 @@ A C-style C++ summary of 2024. This summary is entirely possible thanks to the a
 >
 > Use GCC to link the .obj file and create the final executable (.exe). Run this command:
 > ```gcc -mconsole -nostartfiles -o fileName.exe fileName.obj```
-
-#### x86 Architecture
-1. [x86 Architecture](/Programming_Foundations/Assembly/Architecture/Architecture.md)
-2. [Modes of operation](/Programming_Foundations/Assembly/Architecture/Operating_Modes.md)
-3. [CPU Registers](/Programming_Foundations/Assembly/Architecture/CPU_Registers.md)
-4. [E Flags](/Programming_Foundations/Assembly/Architecture/E_Flags.md)
-5. [Word Sizes](/Programming_Foundations/Assembly/Architecture/Sizes.md)
-6. [The Stack](/Programming_Foundations/Assembly/Architecture/Call_Stack.md)
-7. [Calling Conventions](/Programming_Foundations/Assembly/Architecture/Calling_Conventions.md)
-8. [Directives](/Programming_Foundations/Assembly/Architecture/Directives.md)
-9.  [Instructions / Opcodes](/Programming_Foundations/Assembly/Architecture/Instructions.md)
-
-#### x86 Syntax
-1. [Directives](/Programming_Foundations/Assembly/Architecture/Directives.md)
-2. [Instructions](/Programming_Foundations/Assembly/Architecture/Instructions.md)
-3. [Radix characters](/Programming_Foundations/Assembly/Architecture/Radix_Chars.md)
-4. [Character constants](/Programming_Foundations/Assembly/Architecture/Character_Constants.md)
-5. [Reserved words](/Programming_Foundations/Assembly/Architecture/Reserved_words.md)
-6. [Identifiers](/Programming_Foundations/Assembly/Architecture/Identifiers.md)
-7. [Declaring variables](/Programming_Foundations/Assembly/Architecture/Declaring_Variables.md)
-8. [Operator presedence](/Programming_Foundations/Assembly/Architecture/Operator_Presedence.md)
 
 > [!NOTE]
 > See [MASM reference](https://learn.microsoft.com/en-us/cpp/assembler/masm/microsoft-macro-assembler-reference?view=msvc-170) for more information on x86 assembly in MASM32.
@@ -144,6 +147,7 @@ A C-style C++ summary of 2024. This summary is entirely possible thanks to the a
 1. [Shells](/Cybersecurity_Operations/Maintaining%20Access/Shells.md)
 2. [Linux priveledge escalation](/Cybersecurity_Operations/Maintaining%20Access/LinPrivesc.md)
 3. [Windows priveledge escalation](/Cybersecurity_Operations/Maintaining%20Access/WinPrivesc.md)
+4. [Windows persistence](/Cybersecurity_Operations/Maintaining%20Access/WinPersistence.md)
 
 
 ### 2.7 Analysis
@@ -156,10 +160,30 @@ A C-style C++ summary of 2024. This summary is entirely possible thanks to the a
 
 
 ## 3. Windows System Internals
+- Windows internals?
+
 ### 3.1 Memory
+1. [Take a look at the x86-64 file on memory](/Programming_Foundations/Assembly/Architecture/Memory.md)
+
 ### 3.2 PE file format
+1. [PE](/Windows_System_Internals/PE.md)
+
 ### 3.3 Processes
+1. [Processes](/Windows_System_Internals/Processes.md)
+
 ### 3.4 Reverse engineering
+- Basic dynamic analysis
+- Dynamic analysis: debugging
+- Windows reversing intro
+- Anti Reverse Engineering
+
+### 3.5 Tooling
+1. Introduction to Windows API (win32 API)
+2. Cheat engine
+3. ReClass.NET
+4. IDA pro
+5. Sysinternals tools
+6. Sysmon
 
 #### References
 - [Pavel Yosifovich's windows internals](https://scorpiosoftware.net/)

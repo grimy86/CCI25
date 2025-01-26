@@ -1,5 +1,5 @@
 # Procedures
-- Breakdown large problems to smaller problems
+- Break down large problems to smaller problems
 - Like functions in other programming languages
 - Receive input parameters
 - Return values

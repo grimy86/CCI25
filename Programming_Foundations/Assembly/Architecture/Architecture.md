@@ -1,4 +1,4 @@
-# x86 Architecture
+# x86-64 Architecture
 ## Components
 - CPU
   - ALU
