@@ -153,3 +153,15 @@ A C-style C++ summary of 2024. This summary is entirely possible thanks to the a
 
 ### 2.8 Scripting
 1. [Python for pentesters](/Cybersecurity_Operations/Scripting/PythonForPentesters.md)
+
+
+## 3. Windows System Internals
+### 3.1 Memory
+### 3.2 PE file format
+### 3.3 Processes
+### 3.4 Reverse engineering
+
+#### References
+- [Pavel Yosifovich's windows internals](https://scorpiosoftware.net/)
+- [0xRick's dive into PE file format](https://0xrick.github.io/)
+- [Empyreal96's info depot](https://empyreal96.github.io/nt-info-depot/index.html)
