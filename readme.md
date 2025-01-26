@@ -165,3 +165,4 @@ A C-style C++ summary of 2024. This summary is entirely possible thanks to the a
 - [Pavel Yosifovich's windows internals](https://scorpiosoftware.net/)
 - [0xRick's dive into PE file format](https://0xrick.github.io/)
 - [Empyreal96's info depot](https://empyreal96.github.io/nt-info-depot/index.html)
+- [Alex Ionescu's blog](https://www.alex-ionescu.com/)
