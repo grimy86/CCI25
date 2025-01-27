@@ -25,27 +25,6 @@ graph TD;
 > - If you really can't wrap your head around something, just ask [ChatGPT](https://chatgpt.com/) to clarify it.
 > - Keep note of where you left off studying and make bookmarks in your browser application.
 
-## 📂 Guide Structure
-```mermaid
-graph LR;
-	Programming_Foundations --> cpp[C-style C++]
-	Programming_Foundations --> Assembly
-	
-    Cybersecurity_Operations --> gen[General info]
-    Cybersecurity_Operations --> cs[Cheat sheets]
-    Cybersecurity_Operations --> prc[Planning & Recon]
-    Cybersecurity_Operations --> Scanning
-    Cybersecurity_Operations --> ga[Gaining access]
-    Cybersecurity_Operations --> ma[Maintaining access]
-    Cybersecurity_Operations --> Analysis
-    Cybersecurity_Operations --> Scripting
-
-    Windows_System_Internals --> WI[Windows Internals Overview]
-    Windows_System_Internals --> Mem[Memory]
-    Windows_System_Internals --> PE[PE structure]
-```
-
-
 ## 1. Core programming and assembly foundations
 ### 1.1 C-style C++
 A C-style C++ summary of 2024. This summary is entirely possible thanks to the authors of the Learncpp website (Alex, Nascardriver and James C.) who made their knowledge available for public use.
