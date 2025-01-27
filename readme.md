@@ -89,7 +89,6 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 4. [Red teaming engagements](/Cybersecurity_Operations/General/RTEngagements)
 5. [Governance & Regulation](/Cybersecurity_Operations/General/Governance%26Regulation.md)
 
-
 ### 2.2 Cheat Sheets
 1. [Networking](/Cybersecurity_Operations/Cheat%20Sheets/Networking.md)
 2. [Linux](/Cybersecurity_Operations/Cheat%20Sheets/Linux.md)
@@ -98,17 +97,14 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 5. [Cryptography](/Cybersecurity_Operations/Cheat%20Sheets/Cryptography.md)
 6. [Vulnerabilities](/Cybersecurity_Operations/Cheat%20Sheets/Vulnerabilities.md)
 
-
 ### 2.3 Planning & Recon
 1. [Planning](/Cybersecurity_Operations/Planning%20%26%20Recon/Planning.md)
 2. [Recon](/Cybersecurity_Operations/Planning%20%26%20Recon/Recon.md)
-
 
 ### 2.4 Scanning
 1. [Nmap](/Cybersecurity_Operations/Scanning/Nmap.md)
 2. [Directory Scanners](/Cybersecurity_Operations/Scanning/DirectoryScanners.md)
 3. [SQLmap](/Cybersecurity_Operations/Scanning/SQLmap.md)
-
 
 ### 2.5 Gaining Access
 1. [Web Enumeration](/Cybersecurity_Operations/Gaining%20Access/WebEnum.md)
@@ -120,22 +116,18 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 1. [Burpsuite](/Cybersecurity_Operations/Gaining%20Access/Burpsuite.md)
 2. [Hydra](/Cybersecurity_Operations/Gaining%20Access/Hydra.md)
 
-
 ### 2.6 Maintaining Access
 1. [Shells](/Cybersecurity_Operations/Maintaining%20Access/Shells.md)
 2. [Linux priveledge escalation](/Cybersecurity_Operations/Maintaining%20Access/LinPrivesc.md)
 3. [Windows priveledge escalation](/Cybersecurity_Operations/Maintaining%20Access/WinPrivesc.md)
 4. [Windows persistence](/Cybersecurity_Operations/Maintaining%20Access/WinPersistence.md)
 
-
 ### 2.7 Analysis
 1. [CAPA](/Analysis/CAPA.md)
 2. [REMnux & FlareVM](/Cybersecurity_Operations/Analysis/REMnux&FlareVM.md)
 
-
 ### 2.8 Scripting
 1. [Python for pentesters](/Cybersecurity_Operations/Scripting/PythonForPentesters.md)
-
 
 ## 3. Windows Internals
 ### 3.1 Windows internals Overview

@@ -12,7 +12,7 @@
 ### Buses
 A bus is an engineering term for a job-specific high-speed wire. These wires are often grouped together in bundles and will transfer electrical signals either in parallel or in serial, that is many signals at once or one pulse at a time. Buses can be grouped into three functions: data buses, address buses, and control buses.
 
-![Buses](/Info/Images/Buses.png)
+![Buses](/Programming_Foundations/Assembly/Images/Buses.png)
 
 Buses allow us to communicate between different pieces of hardware that work on a system.
 - Address bus: **Holds the address of the instructions** in data (like a pointer)
@@ -66,7 +66,7 @@ Registers are small and limited storages, they are a type of high-speed computer
 ### Caching
 - To **reduce read/write** time from memory, caches are used to store data from an address that is consistently being read from or written to. The caches are being constructed by static RAM, which is a special type of RAM that does not need to be refreshed constantly.
 
-X86 Caches:
+Caches:
 - Level-1 (**L1**): stored on the CPU
 - Level-2 (**L2**): stored outside and accessed by high-speed data bus
 

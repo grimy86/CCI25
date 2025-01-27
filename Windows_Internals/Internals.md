@@ -91,6 +91,8 @@ Administrators can alter this allocation layout for applications that require a 
 
 Although this concept does not directly translate to Windows internals or concepts, it is crucial to understand. If understood correctly, it can be leveraged to aid in abusing Windows internals.
 
+Watch [Tech with Nikola's video about virtual memory](https://www.youtube.com/watch?v=A9WLYbE0p-I).
+
 ## Dynamic Link Libraries
 The [Microsoft docs](https://learn.microsoft.com/en-us/troubleshoot/windows-client/setup-upgrade-and-drivers/dynamic-link-library) describe a `DLL` as "a `library that contains code and data that can be used by more than one program at the same time`."
 
