@@ -13,4 +13,4 @@ byte, word, doubleword, etc.
 ## Operators
 used in constant expressions such as +, MOD, etc...
 
-![List of reserved words](/Info/Images/Reserved_words.png)
+![List of reserved words](/Programming_Foundations/Assembly/Images/Reserved_words.png)

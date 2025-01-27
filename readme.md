@@ -1,13 +1,15 @@
-# Cybersecurity & Code Insights '25
-
+# Cybersecurity & Code Insights '25 
+![Banner](/Images/Banner.png)
 **An open-source guide / insights to x86, x86-64 assembly, C-style C++, cybersecurity operations and Windows internals into a unified learning resource.**
 
-Disclaimer: This guide is catered towards cybersecurity development, not as much to cybersecurity operations / red teaming or blue teaming.
+> [!IMPORTANT] Disclaimer:
+> This guide is catered towards cybersecurity development, not as much to cybersecurity operations / red teaming or blue teaming.
 
-**🛠 Prerequisites :** 
- No prior knowledge is needed.
+> [!TIP] Prerequisites :
+>  No prior knowledge is needed.
+>
+> However, if you are starting from the ground up I would recommend following path:
 
-However, if you are starting from the ground up I would recommend following path:
 ```mermaid
 graph TD;
 	cpp[C-style C++] --> x86-64[x86 & x86-64 assembly]
@@ -16,15 +18,14 @@ graph TD;
 	csec --> winint[Windows internals]
 ```
 
+> [!TIP] Study tips:
+> - Add this folder to your windows defender exclusions as it might remove valuable resources.
+> - Don't jump from topic to topic unless you know what you're doing. Most of the "steps" build on top of eachother.
+> - Install add-ons like [dark reader](https://darkreader.org/) and [remove HTML elements](https://chromewebstore.google.com/detail/remove-html-elements/enegojdnkeicfoiknhfjaedhlckeahmf?hl=en&pli=1) that make reading better.
+> - If you really can't wrap your head around something, just ask [ChatGPT](https://chatgpt.com/) to clarify it.
+> - Keep note of where you left off studying and make bookmarks in your browser application.
 
-**📖 Study tips:**
-- Add this folder to your windows defender exclusions as it might remove valuable resources.
-- Don't jump from topic to topic unless you know what you're doing. Most of the "steps" build on top of eachother.
-- Install add-ons like [dark reader](https://darkreader.org/) and [remove HTML elements](https://chromewebstore.google.com/detail/remove-html-elements/enegojdnkeicfoiknhfjaedhlckeahmf?hl=en&pli=1) that make reading better.
-- If you really can't wrap your head around something, just ask [ChatGPT](https://chatgpt.com/) to clarify it.
-- Keep note of where you left off studying and make bookmarks in your browser application.
-
-## 📂 Repository Structure
+## 📂 Guide Structure
 ```mermaid
 graph LR;
 	Programming_Foundations --> cpp[C-style C++]
@@ -39,10 +40,9 @@ graph LR;
     Cybersecurity_Operations --> Analysis
     Cybersecurity_Operations --> Scripting
 
+    Windows_System_Internals --> WI[Windows Internals Overview]
     Windows_System_Internals --> Mem[Memory]
     Windows_System_Internals --> PE[PE structure]
-    Windows_System_Internals --> Processes
-    Windows_System_Internals --> RE[Reverse engineering]
 ```
 
 
@@ -84,13 +84,7 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 7. [Declaring variables](/Programming_Foundations/Assembly/Architecture/Declaring_Variables.md)
 8. [Operator presedence](/Programming_Foundations/Assembly/Architecture/Operator_Presedence.md)
 
-> [!IMPORTANT]
-> Some of the references / material are for the MASM32 SDK and some are for NASM.
->
-> [Example masm program](/Programming_Foundations/Assembly/Examples/hello_world.asm)
->
-> [Example nasm program](/Programming_Foundations/Assembly/Examples/hello_world_nasm.asm)
-
+#### Example programs
 > [!NOTE]
 > To compile NASM on windows download [NASM](https://www.nasm.us/) & [w64devkit-x86](https://github.com/skeeto/w64devkit/releases/tag/v2.0.0).
 > 
@@ -100,10 +94,12 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 > Use GCC to link the .obj file and create the final executable (.exe). Run this command:
 > ```gcc -mconsole -nostartfiles -o fileName.exe fileName.obj```
 
-> [!NOTE]
-> See [MASM reference](https://learn.microsoft.com/en-us/cpp/assembler/masm/microsoft-macro-assembler-reference?view=msvc-170) for more information on x86 assembly in MASM32.
->
-> See [x86 and amd64 instruction reference](https://www.felixcloutier.com/x86/) for more information on x86 instructions.
+- [Example masm program](/Programming_Foundations/Assembly/Examples/hello_world.asm)
+- [Example nasm program](/Programming_Foundations/Assembly/Examples/hello_world_nasm.asm)
+
+#### References
+- See [MASM reference](https://learn.microsoft.com/en-us/cpp/assembler/masm/microsoft-macro-assembler-reference?view=msvc-170) for more information on x86 assembly in MASM32.
+- See [x86 and amd64 instruction reference](https://www.felixcloutier.com/x86/) for more information on x86 instructions.
 
 
 ## 2. Cybersecurity operations
@@ -163,22 +159,22 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 
 
 ## 3. Windows Internals
-### 3.1 Windows internal fundamentals
+### 3.1 Windows internals Overview
 1. [Windows Internals Overview](/Windows_Internals/Internals.md)
 
 ### 3.2 Memory
 1. [Take a look at the x86-64 file on memory](/Programming_Foundations/Assembly/Architecture/Memory.md)
 
-### 3.2 PE file format
+### 3.2 TO DO: PE file format
 1. [PE file format](/Windows_System_Internals/PE.md)
 
-### 3.3 Reverse engineering
+### 3.3 TO DO: Reverse engineering
 - Basic dynamic analysis
 - Dynamic analysis: debugging
 - Windows reversing intro
 - Anti Reverse Engineering
 
-### 3.4 Tooling
+### 3.4 TO DO: Tooling
 1. Introduction to Windows API (win32 API)
 2. Cheat engine
 3. ReClass.NET
@@ -195,3 +191,7 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 - [Duncan Ogilvie's internals crash course](https://www.youtube.com/watch?v=I_nJltUokE0)
 - [Alexander Sotirov's internals talk](https://www.youtube.com/watch?v=vz15OqiYYXo&t=194s)
 - [Crow's malware development playlist](https://www.youtube.com/playlist?list=PL_z_ep2nxC57sHAlCcvvaYRrpdMIQXri1)
+- [Red Team Notes on reversing, forensics & misc](https://www.ired.team/miscellaneous-reversing-forensics/windows-kernel-internals)
+- [Rexir's Windows Internals Videos](https://www.youtube.com/playlist?list=PLt9cUwGw6CYF6Kj19mBZpfhQPsRIC5vGl)
+- [TheSourceLens's Windows Internals part 1 playlist](https://www.youtube.com/playlist?list=PLhx7-txsG6t5i-kIZ_hwJSgZrnka4GXvn)
+- [Nir Lichtman's diving into windows internals playlist](https://www.youtube.com/playlist?list=PL0tgH22U2S3G2QpiK-Q1wKW_Fe-Wiu7JS)

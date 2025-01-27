@@ -17,4 +17,4 @@ These flags are bits in a special register known as the `flags register` or `EFL
 | DF | Direction Flag |  |
 | IF | Interrupt enable |  |
 
-![E Flags](/Info/Images/eflags.png)
+![E Flags](/Programming_Foundations/Assembly/Images/Eflags.png)

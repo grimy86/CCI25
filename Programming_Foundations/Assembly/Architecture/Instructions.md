@@ -90,7 +90,7 @@ It only sets flags based on the comparison.
 
 
 ## Condtional jump instructions
-![Jump_conditions](/Info/Images/Jump_conditions.png)
+![Jump_conditions](/Programming_Foundations/Assembly/Images/Jump_conditions.png)
 
 
 ## Disassembly example
