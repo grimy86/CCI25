@@ -2,10 +2,10 @@
 ![Banner](/Images/Banner.png)
 **An open-source guide / insights to x86, x86-64 assembly, C-style C++, cybersecurity operations and Windows internals into a unified learning resource.**
 
-> [!IMPORTANT] Disclaimer:
+> [!IMPORTANT]
 > This guide is catered towards cybersecurity development, not as much to cybersecurity operations / red teaming or blue teaming.
 
-> [!TIP] Prerequisites :
+> [!TIP]
 >  No prior knowledge is needed.
 >
 > However, if you are starting from the ground up I would recommend following path:
@@ -18,7 +18,7 @@ graph TD;
 	csec --> winint[Windows internals]
 ```
 
-> [!TIP] Study tips:
+> [!TIP]
 > - Add this folder to your windows defender exclusions as it might remove valuable resources.
 > - Don't jump from topic to topic unless you know what you're doing. Most of the "steps" build on top of eachother.
 > - Install add-ons like [dark reader](https://darkreader.org/) and [remove HTML elements](https://chromewebstore.google.com/detail/remove-html-elements/enegojdnkeicfoiknhfjaedhlckeahmf?hl=en&pli=1) that make reading better.
