@@ -167,7 +167,7 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 1. [Take a look at the x86-64 file on memory](/Programming_Foundations/Assembly/Architecture/Memory.md)
 
 ### 3.2 Portable executable (PE) file format & Packing
-1. [PE file format](/Windows_System_Internals/PE.md)
+1. [PE file format](/Windows_Internals/PE.md)
 
 <!--
 ### 3.3 TO DO: Reverse engineering
