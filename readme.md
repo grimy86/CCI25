@@ -31,6 +31,28 @@ A C-style C++ summary of 2024. This summary is entirely possible thanks to the a
 
 - [Summary PDF](/Programming_Foundations/Cpp/C-Style_CPP_24.pdf)
 
+Contains:
+- Keywords
+- Introduction / Getting started
+- Basics
+- Functions and files
+- Debugging
+- Fundamental data types
+- Constants and strings
+- Operators
+- Bit manipulation
+- Scope, duration & linkage
+- Control flow
+- Error detection and handling
+- Type conversion, type aliases & type deduction
+- Function overloading & function templates
+- Compound types: References and pointers
+- Compound types: Enums and structs
+- Summary intermezzo
+- C-style: Arrays & strings
+- Dynamic allocation
+- Functions
+
 #### References
 - [cppreference](https://en.cppreference.com/w/)
 - [cplusplus reference](https://cplusplus.com/reference/)
@@ -77,8 +99,12 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 - [Example nasm program](/Programming_Foundations/Assembly/Examples/hello_world_nasm.asm)
 
 #### References
-- See [MASM reference](https://learn.microsoft.com/en-us/cpp/assembler/masm/microsoft-macro-assembler-reference?view=msvc-170) for more information on x86 assembly in MASM32.
-- See [x86 and amd64 instruction reference](https://www.felixcloutier.com/x86/) for more information on x86 instructions.
+- [JLearn PH's MASM32 assembly programming playlist](https://www.youtube.com/playlist?list=PLE6kld48wGGPEq1mDnFVfbLZ81gcP3nJj)
+- [MASM reference](https://learn.microsoft.com/en-us/cpp/assembler/masm/microsoft-macro-assembler-reference?view=msvc-170) for more information on x86 assembly in MASM32.
+- [x86 and amd64 instruction reference](https://www.felixcloutier.com/x86/) for more information on x86 instructions.
+- [Tutorialspoint Nasm assembly](https://www.tutorialspoint.com/assembly_programming/index.htm)
+- [Davy Wybiral's intro to x86 assembly language playlist](https://www.youtube.com/playlist?list=PLmxT2pVYo5LB5EzTPZGfFN0c2GDiSXgQe)
+- [OliveStem's x86 assembly with NASM playlist](https://www.youtube.com/playlist?list=PL2EF13wm-hWCoj6tUBGUmrkJmH1972dBB)
 
 
 ## 2. Cybersecurity operations
@@ -129,6 +155,10 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 ### 2.8 Scripting
 1. [Python for pentesters](/Cybersecurity_Operations/Scripting/PythonForPentesters.md)
 
+#### References
+[TryHackMe](https://tryhackme.com/)
+
+
 ## 3. Windows Internals
 ### 3.1 Windows internals Overview
 1. [Windows Internals Overview](/Windows_Internals/Internals.md)
@@ -139,6 +169,7 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 ### 3.2 Portable executable (PE) file format & Packing
 1. [PE file format](/Windows_System_Internals/PE.md)
 
+<!--
 ### 3.3 TO DO: Reverse engineering
 - Basic dynamic analysis
 - Dynamic analysis: debugging
@@ -146,12 +177,13 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 - Anti Reverse Engineering
 
 ### 3.4 TO DO: Tooling
-1. Introduction to Windows API (win32 API)
+1. Introduction to Windows API (win32 API
 2. Cheat engine
 3. ReClass.NET
 4. IDA pro
 5. Sysinternals tools
 6. Sysmon
+-->
 
 #### References
 - [Pavel Yosifovich's windows internals](https://scorpiosoftware.net/)
