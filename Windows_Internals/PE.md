@@ -312,3 +312,4 @@ The last important indicator of a packed executable we discuss here is its impor
 - [`pecheck`](https://github.com/DidierStevens/DidierStevensSuite/blob/master/pecheck.py)
 - [`Detect it easy`](https://github.com/horsicq/Detect-It-Easy)
 - [`NTCore: Explorer Suite` or `CFF explorer`](https://ntcore.com/explorer-suite/)
+- [PE-bear](https://github.com/hasherezade/pe-bear)
