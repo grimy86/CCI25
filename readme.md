@@ -16,6 +16,8 @@ graph TD;
 	x86-64 --> nf[Networking fundamentals]
     nf --> csec[Cybersecurity operations]
 	csec --> winint[Windows internals]
+	csec --> da[Dynamic analysis]
+	winint --> sa[Static analysis]
 ```
 
 > [!TIP]
