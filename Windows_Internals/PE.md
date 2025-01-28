@@ -1,19 +1,23 @@
 # Portable executable file format
 ## Introduction
-In the Windows Operating System, you might have often seen files with extension .exe which stands for executable (file).
+Executables and applications are a large portion of how Windows internals operate at a higher level. You might have often seen files with extension `.exe` which stands for `executable (file)`.
 
 As the name suggests, an executable file contains code that can be executed. Therefore, anything that needs to be run on a Windows Operating System is executed using an executable file, also called a `Portable Executable file (PE file)`, as it can be run on any Windows system.
 
-A PE file is a `Common Object File Format (COFF) data structure`.
+ The `PE` (Portable Executable) format `defines the information about the executable and stored data`. The PE format `also defines the structure of how data components are stored`.
+
+The PE (Portable Executable) format is an overarching `structure for executable and object files`. The `PE` (Portable Executable) and `COFF` (Common Object File Format) files make up the `PE format`.
 
 The COFF consists of:
-- Windows PE files
-- DLLs
-- Shared objects in Linux
-- ELF files
+- Windows `PE files`
+- `DLLs`
+- `Shared objects in Linux`
+- `ELF files`
 
 > [!TIP]
-> Before dissecting any PE headers familiarize yourself with the concept of [`endianness`](https://en.wikipedia.org/wiki/Endianness)
+> Before dissecting any PE headers familiarize yourself with the concept of [`endianness`](https://en.wikipedia.org/wiki/Endianness) and `hex` (hexadecimal).
+
+PE data is most commonly seen in the `hex dump` of an executable file. Below we will break down a hex dump of `calc.exe` and other programs into the sections of PE data.
 
 ## Overview
 On disk, a PE executable looks the same as any other form of digital data, i.e., a combination of bits.
@@ -29,6 +33,10 @@ Some of the important headers that we will discuss are:
 - IMAGE_IMPORT_DESCRIPTOR
 
 All of these headers are of the data type `STRUCT`. A struct is a user-defined data type that combines several different types of data elements in a single variable. Since it is user-defined, we need to see the documentation to understand the type for each STRUCT variable. The documentation for each header can be found on [Microsoft learn](https://learn.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-image_nt_headers32), where you can find the data types of the different fields inside these headers.
+
+![PE structure](/Windows_Internals/Images/PE_structure_01.png)
+
+Here's another depiction of the PE structure.
 
 ![PE structure](/Windows_Internals/Images/PE_structure_02.png)
 
@@ -56,8 +64,19 @@ The MZ characters denote the `initials` of [Mark Zbikowski](https://en.wikipedia
 
 The IMAGE_DOS_HEADER is generally not of much use apart from these fields, especially during malware reverse engineering. The only reason it's there is backward compatibility between MS-DOS and Windows.
 
+```
+Offset(h) 00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
+00000000  4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00  MZ..........ÿÿ..
+00000010  B8 00 00 00 00 00 00 00 40 00 00 00 00 00 00 00  ¸.......@.......
+00000020  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+00000030  00 00 00 00 00 00 00 00 00 00 00 00 E8 00 00 00  ............è...
+00000040  0E 1F BA 0E 00 B4 09 CD 21 B8 01 4C CD 21 54 68  ..º..´.Í!¸.LÍ!Th
+```
+
 ## DOS_STUB
-The DOS STUB contains the message that we also see in a Hex Editor: `!This program cannot be run in DOS mode`.
+The `DOS Stub` is a program run by default at the beginning of a file that prints a `compatibility message`. This does not affect any functionality of the file for most users.
+
+The message it contains that we also see in a Hex Editor is: `!This program cannot be run in DOS mode`.
 
 Note that the `size`, `hashes`, and `Entropy` found here are not related to the PE file. Instead, it is for the particular section we are analyzing. These values are calculated based on the data in a specific header.
 
@@ -66,12 +85,47 @@ Entropy is the amount of randomness found in data. The higher the value of Entro
 
 The DOS STUB is a small piece of code that only runs if the PE file is incompatible with the system it is being run on. It displays the message: `!This program cannot be run in DOS mode`, mentioned above.
 
+```
+00000040  0E 1F BA 0E 00 B4 09 CD 21 B8 01 4C CD 21 54 68  ..º..´.Í!¸.LÍ!Th
+00000050  69 73 20 70 72 6F 67 72 61 6D 20 63 61 6E 6E 6F  is program canno
+00000060  74 20 62 65 20 72 75 6E 20 69 6E 20 44 4F 53 20  t be run in DOS 
+00000070  6D 6F 64 65 2E 0D 0D 0A 24 00 00 00 00 00 00 00  mode....$.......
+```
+
 ### DOS_STUB: RICH_HEADER
 
 ## IMAGE_NT_HEADERS
-We can find details of [IMAGE_NT_HEADERS](https://learn.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-image_nt_headers32) in Microsoft Documentation. This header contains most of the vital information related to the PE file.
+We can find details of [IMAGE_NT_HEADERS](https://learn.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-image_nt_headers32) in Microsoft Documentation.
+
+The `IMAGE_NT_HEADERS` is the section with the least human-readable output. It also contains most of the vital information related to the PE file. The IMAGE_NT_HEADERS section provides `PE header information of the binary`. 
+
+You can identify the start of the PE file header from the `PE stub` in the hex dump section below.
+
+```
+000000E0  00 00 00 00 00 00 00 00 50 45 00 00 64 86 06 00  ........PE..d†..
+000000F0  10 C4 40 03 00 00 00 00 00 00 00 00 F0 00 22 00  .Ä@.........ð.".
+00000100  0B 02 0E 14 00 0C 00 00 00 62 00 00 00 00 00 00  .........b......
+00000110  70 18 00 00 00 10 00 00 00 00 00 40 01 00 00 00  p..........@....
+00000120  00 10 00 00 00 02 00 00 0A 00 00 00 0A 00 00 00  ................
+00000130  0A 00 00 00 00 00 00 00 00 B0 00 00 00 04 00 00  .........°......
+00000140  63 41 01 00 02 00 60 C1 00 00 08 00 00 00 00 00  cA....`Á........
+00000150  00 20 00 00 00 00 00 00 00 00 10 00 00 00 00 00  . ..............
+00000160  00 10 00 00 00 00 00 00 00 00 00 00 10 00 00 00  ................
+00000170  00 00 00 00 00 00 00 00 94 27 00 00 A0 00 00 00  ........”'.. ...
+00000180  00 50 00 00 10 47 00 00 00 40 00 00 F0 00 00 00  .P...G...@..ð...
+00000190  00 00 00 00 00 00 00 00 00 A0 00 00 2C 00 00 00  ......... ..,...
+000001A0  20 23 00 00 54 00 00 00 00 00 00 00 00 00 00 00   #..T...........
+000001B0  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+000001C0  10 20 00 00 18 01 00 00 00 00 00 00 00 00 00 00  . ..............
+000001D0  28 21 00 00 40 01 00 00 00 00 00 00 00 00 00 00  (!..@...........
+000001E0  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+```
 
 ### IMAGE_NT_HEADERS: NT_HEADERS
+Defines the `format` of the file, contains the `signature` and `image file header`, and `other information headers`.
+
+The PE file header is the section with the least human-readable output. You can identify the start of the PE file header from the `PE stub` in the hex dump section below.
+
 Before diving into the details of `NT_HEADERS`, let's get an overview of the NT_HEADERS.
 
 Remember, the starting address of IMAGE_NT_HEADERS is found in `e_lfanew` from the IMAGE_DOS_HEADER.
@@ -84,7 +138,9 @@ The NT_HEADERS consist of the following:
 #### Signature
 The Signature is the first 4 bytes that denote the start of the NT_HEADER.
 
-#### FILE_HEADER
+#### (IMAGE_)FILE_HEADER
+
+
 - `Machine`: Type of architecture for which the PE file is written. 
   
     E.g: We can see that the architecture is i386 which means that this PE file is compatible with 32-bit Intel architecture.
@@ -105,7 +161,7 @@ The Signature is the first 4 bytes that denote the start of the NT_HEADER.
 To learn more about the [FILE_HEADER](https://learn.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-image_file_header), you can check out Microsoft Documentation for it.
 
 #### OPTIONAL_HEADER
-The OPTIONAL_HEADER is also a part of the NT_HEADERS. It contains some of the most important information present in the PE headers.
+The OPTIONAL_HEADER is also a part of the NT_HEADERS. It has a deceiving name and contains some of the most important information present in the PE headers.
 
 - `Magic`: The Magic number tells whether the PE file is a 32-bit or 64-bit application.
 
@@ -126,22 +182,33 @@ The OPTIONAL_HEADER is also a part of the NT_HEADERS. It contains some of the mo
 
     The Subsystem can be Windows Native, GUI (Graphical User Interface), CUI (Commandline User Interface), or some other Subsystem. We can find the complete list in [Microsoft Documentation](https://learn.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-image_optional_header32).
 
-- `DataDirectory`: The DataDirectory is a structure that contains import and export information of the PE file (called `Import Address Table` and `Export Address Table`). This information is handy as it gives a glimpse of what the PE file might be trying to do.
+#### Data directory / dictionary section
+The `DataDirectory` is a structure that contains import and export information of the PE file (called `Import Address Table` and `Export Address Table`). This information is handy as it gives a glimpse of what the PE file might be trying to do.
 
-### IMAGE_NT_HEADERS: IMAGE_SECTION_HEADER
+Each data directory entry consists of:
+- A Virtual Address (RVA) pointing to the corresponding structure
+- The Size of that structure
+
+The data directories provide offsets and sizes for important parts of the PE file, such as:
+- Import Table
+- Export Table
+- Resource Table
+- Base Relocation Table
+
+### IMAGE_NT_HEADERS: IMAGE_SECTION_HEADER or Section table
 The data that a PE file needs to perform its functions, like code, icons, images, User Interface elements, etc., are stored in different Sections. We can find information about these Sections in the `IMAGE_SECTION_HEADER`.
 
 As we can see, the IMAGE_SECTION_HEADER has different sections:
-- `.text`: `Contains executable code` for the application.
-- `.rdata` / `.idata`: These sections often `contain the import information` of the PE file.
 
-    Import information helps a PE file import functions from other files or Windows API.
-
-- `.data`: `Contains initialized data` of the application.
-
-- `.ndata`: Contains `uninitialized data`.
-- `.reloc`: Contains `relocation information` of the PE file.
-- `.rsrc`: The resource section contains `icons`, `images`, or `other resources` required for the application UI.
+| Section | Purpose |
+|-|-|
+| `.text` | `Contains executable code` for the application and entry point. |
+| `.data`  | `Contains initialized data` (strings, variables, etc.). |
+| `.ndata` | Contains `uninitialized data`. |
+| `.rdata` or `.idata` | Contains `import information` (Windows API) and DLLs of the PE file. Import information helps a PE file import functions from other files or Windows API. |
+| `.reloc` | Contains `relocation information`. |
+| `.rsrc` | Contains application resources like `icons`, `images`, or `other resources` required for the application UI. |
+| `.debug` | Contains debug information |
 
 All of these different types of sections commonly include important information:
 - `VirtualAddress`: Contains `this section's Relative Virtual Address (RVA)` in the memory.
@@ -150,6 +217,24 @@ All of these different types of sections commonly include important information:
 - `Characteristics`: Contains the `permissions` that the section has.
 
     E.g: `CODE | EXECUTE | READ`, meaning that this section contains executable code, which `can be read but can't be written to`.
+
+```
+000001F0  2E 74 65 78 74 00 00 00 D0 0B 00 00 00 10 00 00  .text...Ð.......
+00000200  00 0C 00 00 00 04 00 00 00 00 00 00 00 00 00 00  ................
+00000210  00 00 00 00 20 00 00 60 2E 72 64 61 74 61 00 00  .... ..`.rdata..
+00000220  76 0C 00 00 00 20 00 00 00 0E 00 00 00 10 00 00  v.... ..........
+00000230  00 00 00 00 00 00 00 00 00 00 00 00 40 00 00 40  ............@..@
+00000240  2E 64 61 74 61 00 00 00 B8 06 00 00 00 30 00 00  .data...¸....0..
+00000250  00 02 00 00 00 1E 00 00 00 00 00 00 00 00 00 00  ................
+00000260  00 00 00 00 40 00 00 C0 2E 70 64 61 74 61 00 00  ....@..À.pdata..
+00000270  F0 00 00 00 00 40 00 00 00 02 00 00 00 20 00 00  ð....@....... ..
+00000280  00 00 00 00 00 00 00 00 00 00 00 00 40 00 00 40  ............@..@
+00000290  2E 72 73 72 63 00 00 00 10 47 00 00 00 50 00 00  .rsrc....G...P..
+000002A0  00 48 00 00 00 22 00 00 00 00 00 00 00 00 00 00  .H..."..........
+000002B0  00 00 00 00 40 00 00 40 2E 72 65 6C 6F 63 00 00  ....@..@.reloc..
+000002C0  2C 00 00 00 00 A0 00 00 00 02 00 00 00 6A 00 00  ,.... .......j..
+000002D0  00 00 00 00 00 00 00 00 00 00 00 00 40 00 00 42  ............@..B
+```
 
 #### PE Base relocations
 
@@ -225,3 +310,5 @@ The last important indicator of a packed executable we discuss here is its impor
 - [`wxHexEditor`](https://www.wxhexeditor.org/)
 - [`pe-tree`](https://github.com/blackberry/pe_tree)
 - [`pecheck`](https://github.com/DidierStevens/DidierStevensSuite/blob/master/pecheck.py)
+- [`Detect it easy`](https://github.com/horsicq/Detect-It-Easy)
+- [`NTCore: Explorer Suite` or `CFF explorer`](https://ntcore.com/explorer-suite/)

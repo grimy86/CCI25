@@ -164,7 +164,7 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 1. [Windows Internals Overview](/Windows_Internals/Internals.md)
 
 ### 3.2 Memory
-1. [Take a look at the x86-64 file on memory](/Programming_Foundations/Assembly/Architecture/Memory.md)
+1. [Memory](/Windows_Internals/Memory.md)
 
 ### 3.2 Portable executable (PE) file format & Packing
 1. [PE file format](/Windows_Internals/PE.md)
@@ -198,3 +198,5 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 - [Rexir's Windows Internals Videos](https://www.youtube.com/playlist?list=PLt9cUwGw6CYF6Kj19mBZpfhQPsRIC5vGl)
 - [TheSourceLens's Windows Internals part 1 playlist](https://www.youtube.com/playlist?list=PLhx7-txsG6t5i-kIZ_hwJSgZrnka4GXvn)
 - [Nir Lichtman's diving into windows internals playlist](https://www.youtube.com/playlist?list=PL0tgH22U2S3G2QpiK-Q1wKW_Fe-Wiu7JS)
+- [Geoff Chappell](https://www.geoffchappell.com/index.htm?ta=5)
+- [Alex Ionescu's ReactOS](https://doxygen.reactos.org/index.html)
