@@ -1,5 +1,9 @@
 # Cybersecurity & Code Insights '25 
-![Banner](/Images/Banner.png)
+
+<div align="center">
+	<img src="/Images/Logo.png" alt="Logo" width="100">
+</div>
+
 **An open-source guide / insights to x86, x86-64 assembly, C-style C++, cybersecurity operations and Windows internals into a unified learning resource.**
 
 > [!IMPORTANT]
@@ -221,3 +225,5 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 5. Sysinternals tools
 6. Sysmon
 -->
+
+![Banner](/Images/Banner.png)
