@@ -101,6 +101,7 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 - [Example nasm program](/Programming_Foundations/Assembly/Examples/hello_world_nasm.asm)
 
 #### References
+- [Godbolt Compiler Explorer](https://godbolt.org/)
 - [JLearn PH's MASM32 assembly programming playlist](https://www.youtube.com/playlist?list=PLE6kld48wGGPEq1mDnFVfbLZ81gcP3nJj)
 - [MASM reference](https://learn.microsoft.com/en-us/cpp/assembler/masm/microsoft-macro-assembler-reference?view=msvc-170) for more information on x86 assembly in MASM32.
 - [x86 and amd64 instruction reference](https://www.felixcloutier.com/x86/) for more information on x86 instructions.
@@ -158,7 +159,9 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 1. [Python for pentesters](/Cybersecurity_Operations/Scripting/PythonForPentesters.md)
 
 #### References
-[TryHackMe](https://tryhackme.com/)
+- [TryHackMe](https://tryhackme.com/)
+- [A-Z Index of the Linux command line: bash + utilities](https://ss64.com/bash/)
+- [IANA's Service Name and Transport Protocol Port Number Registry](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml)
 
 
 ## 3. Windows Internals
@@ -186,6 +189,7 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 - [Nir Lichtman's diving into windows internals playlist](https://www.youtube.com/playlist?list=PL0tgH22U2S3G2QpiK-Q1wKW_Fe-Wiu7JS)
 - [Geoff Chappell](https://www.geoffchappell.com/index.htm?ta=5)
 - [Alex Ionescu's ReactOS](https://doxygen.reactos.org/index.html)
+- [Programming reference for the Win32 API](https://learn.microsoft.com/en-us/windows/win32/api/)
 
 ## 4. Reverse Engineering
 1. [Intro to (malware) analysis](/Reverse_Engineering/Intro.md)
@@ -194,6 +198,10 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 
 #### References
 - [TryHackMe](https://tryhackme.com/)
+- [jstrosch's learning reverse engineering repo](https://github.com/jstrosch/learning-reverse-engineering)
+- [Dr Josh Stroschein - The Cyber Yeti youtube channel](https://www.youtube.com/@jstrosch/playlists)
+- [Godbolt Compiler Explorer](https://godbolt.org/)
+- [Programming reference for the Win32 API](https://learn.microsoft.com/en-us/windows/win32/api/)
 - [FLARE VM](https://github.com/mandiant/flare-vm)
 - [REMnux](https://github.com/REMnux)
 - [FLOSS](https://github.com/mandiant/flare-floss)
