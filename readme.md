@@ -171,22 +171,6 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 ### 3.2 Portable executable (PE) file format & Packing
 1. [PE file format](/Windows_Internals/PE.md)
 
-<!--
-### 3.3 TO DO: Reverse engineering
-- Basic dynamic analysis
-- Dynamic analysis: debugging
-- Windows reversing intro
-- Anti Reverse Engineering
-
-### 3.4 TO DO: Tooling
-1. Introduction to Windows API (win32 API
-2. Cheat engine
-3. ReClass.NET
-4. IDA pro
-5. Sysinternals tools
-6. Sysmon
--->
-
 #### References
 - [Pavel Yosifovich's windows internals](https://scorpiosoftware.net/)
 - [Pavel Yosifovich's youtube channel](https://www.youtube.com/@zodiacon)
@@ -202,3 +186,29 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 - [Nir Lichtman's diving into windows internals playlist](https://www.youtube.com/playlist?list=PL0tgH22U2S3G2QpiK-Q1wKW_Fe-Wiu7JS)
 - [Geoff Chappell](https://www.geoffchappell.com/index.htm?ta=5)
 - [Alex Ionescu's ReactOS](https://doxygen.reactos.org/index.html)
+
+## 4. Reverse Engineering
+### 4.1 Static analysis
+1. [Static analysis](/Reverse_Engineering/Static.md)
+
+### 4.2 Dynamic analysis
+1. [Dynamic analysis](/Reverse_Engineering/Dynamic.md)
+
+#### References
+[TryHackMe](https://tryhackme.com/)
+
+<!--
+### 3.3 TO DO: Reverse engineering
+- Basic dynamic analysis
+- Dynamic analysis: debugging
+- Windows reversing intro
+- Anti Reverse Engineering
+
+### 3.4 TO DO: Tooling
+1. Introduction to Windows API (win32 API
+2. Cheat engine
+3. ReClass.NET
+4. IDA pro
+5. Sysinternals tools
+6. Sysmon
+-->
