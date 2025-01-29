@@ -193,7 +193,10 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 2. [Dynamic analysis](/Reverse_Engineering/Dynamic.md)
 
 #### References
-[TryHackMe](https://tryhackme.com/)
+- [TryHackMe](https://tryhackme.com/)
+- [FLARE VM](https://github.com/mandiant/flare-vm)
+- [REMnux](https://github.com/REMnux)
+- [FLOSS](https://github.com/mandiant/flare-floss)
 
 <!--
 ### 3.3 TO DO: Reverse engineering

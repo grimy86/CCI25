@@ -34,7 +34,7 @@ Some of the important headers that we will discuss are:
 
 All of these headers are of the data type `STRUCT`. A struct is a user-defined data type that combines several different types of data elements in a single variable. Since it is user-defined, we need to see the documentation to understand the type for each STRUCT variable. The documentation for each header can be found on [Microsoft learn](https://learn.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-image_nt_headers32), where you can find the data types of the different fields inside these headers.
 
-![PE structure](/Windows_Internals/Images/PE_structure_01.png)
+![PE structure](/Windows_Internals/Images/PE_structure.png)
 
 Here's another depiction of the PE structure.
 
@@ -348,4 +348,4 @@ The last important indicator of a packed executable we discuss here is its impor
 - [`pecheck`](https://github.com/DidierStevens/DidierStevensSuite/blob/master/pecheck.py)
 - [`Detect it easy`](https://github.com/horsicq/Detect-It-Easy)
 - [`NTCore: Explorer Suite` or `CFF explorer`](https://ntcore.com/explorer-suite/)
-- [PE-bear](https://github.com/hasherezade/pe-bear)
+- [`PE-bear`](https://github.com/hasherezade/pe-bear)
