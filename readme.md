@@ -1,8 +1,6 @@
 # Cybersecurity & Code Insights '25 
 
-<div align="center">
-	<img src="/Images/Logo.png" alt="Logo" width="100">
-</div>
+<img src="/Images/Banner.png" alt="Logo" width="500">
 
 **An open-source guide / insights to x86, x86-64 assembly, C-style C++, cybersecurity operations and Windows internals into a unified learning resource.**
 
