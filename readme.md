@@ -188,11 +188,9 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 - [Alex Ionescu's ReactOS](https://doxygen.reactos.org/index.html)
 
 ## 4. Reverse Engineering
-### 4.1 Static analysis
+1. [Intro to (malware) analysis](/Reverse_Engineering/Intro.md)
 1. [Static analysis](/Reverse_Engineering/Static.md)
-
-### 4.2 Dynamic analysis
-1. [Dynamic analysis](/Reverse_Engineering/Dynamic.md)
+2. [Dynamic analysis](/Reverse_Engineering/Dynamic.md)
 
 #### References
 [TryHackMe](https://tryhackme.com/)

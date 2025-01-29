@@ -259,6 +259,42 @@ This is where the `packers` come in. A packer is a `tool to obfuscate the data i
 Legitimate software developers use packing to address piracy concerns, and malware authors use it to avoid detection.
 
 ### How to identify if a PE file is packed
+#### Strings
+A packed malware will not show important information when running a string search against it.
+
+Notice that the sample below contains mainly garbage strings that don't provide much value to us:
+
+```
+!This program cannot be run in DOS mode.
+RichH
+.rsrc
+.data
+.adata
+dApB
+Qtq5
+wn;3b:TC,n
+*tVlr
+D6j[
+^sZ"4V
+JIoL
+j~AI
+tYFu
+7^V1
+vYB09
+"PeHy
+M4AF#
+3134
+%}W\+
+3A;a5
+dLq<
+.
+.
+.
+.
+.
+.
+```
+
 #### Section header names
 A PE file has a .text section, a .data section, and a .rsrc section, where only the .text section has the execute flag set because it contains the code. Now take the example of the file named zmsuz3pinwl. When we open this file in pe-tree, we find that it has `unconventional section names` (`or no names`, in this case).
 
