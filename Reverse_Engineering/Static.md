@@ -144,10 +144,92 @@ Yara rules are a type of `signature-based rule`. It is famously called a `patter
 The security community publishes a [repository of open-source Yara rules](https://github.com/Yara-Rules/rules) that we can use as per our needs. When analyzing malware, we can use this repository to dig into the community's collective wisdom. However, while using these rules, please keep in mind that `some might depend on context`. Some others might just be used for the `identification of patterns that can be non-malicious as well`. Hence, `just because a rule hits doesn't mean the file is malicious`.
 
 #### Proprietary signatures - Anti-virus Scans
-Besides the open-source signatures, Antivirus companies spend lots of resources to create proprietary signatures. The advantage of these proprietary signatures is that since they have to be sold commercially, there are lesser chances of False Positives (FPs, when a signature hits a non-malicious file). However, this might lead to a few False Negatives (FNs, when a malicious file does not hit any signature).
+Besides the open-source signatures, Antivirus companies spend lots of resources to create proprietary signatures. The advantage of these proprietary signatures is that `since they have to be sold commercially, there are lesser chances of False Positives` (FPs, when a signature hits a non-malicious file). However, this `might lead to a few False Negatives` (FNs, when a malicious file does not hit any signature).
 
-Antivirus scanning helps identify if a file is malicious with high confidence. Antivirus software will often mention the signature that the file has hit, which might hint at the file's functionality. However, we must note that despite their best efforts, every AV product in the market has some FPs and some FNs. Therefore, when analyzing malware, it is prudent to get a verdict from multiple products. The Virustotal website makes this task easier for us, where we can find the verdict about a file from 60+ AV vendors, apart from some very useful information. We also touched upon this topic in our Intro to Malware Analysis room. Please remember, if you are analyzing a sensitive file, it is best practice to search for its hash on Virustotal or other scanning websites instead of uploading the file itself. This is done to avoid leaking sensitive information on the internet and letting a sophisticated attacker know that you are analyzing their malware.
+Antivirus scanning helps identify if a file is malicious with `high confidence`. Antivirus software will often mention the signature that the file has hit, which might hint at the file's functionality. However, we must note that despite their best efforts, `every AV product in the market has some FPs and some FNs`. Therefore, when analyzing malware, it is prudent to get a verdict from multiple products. The `Virustotal` website makes this task easier for us, where we can find the verdict about a file from 60+ AV vendors, apart from some very useful information. We also touched upon this topic in our Intro to Malware Analysis room.
 
-Since we have covered Yara rules in detail in the Yara room and Virustotal scanning in the Intro to malware analysis room, we will not cover them again here. However, the FLARE VM has another very cool tool that can be used for signature scanning. 
+Please remember, if you are analyzing a sensitive file, it is best practice to `search for its hash` on Virustotal or other scanning websites `instead of uploading the file itself`. This is done to avoid leaking sensitive information on the internet and letting a sophisticated attacker know that you are analyzing their malware.
 
 #### Capa
+Capa is another open-source tool created by Mandiant. This tool helps `identify the capabilities found in a PE file`. Capa reads the files and tries to `identify the behavior` of the file based on signatures such as `imports`, `strings`, `mutexes`, and `other artifacts present in the file`.
+
+Using Capa is simple. On the command prompt, we just point capa to the file we want to run it against.
+
+```
+C:\Users\Administrator\Desktop>capa mal\1
+loading : 100%|████████████████████████████████████████████████████████████| 485/485 [00:00<00:00, 1552.05     rules/s]
+matching: 100%|██████████████████████████████████████████████████████████████| 288/288 [00:12<00:00, 22.23 functions/s]
++------------------------+------------------------------------------------------------------------------------+
+| md5                    | 6548eec09f4d8bc6514bee3e5452541c                                                   |
+| sha1                   | 7be46c62d975949fdd6777530940cf6435e8cb90                                           |
+| sha256                 | 6ec74cc0a9b5697efd3f4cc4d3a21d9ffe6e0187b770990df8743fbf4f3b2518                   |
+| path                   | mal\1                                                                              |
++------------------------+------------------------------------------------------------------------------------+
+
++------------------------+------------------------------------------------------------------------------------+
+| ATT&CK Tactic          | ATT&CK Technique                                                                   |
+|------------------------+------------------------------------------------------------------------------------|
+| DEFENSE EVASION        | Obfuscated Files or Information::Indicator Removal from Tools [T1027.005]          |
+|                        | Obfuscated Files or Information [T1027]                                            |
+| DISCOVERY              | Application Window Discovery [T1010]                                               |
+|                        | System Information Discovery [T1082]                                               |
+| EXECUTION              | Command and Scripting Interpreter [T1059]                                          |
+|                        | Shared Modules [T1129]                                                             |
++------------------------+------------------------------------------------------------------------------------+
+
++-----------------------------+-------------------------------------------------------------------------------+
+| MBC Objective               | MBC Behavior                                                                  |
+|-----------------------------+-------------------------------------------------------------------------------|
+| ANTI-STATIC ANALYSIS        | Disassembler Evasion::Argument Obfuscation [B0012.001]                        |
+| CRYPTOGRAPHY                | Encrypt Data::RC4 [C0027.009]                                                 |
+|                             | Generate Pseudo-random Sequence::RC4 PRGA [C0021.004]                         |
+| FILE SYSTEM                 | Delete File [C0047]                                                           |
+|                             | Read File [C0051]                                                             |
+|                             | Write File [C0052]                                                            |
+| OPERATING SYSTEM            | Console [C0033]                                                               |
+| PROCESS                     | Allocate Thread Local Storage [C0040]                                         |
+|                             | Set Thread Local Storage Value [C0041]                                        |
+|                             | Terminate Process [C0018]                                                     |
++-----------------------------+-------------------------------------------------------------------------------+
+
++------------------------------------------------------+------------------------------------------------------+
+| CAPABILITY                                           | NAMESPACE                                            |
+|------------------------------------------------------+------------------------------------------------------|
+| contain obfuscated stackstrings                      | anti-analysis/obfuscation/string/stackstring         |
+| encrypt data using RC4 PRGA                          | data-manipulation/encryption/rc4                     |
+| contains PDB path                                    | executable/pe/pdb                                    |
+| contain a resource (.rsrc) section                   | executable/pe/section/rsrc                           |
+| accept command line arguments                        | host-interaction/cli                                 |
+| manipulate console                                   | host-interaction/console                             |
+| query environment variable                           | host-interaction/environment-variable                |
+| delete file                                          | host-interaction/file-system/delete                  |
+| read file                                            | host-interaction/file-system/read                    |
+| write file (2 matches)                               | host-interaction/file-system/write                   |
+| enumerate gui resources                              | host-interaction/gui                                 |
+| get disk information                                 | host-interaction/hardware/storage                    |
+| get hostname                                         | host-interaction/os/hostname                         |
+| get thread local storage value (3 matches)           | host-interaction/process                             |
+| set thread local storage value (2 matches)           | host-interaction/process                             |
+| terminate process (5 matches)                        | host-interaction/process/terminate                   |
+| link function at runtime (8 matches)                 | linking/runtime-linking                              |
+| link many functions at runtime                       | linking/runtime-linking                              |
+| parse PE exports (2 matches)                         | load-code/pe                                         |
+| parse PE header (4 matches)                          | load-code/pe                                         |
++------------------------------------------------------+------------------------------------------------------+
+
+
+FLARE Sun 09/18/2022 18:34:13.15
+```
+
+We can see that Capa has mapped the identified capabilities according to the `MITRE ATT&CK framework` and `Malware Behavior Catalog (MBC)`. In the last table, we see the capabilities against the matched signatures and the number of signatures that have found a hit against these capabilities. As we might see, it also tells us if there are obfuscated stackstrings in the sample, allowing us to identify if running `FLOSS` against the sample might be helpful. To find out more information about the sample, we can use the `-v` or the `-vv` operator, which will show us the results in `verbose or very verbose mode`, identifying addresses where we might find the said capability.
+
+## Leveraging the PE header
+So far we have covered techniques that work regardless of the file type of the malware. However, those techniques are a little `hit-and-miss`, as they don't always provide us with deterministic information about the malware. The `PE headers provide a little more deterministic characteristics` of the sample, which tells us much more about the sample.
+
+### The PE header
+>[!NOTE]
+>If you're unsure what this is, make sure to read about [Portable executable file format](/Windows_Internals/PE.md).
+
+Several tools in the FLARE VM can help us analyze PE headers. `PEStudio` is one of them.
+
+The `PE header contains rich information` useful for malware analysis.

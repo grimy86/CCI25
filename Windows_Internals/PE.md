@@ -2,7 +2,11 @@
 ## Introduction
 Executables and applications are a large portion of how Windows internals operate at a higher level. You might have often seen files with extension `.exe` which stands for `executable (file)`.
 
+These files are `portable because they can be taken to any system with the same Operating System and dependencies`, and they will perform the same task on that system. Therefore, these files are called Portable Executables (PE files).
+
 As the name suggests, an executable file contains code that can be executed. Therefore, anything that needs to be run on a Windows Operating System is executed using an executable file, also called a `Portable Executable file (PE file)`, as it can be run on any Windows system.
+
+The PE files consist of a `sequence of bits` stored on the disk. This sequence is in a `specific format`. The initial bits define the characteristics of the PE file and explain how to read the rest of the data. `This initial part of the PE file is called a PE header`. 
 
  The `PE` (Portable Executable) format `defines the information about the executable and stored data`. The PE format `also defines the structure of how data components are stored`.
 
