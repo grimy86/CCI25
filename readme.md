@@ -107,9 +107,12 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 - [JLearn PH's MASM32 assembly programming playlist](https://www.youtube.com/playlist?list=PLE6kld48wGGPEq1mDnFVfbLZ81gcP3nJj)
 - [MASM reference](https://learn.microsoft.com/en-us/cpp/assembler/masm/microsoft-macro-assembler-reference?view=msvc-170) for more information on x86 assembly in MASM32.
 - [x86 and amd64 instruction reference](https://www.felixcloutier.com/x86/) for more information on x86 instructions.
+- [Malwareunicorn's instruction searcher](https://malwareunicorn.org/x86)
 - [Tutorialspoint Nasm assembly](https://www.tutorialspoint.com/assembly_programming/index.htm)
 - [Davy Wybiral's intro to x86 assembly language playlist](https://www.youtube.com/playlist?list=PLmxT2pVYo5LB5EzTPZGfFN0c2GDiSXgQe)
 - [OliveStem's x86 assembly with NASM playlist](https://www.youtube.com/playlist?list=PL2EF13wm-hWCoj6tUBGUmrkJmH1972dBB)
+- [ost2.fyi's Architecture 2001: x86-64 OS Internals](https://p.ost2.fyi/courses/course-v1:OpenSecurityTraining2+Arch2001_x86-64_OS_Internals+2021_v1/about)
+- [asmtutor](https://asmtutor.com/)
 
 
 ## 2. Cybersecurity operations
@@ -192,6 +195,7 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 - [Geoff Chappell](https://www.geoffchappell.com/index.htm?ta=5)
 - [Alex Ionescu's ReactOS](https://doxygen.reactos.org/index.html)
 - [Programming reference for the Win32 API](https://learn.microsoft.com/en-us/windows/win32/api/)
+- [ost2.fyi](https://p.ost2.fyi/courses)
 
 ## 4. Reverse Engineering
 1. [Intro to (malware) analysis](/Reverse_Engineering/Intro.md)
@@ -207,6 +211,12 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 - [FLARE VM](https://github.com/mandiant/flare-vm)
 - [REMnux](https://github.com/REMnux)
 - [FLOSS](https://github.com/mandiant/flare-floss)
+- [Reverse Engineering Resources-Beginners to intermediate Guide/Links](https://bbinfosec.medium.com/reverse-engineering-resources-beginners-to-intermediate-guide-links-f64c207505ed)
+- [ost2.fyi](https://p.ost2.fyi/courses)
+- [0xZ0F's Reverse Engineering Course repo](https://github.com/0xZ0F/Z0FCourse_ReverseEngineering)
+- [wtsxDev's list of reverse engineering resources](https://github.com/wtsxDev/reverse-engineering)
+- [Malwareunicorn's workshops](https://malwareunicorn.org/#/workshops)
+
 
 <!--
 ### 3.3 TO DO: Reverse engineering
