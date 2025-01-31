@@ -1,4 +1,4 @@
-# Static analysis
+# Basic Static analysis
 ## Lab Setup
 Some famous software used for creating and using Virtual Machines includes [Oracle VirtualBox](https://www.virtualbox.org/) and [VMWare Workstation Pro](https://www.vmware.com/products/desktop-hypervisor/workstation-and-fusion).
 

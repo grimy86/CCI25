@@ -199,8 +199,11 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 
 ## 4. Reverse Engineering
 1. [Intro to (malware) analysis](/Reverse_Engineering/Intro.md)
-1. [Static analysis](/Reverse_Engineering/Static.md)
-2. [Dynamic analysis](/Reverse_Engineering/Dynamic.md)
+2. [Basic static analysis](/Reverse_Engineering/Basic_static.md)
+3. [Advanced static analysis](/Reverse_Engineering/Advanced_static.md)
+4. [Basic dynamic analysis](/Reverse_Engineering/Dynamic.md)
+5. [Dynamic analysis: Debugging](/Reverse_Engineering/Dynamic_debugging.md)
+6. [Anti-reverse engineering](/Reverse_Engineering/Anti_reverse.md)
 
 #### References
 - [TryHackMe](https://tryhackme.com/)
