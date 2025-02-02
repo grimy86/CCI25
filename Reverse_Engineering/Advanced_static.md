@@ -86,3 +86,296 @@ Ghidra includes many features that make it a powerful reverse engineering tool. 
    - `Explore Strings`. Go to `Search -> For Strings` and click Search will give us the strings that Ghidra finds within the program. This window can contain very juicy information to help us during the analysis.
 
     ![Strings](/Reverse_Engineering/Images/Strings.png)
+
+## Identifying C code constructs in Assembly
+Analyzing the assembly code of the compiled binary can be overwhelming for beginners.
+Understanding the assembly instructions and how various programming components are translated/reflected into the assembly is important.
+Here, we will examine various C constructs and their corresponding assembly code. This will help us identify and focus on the key parts of the malware during analysis.
+
+> [!NOTE]
+> Different compilers add their own code for various checks while compiling.
+> 
+> Therefore expect some garbage assembly code that does not make sense.
+
+There are different approaches to begin analyzing the disassembled code:
+
+- Locate the `main` function from the `Symbol Tree` section.
+- Check the `.text` code from the `Program Trees` section to see the code section and find the entry point.
+- Search for interesting `strings` and locate the code from where those strings are referenced.
+
+### Hello World example
+
+C code:
+```C
+#include <stdio.h>
+
+int main()
+{
+    printf("Hello, world!");
+    return 0;
+}
+```
+
+Assembly code:
+```asm
+section .data 
+    message db 'HELLO WORLD!!', 0
+
+section .text
+    global _start
+
+_start:
+    ; write the message to stdout
+    mov eax, 4      ; write system call
+    mov ebx, 1      ; file descriptor for stdout
+    mov ecx, message    ; pointer to message
+    mov edx, 13     ; message length
+    int 0x80        ; call kernel
+```
+
+This program defines a string "HELLO WORLD!!" in the .data section and then uses the `write system call` to `print the string to stdout`.
+
+![Hello World example](/Reverse_Engineering/Images/Hello_world.png)
+
+If we look at the disassembled code in the Listings View, we can see instructions to push HELLO WORLD!! to the stack before calling the print function.
+
+### For loop example
+```C
+int main()
+{
+    for (int i = 1; i <= 5; i++)
+    {
+        std::cout << i << std::endl;
+    }
+    return 0;
+}
+```
+```asm
+main:
+    ; initialize loop counter to 1
+    mov ecx, 1
+
+    ; loop 5 times
+    mov edx, 5
+loop:
+    ; print the loop counter
+    push ecx
+    push format
+    call printf
+    add esp, 8
+
+    ; increment loop counter
+    inc ecx
+
+    ; check if the loop is finished
+    cmp ecx, edx
+    jle loop
+```
+
+### Function example
+```C
+int add(int a, int b)
+{
+    int result = a + b;
+    return result;
+}
+```
+```asm
+add:
+    push ebp          ; save the current base pointer value
+    mov ebp, esp      ; set base pointer to current stack pointer value
+    mov eax, dword ptr [ebp+8]  ; move the value of 'a' into the eax register
+    add eax, dword ptr [ebp+12] ; add the value of 'b' to the eax register
+    mov dword ptr [ebp-4], eax  ; move the sum into the 'result' variable
+    mov eax, dword ptr [ebp-4]  ; move the value of 'result' into the eax register
+    pop ebp           ; restore the previous base pointer value
+    ret               ; return to calling function
+```
+
+The add function starts by saving the current base pointer value onto the stack.
+Then, it sets the base pointer to the current stack pointer value.
+The function then moves the values of a and b into the eax register, adds them, and store the result in the result variable.
+Finally, the function moves the value of the result into the eax register, restores the previous base pointer value, and returns to the calling function.
+
+## An overview of API calls
+The Windows API is a `collection of functions and services` the Windows Operating System provides to `enable developers to create Windows applications`.
+These functions include `creating windows`, `menus`, `buttons`, and `other user-interface elements` and `performing tasks` such as file input/output and network communication.
+
+### CreateProcessA example
+The `CreateProcessA` function creates a new process and its primary thread. The function takes several parameters, including the name of the executable file, command-line arguments, and security attributes.
+
+![Windows API syntax](/Reverse_Engineering/Images/Win_syntax.png)
+
+Here is an example of C code that uses the CreateProcessA function to launch a new process:
+
+```C
+#include <windows.h>
+
+int main()
+{
+    STARTUPINFO si;
+    PROCESS_INFORMATION pi;
+
+    ZeroMemory(&si, sizeof(si));
+    si.cb = sizeof(si);
+    ZeroMemory(&pi, sizeof(pi));
+
+    if (!CreateProcess(NULL, "C:\\\\Windows\\\\notepad.exe", NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi))
+    {
+        printf("CreateProcess failed (%d).\\n", GetLastError());
+        return 1;
+    }
+
+    WaitForSingleObject(pi.hProcess, INFINITE);
+
+    CloseHandle(pi.hProcess);
+    CloseHandle(pi.hThread);
+
+    return 0;
+}
+```
+
+When compiled into assembly code, the CreateProcessA function call looks like this:
+```asm
+push 0
+lea eax, [esp+10h+StartupInfo]
+push eax
+lea eax, [esp+14h+ProcessInformation]
+push eax
+push 0
+push 0
+push 0
+push 0
+push 0
+push 0
+push dword ptr [hWnd]
+call CreateProcessA
+```
+
+This assembly code `pushes the necessary parameters onto the stack in reverse order` and then calls the CreateProcessA function. The CreateProcessA function then launches a new process and returns a handle to the process and its primary thread.
+
+During malware analysis, identifying the API call and examining the code can help understand the malware's purpose.
+
+## Common APIs used by Malware
+Malware authors heavily rely on Windows APIs to accomplish their goals. It's important to know the Windows APIs used in different malware variants. It's an important step in advanced static analysis to examine the `import` functions, which can reveal much about the malware.
+
+### Keylogger
+- `SetWindowsHookEx`: Installs an `application-defined hook procedure into a hook chain`. Used to `monitor and intercept system events`, such as `keystrokes` or `mouse clicks`.
+- `GetAsyncKeyState`: Retrieves the status of a virtual key when the function is called. Used to `determine if a key is being pressed` or `released`.
+- `GetKeyboardState`: Retrieves the status of all virtual keys. Used to `determine the status of all key`s on the keyboard.
+- `GetKeyNameText`: Retrieves the `name of a key`. Used to `determine the name of the pressed key`.
+
+### Downloader
+Designed to download other malware onto a victim's system.
+
+- `URLDownloadToFile`: `Downloads a file` from the internet and saves it to a local file. Used to `download additional malicious code` or updates to the malware.
+- `WinHttpOpen`: `Initializes the WinHTTP API`. Used to `establish an HTTP connection to a remote server` and download additional malicious code.
+- `WinHttpConnect`: `Establishes a connection` to a remote server using the WinHTTP API. Used to `connect to a remote server and download additional malicious code`.
+- `WinHttpOpenRequest`: `Opens HTTP request` using the WinHTTP API. Used to `send HTTP requests to a remote server` and download additional malicious code or steal data.
+
+### C2 Communication
+Command and Control (C2) communication is a method malware uses to communicate with a remote server or attacker.
+
+- `InternetOpen`: `Initializes a session for connecting to the internet`. Used to `connect to a remote server and communicate with a command-and-control (C2) server`.
+- `InternetOpenUrl`:` Opens a URL` for download. Used to `download additional malicious code` or steal data from a C2 server.
+- `HttpOpenRequest`: `Opens HTTP request`. Used to `send HTTP requests to a C2 server and receive commands` or additional malicious code.
+- `HttpSendRequest`: Sends `HTTP request to a C2 server`. Used to `send data or receive commands` from a C2 server.
+
+### Data Exfiltration
+Unauthorized data transfer from an organization to an external destination.
+
+- `InternetReadFile`: `Reads data from a handle to an open internet resource`. Used to `steal data from a compromised system and transmit it to a C2 server`.
+- `FtpPutFile`: `Uploads a file to an FTP server`. Used to `exfiltrate stolen data to a remote server`.
+- `CreateFile`: `Creates or opens a file or device`. Used to `read or modify files containing sensitive information` or `system configuration data`.
+- `WriteFile`: `Writes data to a file or device`. Used to `write stolen data to a file and then exfiltrate it` to a remote server.
+- `GetClipboardData`: Used to `retrieve data from the clipboard`. Used to `retrieve sensitive data that is copied to the clipboard`.
+
+### Dropper
+Designed to install other malware onto a victim's system.
+
+- `CreateProcess`: `Creates a new process and its primary thread`. Used to `execute its code in the context of a legitimate process`, making it more difficult to detect and analyze.
+- `VirtualAlloc`: Reserves or commits a region of memory within the virtual address space of the calling process. Malware can use this function to `allocate memory to store its code`.
+- `WriteProcessMemory`: Writes data to an area of memory within the address space of a specified process. Used to `write its code to the allocated memory`.
+
+### API Hooking
+`Intercept calls to Windows APIs and modify their behavior`.
+
+- `GetProcAddress`: `Retrieves the address of an exported function or variable` from a specified dynamic-link library (DLL). Used to `locate and hook API calls made by other processes`.
+- `LoadLibrary`: Loads a dynamic-link library (DLL) into a process's address space. Used to `load and execute additional code from a DLL or other module`.
+- `SetWindowsHookEx` This API is used to `install a hook procedure that monitors messages sent to a window or system event`. Used to `intercept calls to other Windows APIs and modify their behavior`.
+
+### Anti-debugging and VM detection
+Evade detection and analysis by security researchers.
+
+- `IsDebuggerPresent`: Checks whether a process is running under a debugger. Used to `determine whether it is being analyzed` and take appropriate action to evade detection.
+- `CheckRemoteDebuggerPresent`: Checks whether a remote debugger is debugging a process. Used to `determine whether it is being analyzed` and take appropriate action to evade detection.
+- `NtQueryInformationProcess`: Retrieves information about a specified process. Used to `determine whether the process is being debugged` and take appropriate action to evade detection.
+- `GetTickCount`: Retrieves the number of milliseconds that have elapsed since the system was started. Used to `determine whether it is running in a virtualized environment`, which may indicate that it is being analyzed.
+- `GetModuleHandle`: Retrieves a handle to a specified module. Used to `determine whether it is running under a virtualized environment`, which may indicate that it is being analyzed.
+- `GetSystemMetrics`: Retrieves various system metrics and configuration settings. Used to `determine whether it is running under a virtualized environment`, which may indicate that it is being analyzed.
+
+Read more on [malapi.io](https://malapi.io/) to learn about APIs used in different malware families.
+
+## Analyzing process hollowing
+Let's take analyze a code sample that uses [process hollowing](https://attack.mitre.org/techniques/T1055/012/).
+
+An important point to note is that almost all malware comes `packed with known or custom packers` and also have employed different Anti-debugging / VM detection techniques to hinder the analysis. 
+
+This sample is not packed and has no Anti-debugging / VM detection techniques is applied.
+
+Our objective of advanced static analysis would be to:
+- `Examine the API calls` to find a pattern or suspicious call.
+- Look at the suspicious `strings`.
+- Find `interesting or malicious functions`.
+- Examine the disassembled/decompiled code to `find as much information as possible`.
+
+> [!NOTE]
+>
+> It's important to mention that starting to search for the CreateProcessA function right away is not how an analyst would start analyzing an unknown binary. This whole example is just to get comfertable with Ghidra.
+
+### CreateProcess
+The suspicious process creates a victim process in the suspended state.
+
+To confirm, let's search for the CreateProcessA API in the Symbol Tree section.
+
+Then, `right-click on the Show References` to option to display all the program sections where this function is called.
+
+Clicking on the first reference will take us to the disassembled code and show the decompiled C code in the Decompile section.
+
+It clearly shows how the parameters on the stack are being pushed in reverse order before calling the function. The value `0x4` in the `process creation flag` is being pushed into the stack, representing the `suspended state`.
+
+### Graph View
+Clicking on the Display Function Graph in the toolbar will show the graph view of the disassembled code we are examining.
+
+![Function graph](/Reverse_Engineering/Images/Function_graph.png)
+
+In the above case, if the program:
+- Fails to create a victim process in the suspended state, it will move to block 1. The `red arrow represents the failure` to meet the condition mentioned above.
+- Successfully creates the victim process, it will move to block 2. The `green arrow represents the success` of the jump condition.
+
+### Example of further analysis
+1. Opening a suspicous file
+
+    The CreateFileA API is used to either create or open an existing file.
+
+2. Hollowing the process
+
+    Malware use ZwUnmapViewOfSection or NtUnmapViewOfSection API calls to unmap the target process's memory.
+
+    NtUnmapViewOfSection takes exactly two arguments, the base address (virtual address) to be unmapped and the handle to the process that needs to be hollowed.
+
+3. Allocating memory
+
+    Once the process is hollowed, malware must allocate the memory using VirtualAllocEx before writing the process.
+
+    Arguments passed to the function include a handle to the process, address to be allocated, size, allocation type, and memory protection flag.
+
+4. Writing down the memory
+
+    Once the memory is allocated, the malware will attempt to write the suspicious process/code into the memory of the hollowed process. The WriteProcessMemory API is used for this purpose.
+
+    There were three calls to the WriteProcessMemory Function. The last call references to the code in the Kernel32 DLL; therefore, we can ignore that. From the decompiled code, it seems the program is copying different sections of the suspicious process one by one.
+
+5. Resuming the thread
+
+    Once all is sorted out, the malware will get hold of the thread using the SetThreadContext and then resume the thread using the ResumeThread API to execute the code.
