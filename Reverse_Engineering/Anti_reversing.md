@@ -39,7 +39,17 @@ Some of the most common anti-debugging measures include, but are not limited to:
     This is a sophisticated technique where malware modifies itself while running, making it difficult for a debugger to follow the code flow.
 
 ### Anti-Debugging using Suspend Thread
+[Suspend thread](https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-suspendthread) is a Windows API function that is used to `pause the execution of a thread in a running process`. This function has legitimate uses but can also be `called from within a malware process to suspend any threads attempting to debug or analyze it`. In turn, making the debugger not work.
 
+Take a look at this [proof of concept](/Reverse_Engineering/SuspendThread_POC.cpp).
+
+If you don't want to be bothered with reading the source code, here is a short explanation of the steps used by this technique:
+
+The malware goes through all threads in the Windows system.
+For each thread, it calls EnumWindow to go through each window displayed on the screen.
+If the name of the window has the strings debugger, dbg, or debug, then the malware knows that a debugger is running.
+If a debugger is present, the malware calls, which suspends the threads of the debugger, making it crash.
+The malware proceeds with its malicious purpose.
 
 ## Process Hollowing: Overview
 A process injection technique, mostly used to evade detection. Another technique used by malware to hide in plain sight is Process Hollowing. In this technique, the malware binary hollows an already running legitimate process by removing all its code from its memory and injecting malicious code in place of the legitimate code. 
