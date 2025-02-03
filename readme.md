@@ -203,7 +203,7 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 3. [Advanced static analysis](/Reverse_Engineering/Advanced_static.md)
 4. [Basic dynamic analysis](/Reverse_Engineering/Dynamic.md)
 5. [Dynamic analysis: Debugging](/Reverse_Engineering/Dynamic_debugging.md)
-6. [Anti-reverse engineering](/Reverse_Engineering/Anti_reverse.md)
+6. [Anti-reverse engineering](/Reverse_Engineering/Anti_reversing.md)
 
 #### References
 - [TryHackMe](https://tryhackme.com/)
@@ -222,17 +222,26 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 
 
 <!--
-### 3.3 TO DO: Reverse engineering
-- Basic dynamic analysis
-- Dynamic analysis: debugging
-- Windows reversing intro
-- Anti Reverse Engineering
-
-### 3.4 TO DO: Tooling
+### Tooling
 1. Introduction to Windows API (win32 API
 2. Cheat engine
 3. ReClass.NET
 4. IDA pro
 5. Sysinternals tools
 6. Sysmon
+
+### Exploit development
+1. Basics
+2. ROP
+3. BufferOverflow
+4. Memory corruption
+5. Shellcoding
+
+### Anti-analysis
+1. Anti-Disassembly
+2. Anti-Debugging
+3. Game Integrity Checks
+4. Obfuscation
+5. Packers and unpacking
+6. Bypassing Anti-Tamper technology
 -->
