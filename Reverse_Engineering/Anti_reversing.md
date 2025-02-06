@@ -124,6 +124,24 @@ Architectural checks like checking the temperature can be challenging to prevent
 - Manipulating memory directly
 - Changing the execution flow with EIP
 
+## Packers(Overview)
+Obfuscation is a technique that aims to intentionally obscure data and code so that it is harder to understand or analyze. 
+
+The most common obfuscation techniques used by malware authors include:
+- `Using encoding techniques`:
+ 
+    This involves `encoding data` (i.e. command line strings, domain names, etc.) using popular encoding techniques like XOR or Base64. You may have seen a Base64 encoded strings that look like this VGhpcyBpcyBhbiBCQVNFNjQgZW5jb2RlZCBzdHJpbmcu==.
+
+- `Using encryption techniques`:
+ 
+    This involves encrypting data such as communications to a command and control server, file formats, and network traffic. The most common types used are `symmetric key and public key encryption`.
+
+- `Code obfuscation`:
+ 
+    This involves various techniques such as manipulating the code to `alter its syntax and structure`, `renaming functions`, or `splitting code across multiple files or code segments`.
+
+
+
 
 ## Process Hollowing: Overview
 A process injection technique, mostly used to evade detection. Another technique used by malware to hide in plain sight is Process Hollowing.
