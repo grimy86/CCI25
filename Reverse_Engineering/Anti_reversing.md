@@ -38,21 +38,78 @@ Some of the most common anti-debugging measures include, but are not limited to:
 
     This is a sophisticated technique where malware modifies itself while running, making it difficult for a debugger to follow the code flow.
 
-### Anti-Debugging using Suspend Thread
+### Suspend Thread
 [Suspend thread](https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-suspendthread) is a Windows API function that is used to `pause the execution of a thread in a running process`. This function has legitimate uses but can also be `called from within a malware process to suspend any threads attempting to debug or analyze it`. In turn, making the debugger not work.
 
 Take a look at this [proof of concept](/Reverse_Engineering/SuspendThread_POC.cpp).
 
 If you don't want to be bothered with reading the source code, here is a short explanation of the steps used by this technique:
 
-The malware goes through all threads in the Windows system.
-For each thread, it calls EnumWindow to go through each window displayed on the screen.
-If the name of the window has the strings debugger, dbg, or debug, then the malware knows that a debugger is running.
-If a debugger is present, the malware calls, which suspends the threads of the debugger, making it crash.
-The malware proceeds with its malicious purpose.
+1. The malware `goes through all` threads in the Windows system.
+2. `For each` thread, it calls `EnumWindow` to go through each window displayed on the screen.
+3. `If the name` of the window `has the strings debugger`, `dbg`, or `debug`, then the malware knows that a debugger is running.
+4. `If` a `debugger is present`, the malware calls `SuspendThread`, which suspends the threads of the debugger, `making it crash`.
+
+### Patching
+Patching is one of the most critical skills required of an analyst. In cases like this we want to patch the function SuspendThread so that our debugger won't get suspended.
+
+A good way to patch this would be to go to the `entry point` and search the `current module` for `intermodular calls` (the SuspendThread call).
+Once we've found it we just fill the function call with `NOP` instructions and resume execution.
+
+> [!NOTE]
+> However,  if you try debugging again, you'll discover it will start crashing again. This is because our patches are reset and are now gone. To avoid re-applying patches in the future, we can export and import our patches for future use.
+
+## VM Detection
+Virtual Machines (VMs) are software platforms that simulate a computer environment inside another computer system.
+These are useful in reverse engineering because they provide a `cost-effective`, `controlled`, and `isolated environment` for monitoring and analyzing suspicious software or malware.
+VMs also allow for the creation of snapshots and checkpoints that can be used to restore the system to a previous state, which helps test different scenarios and maintain a history of the analysis process.
+
+When malware identifies that it is running on a VM, it may decide to respond differently; for example, it may change its behaviour by:
+- Executing only a `minimal subset of its functionality`
+- `Self-destructing` by deleting itself or overwriting parts of its code
+- `Cause damage` to the system by deleting or encrypting files; or
+- `Not run at all`
+
+### VM Detection Techniques
+- Checking running processes
+
+    VMs have easily identifiable processes; for example, VMWare runs a process called vmtools, while VirtualBox has vboxservice.
+    Malware can use the EnumProcess Windows API to list all the processes running on the machine and look for the presence of these tools.
+
+- Checking installed software
+
+    Malware can look in the Windows Registry for a list of installed software under the SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall Registry key.
+    From here, it can check for installed programs like debuggers, decompilers, forensics tools, etc.
+
+- Network fingerprinting
+
+    Malware can look for specific MAC and network addresses unique to VMs.
+    For example, VMs autogenerate MAC addresses that start with any of the following numbers: 00-05-69, 00-0c-29, 00-1c-14 or 00-50-56.
+    These numbers are unique and are specifically assigned to a VM vendor called the OUI (Organizationally Unique Identifier).
+
+- Checking machine resources
+
+    Malware can look at a machine's resources like RAM and CPU Utilization percentages.
+    For example, a machine with RAM amounting to less than 8GB can indicate a virtual machine, as they are typically not assigned a significant amount.
+
+- Detecting peripherals
+
+    Some malware checks for connected printers because this is rarely configured properly on VMs, sometimes not even configured at all.
+
+- Checking for domain membership
+
+    Corporate networks are a usual target for malware.
+    An easy way to determine this is by checking if the current machine is part of an Active Directory domain.
+    This can quickly be done without the use of API calls by checking the LoggonServer and ComputerName environment variables.
+
+- Timing-based attacks
+
+    Malware can measure the time it takes to execute specific instructions or access particular machine resources.
+    For example, some instructions can be faster on a physical machine compared to a virtual machine.
 
 ## Process Hollowing: Overview
-A process injection technique, mostly used to evade detection. Another technique used by malware to hide in plain sight is Process Hollowing. In this technique, the malware binary hollows an already running legitimate process by removing all its code from its memory and injecting malicious code in place of the legitimate code. 
+A process injection technique, mostly used to evade detection. Another technique used by malware to hide in plain sight is Process Hollowing.
+In this technique, the malware binary hollows an already running legitimate process by removing all its code from its memory and injecting malicious code in place of the legitimate code. 
 
 Used to inject malicious code into a legitimate process running on a victim's computer.
 
