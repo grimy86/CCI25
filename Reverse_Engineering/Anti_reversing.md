@@ -71,41 +71,59 @@ When malware identifies that it is running on a VM, it may decide to respond dif
 - `Not run at all`
 
 ### VM Detection Techniques
-- Checking running processes
+- `Checking running processes`:
 
     VMs have easily identifiable processes; for example, VMWare runs a process called vmtools, while VirtualBox has vboxservice.
     Malware can use the EnumProcess Windows API to list all the processes running on the machine and look for the presence of these tools.
 
-- Checking installed software
+- `Checking installed software`:
 
     Malware can look in the Windows Registry for a list of installed software under the SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall Registry key.
     From here, it can check for installed programs like debuggers, decompilers, forensics tools, etc.
 
-- Network fingerprinting
+- `Network fingerprinting`:
 
     Malware can look for specific MAC and network addresses unique to VMs.
     For example, VMs autogenerate MAC addresses that start with any of the following numbers: 00-05-69, 00-0c-29, 00-1c-14 or 00-50-56.
     These numbers are unique and are specifically assigned to a VM vendor called the OUI (Organizationally Unique Identifier).
 
-- Checking machine resources
+- `Checking machine resources`:
 
     Malware can look at a machine's resources like RAM and CPU Utilization percentages.
     For example, a machine with RAM amounting to less than 8GB can indicate a virtual machine, as they are typically not assigned a significant amount.
 
-- Detecting peripherals
+- `Detecting peripherals`:
 
     Some malware checks for connected printers because this is rarely configured properly on VMs, sometimes not even configured at all.
 
-- Checking for domain membership
+- `Checking for domain membership`:
 
     Corporate networks are a usual target for malware.
     An easy way to determine this is by checking if the current machine is part of an Active Directory domain.
     This can quickly be done without the use of API calls by checking the LoggonServer and ComputerName environment variables.
 
-- Timing-based attacks
+- `Timing-based attacks`:
 
     Malware can measure the time it takes to execute specific instructions or access particular machine resources.
     For example, some instructions can be faster on a physical machine compared to a virtual machine.
+
+- `Checking temperature`:
+
+    `Win32_TemperatureProbe` is a `Windows Management Instrumentation (WMI)` class that contains real-time temperature readings from the hardware through the `SMBIOS (System Management BIOS)` data structure. In a virtualized environment, the value returned is Not Supported, which is what malware looks for.
+
+    Note: `Win32_TemperatureProbe` may also return Not Supported even on physical machines if the hardware doesn't support this SMBIOS feature. This makes it unreliable but valuable when used with the other techniques.
+
+## Anti-VM Detection
+To prevent malware from using some of the techniques above, we can apply several changes to the system that will remove VM-related artefacts making the VM look less like a VM. For example, we can remove or modify the Registry entries that malware checks for installed programs to hide our debuggers, change the MAC addresses, or configure the VM to appear connected to a printer.
+
+But you can see how tedious this becomes. With the myriad of options available to malware, it would be challenging to cover all of them.
+
+Some researchers have made scripts  (See [`VMwareCloak`](https://github.com/d4rksystem/VMwareCloak) and [`VBoxCloak`](https://github.com/d4rksystem/VBoxCloak)) to help automate this process. Despite this, even if all the known techniques are addressed, minor architectural checks can still be made by malware, as you will see in the next task.
+
+Architectural checks like checking the temperature can be challenging to prevent. However, there are still ways around this. We can patch a function with nops to prevent it from executing. We can do the same thing here, but for the sake of giving you more tools to help you with reverse engineering, there's two other approaches:
+- Manipulating memory directly
+- Changing the execution flow with EIP
+
 
 ## Process Hollowing: Overview
 A process injection technique, mostly used to evade detection. Another technique used by malware to hide in plain sight is Process Hollowing.
