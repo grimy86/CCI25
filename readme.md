@@ -18,8 +18,10 @@ graph TD;
 	x86-64 --> nf[Networking fundamentals]
     nf --> csec[Cybersecurity operations]
 	csec --> winint[Windows internals]
-	csec --> da[Dynamic analysis]
-	winint --> sa[Static analysis]
+	winint --> re[Reverse engineering]
+	winint --> api[Win32 API]
+	re --> sa[Static analysis]
+	re --> da[Dynamic analysis]
 ```
 
 > [!TIP]
@@ -171,9 +173,7 @@ Covers the fundamentals of both offensive and defensive security skills, ethical
 - [IANA's Service Name and Transport Protocol Port Number Registry](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml)
 
 
-## 3. Windows Internals
-<img src="/Images/Windows.png" alt="Windows logo" width="25"/>
-
+## 3. Windows Internals <img src="/Images/Windows.png" alt="Windows logo" width="25"/>
 This part explores Windows system architecture focusing on components such as processes, memory management, the Portable Executable (PE) file format.
 
 It provides foundational knowledge for reverse engineering, malware analysis, and low-level Windows security research.
@@ -187,9 +187,12 @@ It provides foundational knowledge for reverse engineering, malware analysis, an
 ### 3.2 Portable executable (PE) file format & Packing
 1. [PE file format](/Windows_Internals/PE.md)
 
+<!--Syscalls? Drivers, sockets?-->
+
 #### References
 - [Pavel Yosifovich's windows internals](https://scorpiosoftware.net/)
 - [Pavel Yosifovich's youtube channel](https://www.youtube.com/@zodiacon)
+
 - [0xRick's dive into PE file format](https://0xrick.github.io/)
 - [Empyreal96's info depot](https://empyreal96.github.io/nt-info-depot/index.html)
 - [Alex Ionescu's blog](https://www.alex-ionescu.com/)
