@@ -31,7 +31,7 @@ graph TD;
 
 ## 1. Core programming and assembly foundations
 ### 1.1 C-style C++
-<img src="/Images/cpp.png" alt="C++ logo" width="300"/>
+<img src="/Images/cpp.png" alt="C++ logo" width="25"/>
 
 A C-style C++ summary of 2024. This summary is entirely possible thanks to the authors of the Learncpp website (Alex, Nascardriver and James C.) who made their knowledge available for public use.
 
@@ -67,6 +67,7 @@ Contains:
 
 
 ### 1.2 x86 & x86-64 assembly
+<img src="/Images/ASM.png" alt="ASM logo" width="25"/>
 
 Note this guide was reworked from x86 to x86-64 for really exact and specific differences you should do your own research.
 
@@ -119,8 +120,7 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 
 
 ## 2. Cybersecurity operations
-![TryHackMe Badge](https://img.shields.io/badge/TryHackMe-212C42?logo=tryhackme&logoColor=fff&style=for-the-badge)
-![Hack The Box Badge](https://img.shields.io/badge/Hack%20The%20Box-9FEF00?logo=hackthebox&logoColor=000&style=for-the-badge)
+<img src="/Images/Network.png" alt="Network logo" width="25"/>
 
 Covers the fundamentals of both offensive and defensive security skills, ethical hacking, penetration testing, and red teaming, providing hands-on experience with tools like Nmap, Burp Suite, and SQLmap. It includes topics such as reconnaissance, exploitation, privilege escalation, and persistence, with cheat sheets and scripting resources to aid practical learning.
 
@@ -178,6 +178,12 @@ Covers the fundamentals of both offensive and defensive security skills, ethical
 
 
 ## 3. Windows Internals
+<img src="/Images/Windows.png" alt="Windows logo" width="25"/>
+
+This part explores Windows system architecture focusing on components such as processes, memory management, the Portable Executable (PE) file format.
+
+It provides foundational knowledge for reverse engineering, malware analysis, and low-level Windows security research.
+
 ### 3.1 Windows internals Overview
 1. [Windows Internals Overview](/Windows_Internals/Internals.md)
 
@@ -206,6 +212,10 @@ Covers the fundamentals of both offensive and defensive security skills, ethical
 - [ost2.fyi](https://p.ost2.fyi/courses)
 
 ## 4. Reverse Engineering
+<img src="/Images/Hexadecimal.png" alt="RE logo" width="25"/>
+
+Covers reverse engineering techniques, including static and dynamic analysis, debugging, and anti-reversing methods.
+
 1. [Intro to (malware) analysis](/Reverse_Engineering/Intro.md)
 2. [Basic static analysis](/Reverse_Engineering/Basic_static.md)
 3. [Advanced static analysis](/Reverse_Engineering/Advanced_static.md)
