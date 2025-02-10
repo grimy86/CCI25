@@ -2,7 +2,7 @@
 
 <img src="/Images/Banner.png" alt="Banner" width="550">
 
-**An open-source guide / insights to x86, x86-64 assembly, C-style C++, cybersecurity operations and Windows internals into a unified learning resource.**
+**An open-source guide / insights to C-style C++, x86, x86-64 assembly, cybersecurity operations and Windows internals into a unified learning resource.**
 
 > [!IMPORTANT]
 > This guide is catered towards cybersecurity development, not as much to cybersecurity operations / red teaming or blue teaming.
@@ -31,6 +31,8 @@ graph TD;
 
 ## 1. Core programming and assembly foundations
 ### 1.1 C-style C++
+<img src="/Images/cpp.png" alt="C++ logo" width="300"/>
+
 A C-style C++ summary of 2024. This summary is entirely possible thanks to the authors of the Learncpp website (Alex, Nascardriver and James C.) who made their knowledge available for public use.
 
 - [Summary PDF](/Programming_Foundations/Cpp/C-Style_CPP_24.pdf)
@@ -65,6 +67,7 @@ Contains:
 
 
 ### 1.2 x86 & x86-64 assembly
+
 Note this guide was reworked from x86 to x86-64 for really exact and specific differences you should do your own research.
 
 #### Architecture
@@ -116,6 +119,11 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 
 
 ## 2. Cybersecurity operations
+![TryHackMe Badge](https://img.shields.io/badge/TryHackMe-212C42?logo=tryhackme&logoColor=fff&style=for-the-badge)
+![Hack The Box Badge](https://img.shields.io/badge/Hack%20The%20Box-9FEF00?logo=hackthebox&logoColor=000&style=for-the-badge)
+
+Covers the fundamentals of both offensive and defensive security skills, ethical hacking, penetration testing, and red teaming, providing hands-on experience with tools like Nmap, Burp Suite, and SQLmap. It includes topics such as reconnaissance, exploitation, privilege escalation, and persistence, with cheat sheets and scripting resources to aid practical learning.
+
 ### 2.1 General info
 1. [Pentesting Fundamentals](/Cybersecurity_Operations/General/PentestingFundamentals.md)
 2. [Principles of Security](/Cybersecurity_Operations/General/SecurityPrinciples.md)
