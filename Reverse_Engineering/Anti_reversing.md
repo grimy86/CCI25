@@ -140,6 +140,55 @@ The most common obfuscation techniques used by malware authors include:
  
     This involves various techniques such as manipulating the code to `alter its syntax and structure`, `renaming functions`, or `splitting code across multiple files or code segments`.
 
+### Packers
+Packers are tools that `compress and encrypt executable files`. It compresses the target executable `and embeds it within a new executable file` that serves as a wrapper or container. This dramatically reduces the size of the file, making it ideal for easy distribution and installation. Also, some packers offer additional features, such as code obfuscation, runtime packing, and anti-debugging techniques. And it is because of these features that made Packers a popular tool for malware authors.
+
+There are a lot of Packers available. Each has a unique approach and algorithm for packing. Here is a list of some that were seen used in the wild:
+- [Alternate EXE Packer](https://www.alternate-tools.com/pages/c_exepacker.php?lang=ENG)
+- [ASPack](http://www.aspack.com/)
+- [ExeStealth](https://unprotect.it/technique/exestealth/)
+- [hXOR-Packer](https://github.com/akuafif/hXOR-Packer)
+- [Milfuscator](https://github.com/nelfo/Milfuscator)
+- [MPress](https://www.autohotkey.com/mpress/mpress_web.htm)
+- [PELock](https://www.pelock.com/products/pelock)
+- [Themida](https://www.oreans.com/Themida.php)
+- [UPX: the Ultimate Packer for eXecutables](https://upx.github.io/)
+- [VMProtect](https://vmpsoft.com/)
+
+
+It is essential to state that not all packed programs are malicious. Packers are also used by legitimate software to protect their programs, like for protecting their intellectual property from theft. For example, the Packer tool "Themida" is widely used to prevent video game cheating.
+
+Because Packers encrypts and obfuscates a program, it would be impossible to know the malware's capabilities without running it. Because of this, we cannot reliably depend on static analysis and signature-based detection techniques to determine its capabilities. The only information we could glean from a malware sample at this state is the Packer tool used. This can still be a good starting point for an investigation, which we will see in the next task.
+
+## Identifying and Unpacking
+The first step in dealing with packed programs is identifying the Packer used. Thankfully, there are tools that we can use for this. The most accessible tools are [DetectItEasy (DIE)](https://github.com/horsicq/Detect-It-Easy) and PEStudio, which are already included in the VM attached to this room.
+
+Entropy measures the level of disorder or uncertainty in a system. Packed malware tends to have high entropy due to the randomness of the packing process.
+
+Another tool is `PEStudio` which lists information on PE files. This is important because there are specific Packers that will still leave clues.
+
+Usually, the section names of a standard PE file are .text, .data and .rsrc. The strings `UPX0`, `UPX1`, and `UPX2` are one of those identifiable pieces of information that Packers like UPX leave behind. Not all Packers change this value, but usually, this is the most accessible first place to look.
+
+Because different Packer tools use various methodologies in packing executables, sometimes tools like DetectItEasy could not identify all types of Packers.
+
+### Automated unpacking
+Once the Packer for a packed malware is identified, it is possible to use an `unpacker` to get back the original file. Some are readily available, like in the case of UPX, where you can use the same packing program for unpacking. For other commercial tools like Themida, you may have to rely on `unpacker scripts` made by 3rd parties.
+
+Here is a short list of scripts that you could use for specific Unpacker tools:
+- [Themida](https://github.com/Hendi48/Magicmida)
+- [Enigma Protector](https://github.com/ThomasThelen/OllyDbg-Scripts/blob/master/Enigma/Enigma%20Protector%201.90%20-%203.xx%20Alternativ%20Unpacker%20v1.0.txt)
+- [Mpress unpacker](https://github.com/avast/retdec/blob/master/src/unpackertool/plugins/mpress/mpress.cpp)
+
+If you chance upon malware packed with an obscure tool or modified to thwart available scripts, things might be more difficult.
+
+Thankfully, there are services like `unpac.me` where you can upload a sample. It will try to identify and unpack the malware for you using `custom unpacking and artefact extraction` processes. While this service is excellent, it can still fail.
+
+## Manual Unpacking and Dumping
+Ultimately, the `best way to unpack malware is to execute it`.
+
+When a packed malware is executed, the wrapper or container code performs decryption and deobfuscation. Once fully unpacked, the malware can proceed with its true intentions. At this point, the Packer is useless, and we can thoroughly analyze the malware by debugging it while it's in memory using a debugger.
+
+We can also dump this unpacked version as a separate executable. 
 
 
 
