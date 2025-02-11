@@ -31,8 +31,7 @@ graph TD;
 > - If you really can't wrap your head around something, just ask [ChatGPT](https://chatgpt.com/) to clarify it.
 > - Keep note of where you left off studying and make bookmarks in your browser application.
 
-## 1. Core programming and assembly foundations
-### 1.1 C-style C++ <img src="/Images/cpp.png" alt="C++ logo" width="25"/>
+## <img src="/Images/cpp.png" alt="C++ logo" width="25"/> C-style C++
 A C-style C++ summary of 2024. This summary is entirely possible thanks to the authors of the Learncpp website (Alex, Nascardriver and James C.) who made their knowledge available for public use.
 
 [Summary PDF](/Programming_Foundations/Cpp/C-Style_CPP_24.pdf)
@@ -73,7 +72,7 @@ A C-style C++ summary of 2024. This summary is entirely possible thanks to the a
 
 </details>
 
-### 1.2 x86 & x86-64 assembly <img src="/Images/ASM.png" alt="ASM logo" width="25"/>
+## <img src="/Images/ASM.png" alt="ASM logo" width="25"/> x86 & x86-64 assembly
 Note this guide was reworked from x86 to x86-64 for really exact and specific differences you should do your own research.
 
 <details>
@@ -140,7 +139,7 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 </details>
 
 
-## 2. Cybersecurity operations <img src="/Images/Network.png" alt="Network logo" width="25"/>
+## <img src="/Images/Network.png" alt="Network logo" width="25"/> Networking & Cybersecurity operations
 Covers the fundamentals of both offensive and defensive security skills, ethical hacking, penetration testing, and red teaming, providing hands-on experience with tools like Nmap, Burp Suite, and SQLmap. It includes topics such as reconnaissance, exploitation, privilege escalation, and persistence, with cheat sheets and scripting resources to aid practical learning.
 
 <details>
@@ -236,7 +235,7 @@ Covers the fundamentals of both offensive and defensive security skills, ethical
 
 </details>
 
-## 3. Windows Internals <img src="/Images/Windows.png" alt="Windows logo" width="25"/>
+## <img src="/Images/Windows.png" alt="Windows logo" width="25"/> Windows Internals
 This part explores Windows system architecture focusing on components such as processes, memory management, the Portable Executable (PE) file format.
 
 It provides foundational knowledge for reverse engineering, malware analysis, and low-level Windows security research.
@@ -274,7 +273,7 @@ It provides foundational knowledge for reverse engineering, malware analysis, an
 
 </details>
 
-## 4. Reverse Engineering <img src="/Images/Hexadecimal.png" alt="RE logo" width="25"/>
+## <img src="/Images/Hexadecimal.png" alt="RE logo" width="25"/> Reverse Engineering
 Covers reverse engineering techniques, including static and dynamic analysis, debugging, and anti-reversing methods.
 
 <details>
