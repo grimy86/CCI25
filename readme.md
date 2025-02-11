@@ -39,6 +39,7 @@ A C-style C++ summary of 2024. This summary is entirely possible thanks to the a
 
 <details>
 <summary> Modules </summary>
+
 - Keywords
 - Introduction / Getting started
 - Basics
@@ -59,14 +60,17 @@ A C-style C++ summary of 2024. This summary is entirely possible thanks to the a
 - C-style: Arrays & strings
 - Dynamic allocation
 - Functions
+
 </details>
 
 <details>
 <summary> References </summary>
+
 - [cppreference](https://en.cppreference.com/w/)
 - [cplusplus reference](https://cplusplus.com/reference/)
 - [W3Schools DSA Intro](https://www.w3schools.com/dsa/dsa_intro.php)
 - [hackingcpp cheat sheets](https://hackingcpp.com/cpp/cheat_sheets.html)
+
 </details>
 
 ### 1.2 x86 & x86-64 assembly <img src="/Images/ASM.png" alt="ASM logo" width="25"/>
