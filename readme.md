@@ -108,7 +108,12 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 </details>
 
 <details>
-<summary> Compiling the example programs </summary>
+<summary> Example programs </summary>
+
+- [Example masm program](/Programming_Foundations/Assembly/Examples/hello_world.asm)
+- [Example nasm program](/Programming_Foundations/Assembly/Examples/hello_world_nasm.asm)
+
+</details>
 
 > [!NOTE]
 > To compile NASM on windows download [NASM](https://www.nasm.us/) & [w64devkit-x86](https://github.com/skeeto/w64devkit/releases/tag/v2.0.0).
@@ -118,11 +123,6 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 >
 > Use GCC to link the .obj file and create the final executable (.exe). Run this command:
 > ```gcc -mconsole -nostartfiles -o fileName.exe fileName.obj```
-
-- [Example masm program](/Programming_Foundations/Assembly/Examples/hello_world.asm)
-- [Example nasm program](/Programming_Foundations/Assembly/Examples/hello_world_nasm.asm)
-
-</details>
 
 <details>
 <summary> References </summary>
