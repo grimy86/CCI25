@@ -35,7 +35,7 @@ graph TD;
 ### 1.1 C-style C++ <img src="/Images/cpp.png" alt="C++ logo" width="25"/>
 A C-style C++ summary of 2024. This summary is entirely possible thanks to the authors of the Learncpp website (Alex, Nascardriver and James C.) who made their knowledge available for public use.
 
-- [Summary PDF](/Programming_Foundations/Cpp/C-Style_CPP_24.pdf)
+[Summary PDF](/Programming_Foundations/Cpp/C-Style_CPP_24.pdf)
 
 <details>
 <summary> Modules </summary>
@@ -76,7 +76,9 @@ A C-style C++ summary of 2024. This summary is entirely possible thanks to the a
 ### 1.2 x86 & x86-64 assembly <img src="/Images/ASM.png" alt="ASM logo" width="25"/>
 Note this guide was reworked from x86 to x86-64 for really exact and specific differences you should do your own research.
 
-#### Architecture
+<details>
+<summary> Architecture </summary>
+
 1. [Intro](/Programming_Foundations/Assembly/Architecture/Intro.md)
 2. [x86 Architecture](/Programming_Foundations/Assembly/Architecture/Architecture.md)
 3. [Modes of operation](/Programming_Foundations/Assembly/Architecture/Operating_Modes.md)
@@ -88,7 +90,11 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 9. [Calling Conventions](/Programming_Foundations/Assembly/Architecture/Calling_Conventions.md)
 10. [Instructions / Opcodes](/Programming_Foundations/Assembly/Architecture/Instructions.md)
 
-#### x86 Syntax
+</details>
+
+<details>
+<summary> Syntax </summary>
+
 1. [Directives](/Programming_Foundations/Assembly/Architecture/Directives.md)
 2. [Instructions](/Programming_Foundations/Assembly/Architecture/Instructions.md)
 3. [Radix characters](/Programming_Foundations/Assembly/Architecture/Radix_Chars.md)
@@ -98,7 +104,11 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 7. [Declaring variables](/Programming_Foundations/Assembly/Architecture/Declaring_Variables.md)
 8. [Operator presedence](/Programming_Foundations/Assembly/Architecture/Operator_Presedence.md)
 
-#### Example programs
+</details>
+
+<details>
+<summary> Compiling the example programs </summary>
+
 > [!NOTE]
 > To compile NASM on windows download [NASM](https://www.nasm.us/) & [w64devkit-x86](https://github.com/skeeto/w64devkit/releases/tag/v2.0.0).
 > 
@@ -111,7 +121,11 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 - [Example masm program](/Programming_Foundations/Assembly/Examples/hello_world.asm)
 - [Example nasm program](/Programming_Foundations/Assembly/Examples/hello_world_nasm.asm)
 
-#### References
+</details>
+
+<details>
+<summary> References </summary>
+
 - [Godbolt Compiler Explorer](https://godbolt.org/)
 - [JLearn PH's MASM32 assembly programming playlist](https://www.youtube.com/playlist?list=PLE6kld48wGGPEq1mDnFVfbLZ81gcP3nJj)
 - [MASM reference](https://learn.microsoft.com/en-us/cpp/assembler/masm/microsoft-macro-assembler-reference?view=msvc-170) for more information on x86 assembly in MASM32.
@@ -123,18 +137,26 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 - [ost2.fyi's Architecture 2001: x86-64 OS Internals](https://p.ost2.fyi/courses/course-v1:OpenSecurityTraining2+Arch2001_x86-64_OS_Internals+2021_v1/about)
 - [asmtutor](https://asmtutor.com/)
 
+</details>
+
 
 ## 2. Cybersecurity operations <img src="/Images/Network.png" alt="Network logo" width="25"/>
 Covers the fundamentals of both offensive and defensive security skills, ethical hacking, penetration testing, and red teaming, providing hands-on experience with tools like Nmap, Burp Suite, and SQLmap. It includes topics such as reconnaissance, exploitation, privilege escalation, and persistence, with cheat sheets and scripting resources to aid practical learning.
 
-### 2.1 General info
+<details>
+<summary> Fundamentals & general info </summary>
+
 1. [Pentesting Fundamentals](/Cybersecurity_Operations/General/PentestingFundamentals.md)
 2. [Principles of Security](/Cybersecurity_Operations/General/SecurityPrinciples.md)
 3. [Red teaming fundamentals](/Cybersecurity_Operations/General/RTFundamentals.md)
 4. [Red teaming engagements](/Cybersecurity_Operations/General/RTEngagements)
 5. [Governance & Regulation](/Cybersecurity_Operations/General/Governance%26Regulation.md)
 
-### 2.2 Cheat Sheets
+</details>
+
+<details>
+<summary> Cheat Sheets </summary>
+
 1. [Networking](/Cybersecurity_Operations/Cheat%20Sheets/Networking.md)
 2. [Linux](/Cybersecurity_Operations/Cheat%20Sheets/Linux.md)
 3. [Windows](/Cybersecurity_Operations/Cheat%20Sheets/Windows.md)
@@ -142,64 +164,99 @@ Covers the fundamentals of both offensive and defensive security skills, ethical
 5. [Cryptography](/Cybersecurity_Operations/Cheat%20Sheets/Cryptography.md)
 6. [Vulnerabilities](/Cybersecurity_Operations/Cheat%20Sheets/Vulnerabilities.md)
 
-### 2.3 Planning & Recon
+</details>
+
+<details>
+<summary> Planning & Recon </summary>
+
 1. [Planning](/Cybersecurity_Operations/Planning%20%26%20Recon/Planning.md)
 2. [Recon](/Cybersecurity_Operations/Planning%20%26%20Recon/Recon.md)
 
-### 2.4 Scanning
+</details>
+
+<details>
+<summary> Scanning </summary>
+
 1. [Nmap](/Cybersecurity_Operations/Scanning/Nmap.md)
 2. [Directory Scanners](/Cybersecurity_Operations/Scanning/DirectoryScanners.md)
 3. [SQLmap](/Cybersecurity_Operations/Scanning/SQLmap.md)
 
-### 2.5 Gaining Access
+</details>
+
+<details>
+<summary> Gaining Access </summary>
+
 1. [Web Enumeration](/Cybersecurity_Operations/Gaining%20Access/WebEnum.md)
 2. [OWASP Top 10](/Cybersecurity_Operations/Gaining%20Access/OWASP10.md)
 3. [Exploitation](/Cybersecurity_Operations/Gaining%20Access/Exploitation.md)
 4. [Phishing](/Cybersecurity_Operations/Gaining%20Access/Phishing.md)
 
-#### Tools used to gain access
+</details>
+
+<details>
+<summary> Tools used to gain access </summary>
+
 1. [Burpsuite](/Cybersecurity_Operations/Gaining%20Access/Burpsuite.md)
 2. [Hydra](/Cybersecurity_Operations/Gaining%20Access/Hydra.md)
 
-### 2.6 Maintaining Access
+</details>
+
+<details>
+<summary> Maintaining Access </summary>
+
 1. [Shells](/Cybersecurity_Operations/Maintaining%20Access/Shells.md)
 2. [Linux priveledge escalation](/Cybersecurity_Operations/Maintaining%20Access/LinPrivesc.md)
 3. [Windows priveledge escalation](/Cybersecurity_Operations/Maintaining%20Access/WinPrivesc.md)
 4. [Windows persistence](/Cybersecurity_Operations/Maintaining%20Access/WinPersistence.md)
 
-### 2.7 Analysis
+</details>
+
+<details>
+<summary> Analysis </summary>
+
 1. [CAPA](/Analysis/CAPA.md)
 2. [REMnux & FlareVM](/Cybersecurity_Operations/Analysis/REMnux&FlareVM.md)
+3. [Malware analysis and reverse engineering](/readme.md#4-reverse-engineering)
 
-### 2.8 Scripting
+</details>
+
+<details>
+<summary> Scripting </summary>
+
 1. [Python for pentesters](/Cybersecurity_Operations/Scripting/PythonForPentesters.md)
 
-#### References
+</details>
+
+<details>
+<summary> References </summary>
+
 - [TryHackMe](https://tryhackme.com/)
 - [A-Z Index of the Linux command line: bash + utilities](https://ss64.com/bash/)
 - [IANA's Service Name and Transport Protocol Port Number Registry](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml)
 
+</details>
 
 ## 3. Windows Internals <img src="/Images/Windows.png" alt="Windows logo" width="25"/>
 This part explores Windows system architecture focusing on components such as processes, memory management, the Portable Executable (PE) file format.
 
 It provides foundational knowledge for reverse engineering, malware analysis, and low-level Windows security research.
 
-### 3.1 Windows internals Overview
+<details>
+<summary> Modules </summary>
+
 1. [Windows Internals Overview](/Windows_Internals/Internals.md)
+2. [Memory](/Windows_Internals/Memory.md)
+3. [PE file format](/Windows_Internals/PE.md)
 
-### 3.2 Memory
-1. [Memory](/Windows_Internals/Memory.md)
-
-### 3.2 Portable executable (PE) file format & Packing
-1. [PE file format](/Windows_Internals/PE.md)
+</details>
 
 <!--Syscalls? Drivers, sockets?-->
 
-#### References
+<details>
+<summary> References </summary>
+
 - [Pavel Yosifovich's windows internals](https://scorpiosoftware.net/)
 - [Pavel Yosifovich's youtube channel](https://www.youtube.com/@zodiacon)
-
 - [0xRick's dive into PE file format](https://0xrick.github.io/)
 - [Empyreal96's info depot](https://empyreal96.github.io/nt-info-depot/index.html)
 - [Alex Ionescu's blog](https://www.alex-ionescu.com/)
@@ -215,8 +272,13 @@ It provides foundational knowledge for reverse engineering, malware analysis, an
 - [Programming reference for the Win32 API](https://learn.microsoft.com/en-us/windows/win32/api/)
 - [ost2.fyi](https://p.ost2.fyi/courses)
 
+</details>
+
 ## 4. Reverse Engineering <img src="/Images/Hexadecimal.png" alt="RE logo" width="25"/>
 Covers reverse engineering techniques, including static and dynamic analysis, debugging, and anti-reversing methods.
+
+<details>
+<summary> Modules </summary>
 
 1. [Intro to (malware) analysis](/Reverse_Engineering/Intro.md)
 2. [Basic static analysis](/Reverse_Engineering/Basic_static.md)
@@ -225,7 +287,11 @@ Covers reverse engineering techniques, including static and dynamic analysis, de
 5. [Dynamic analysis: Debugging](/Reverse_Engineering/Dynamic_debugging.md)
 6. [Anti-reverse engineering](/Reverse_Engineering/Anti_reversing.md)
 
-#### References
+</details>
+
+<details>
+<summary> References </summary>
+
 - [TryHackMe](https://tryhackme.com/)
 - [jstrosch's learning reverse engineering repo](https://github.com/jstrosch/learning-reverse-engineering)
 - [Dr Josh Stroschein - The Cyber Yeti youtube channel](https://www.youtube.com/@jstrosch/playlists)
@@ -240,6 +306,7 @@ Covers reverse engineering techniques, including static and dynamic analysis, de
 - [wtsxDev's list of reverse engineering resources](https://github.com/wtsxDev/reverse-engineering)
 - [Malwareunicorn's workshops](https://malwareunicorn.org/#/workshops)
 
+</details>
 
 <!--
 ### Tooling
