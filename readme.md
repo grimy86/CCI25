@@ -24,6 +24,9 @@ graph TD;
 	winint --> api[Win32 API]
 	re --> sa[Static analysis]
 	re --> da[Dynamic analysis]
+	sa --> ed[Exploit development]
+	da --> ed
+	api --> ed
 ```
 
 > [!TIP]
@@ -306,6 +309,23 @@ Covers reverse engineering techniques, including static and dynamic analysis, de
 - [0xZ0F's Reverse Engineering Course repo](https://github.com/0xZ0F/Z0FCourse_ReverseEngineering)
 - [wtsxDev's list of reverse engineering resources](https://github.com/wtsxDev/reverse-engineering)
 - [Malwareunicorn's workshops](https://malwareunicorn.org/#/workshops)
+
+</details>
+
+## <img src="/Images/Unlock.png" alt="ED logo" width="25"/> Exploit Development
+//
+
+<details>
+<summary> Modules </summary>
+
+1. TO DO
+
+</details>
+
+<details>
+<summary> References </summary>
+
+- TO DO
 
 </details>
 
