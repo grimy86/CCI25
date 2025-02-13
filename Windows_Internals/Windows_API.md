@@ -35,7 +35,7 @@ Programs often need to access or modify Windows subsystems or hardware but are `
 
 Windows distinguishes hardware access by two distinct modes: `user` and `kernel` mode. These modes determine the hardware, kernel, and memory access an application or driver is permitted. `API or system calls interface between each mode`, sending information to the system to be `processed in kernel mode`.
 
-![Modes](/Exploit_Development/Images/Modes.png)
+![Modes](/Windows_Internals/Images/Modes.png)
 
 ## Win32 API components
 The Win32 API, more commonly known as the Windows API, has several dependent components that are used to define the structure and organization of the API.

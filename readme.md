@@ -21,11 +21,7 @@ graph TD;
     nf --> csec[Cybersecurity operations]
 	csec --> winint[Windows internals]
 	winint --> re[Reverse engineering]
-	re --> sa[Static analysis]
-	re --> da[Dynamic analysis]
-	sa --> ed[Exploit development]
-	da --> ed
-	ed --> api[Win32 API]
+	re --> ed[Exploit development]
 ```
 
 > [!TIP]
@@ -255,6 +251,8 @@ It provides foundational knowledge for reverse engineering, malware analysis, an
 1. [Windows Internals Overview](/Windows_Internals/Internals.md)
 2. [Memory](/Windows_Internals/Memory.md)
 3. [PE file format](/Windows_Internals/PE.md)
+4. [Introduction to API's](/Windows_Internals/API.md)
+5. [Windows API](/Windows_Internals/Windows_API.md)
 
 </details>
 
@@ -279,6 +277,7 @@ It provides foundational knowledge for reverse engineering, malware analysis, an
 - [Alex Ionescu's ReactOS](https://doxygen.reactos.org/index.html)
 - [Programming reference for the Win32 API](https://learn.microsoft.com/en-us/windows/win32/api/)
 - [ost2.fyi](https://p.ost2.fyi/courses)
+- [mr.d0x's malapi list](https://malapi.io/)
 
 </details>
 
@@ -288,12 +287,14 @@ Covers reverse engineering techniques, including static and dynamic analysis, de
 <details>
 <summary> Modules </summary>
 
+0. [Understand assembly first](/readme.md#x86--x86-64-assembly)
 1. [Intro to (malware) analysis](/Reverse_Engineering/Intro.md)
-2. [Basic static analysis](/Reverse_Engineering/Basic_static.md)
-3. [Advanced static analysis](/Reverse_Engineering/Advanced_static.md)
-4. [Basic dynamic analysis](/Reverse_Engineering/Dynamic.md)
-5. [Dynamic analysis: Debugging](/Reverse_Engineering/Dynamic_debugging.md)
-6. [Anti-reverse engineering](/Reverse_Engineering/Anti_reversing.md)
+2. [Understand PE header files](/Windows_Internals/PE.md)
+3. [Basic static analysis](/Reverse_Engineering/Basic_static.md)
+4. [Advanced static analysis](/Reverse_Engineering/Advanced_static.md)
+5. [Basic dynamic analysis](/Reverse_Engineering/Dynamic.md)
+6. [Dynamic analysis: Debugging](/Reverse_Engineering/Dynamic_debugging.md)
+7. [Anti-reverse engineering](/Reverse_Engineering/Anti_reversing.md)
 
 </details>
 
@@ -316,25 +317,18 @@ Covers reverse engineering techniques, including static and dynamic analysis, de
 
 </details>
 
+<!--
 ## <img src="/Images/Unlock.png" alt="ED logo" width="25"/> Windows Exploit Development
 Work in progress...
 
 <details>
 <summary> Modules </summary>
-
-1. [Introduction to API's](/Exploit_Development/API.md)
-2. [Windows API](/Exploit_Development/Windows_API.md)
-
 </details>
 
 <details>
 <summary> References </summary>
-
-- TO DO
-
 </details>
 
-<!--
 ### Tooling
 1. Introduction to Windows API (win32 API
 2. Cheat engine
