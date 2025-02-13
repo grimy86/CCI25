@@ -316,13 +316,14 @@ Covers reverse engineering techniques, including static and dynamic analysis, de
 
 </details>
 
-## <img src="/Images/Unlock.png" alt="ED logo" width="25"/> Exploit Development
-//
+## <img src="/Images/Unlock.png" alt="ED logo" width="25"/> Windows Exploit Development
 
 <details>
 <summary> Modules </summary>
 
-1. TO DO
+1. [Introduction to API's](/Exploit_Development/API.md)
+2. [REST API](/Exploit_Development/REST_API.md)
+3. [Windows API](/Exploit_Development/Windows_API.md)
 
 </details>
 
