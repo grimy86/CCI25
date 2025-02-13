@@ -25,7 +25,7 @@ graph TD;
 	re --> da[Dynamic analysis]
 	sa --> ed[Exploit development]
 	da --> ed
-	api[Win32 API] --> ed
+	ed --> api[Win32 API]
 ```
 
 > [!TIP]
