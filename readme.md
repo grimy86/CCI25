@@ -21,7 +21,6 @@ graph TD;
     nf --> csec[Cybersecurity operations]
 	csec --> winint[Windows internals]
 	winint --> re[Reverse engineering]
-	re --> ed[Exploit development]
 ```
 
 > [!TIP]
