@@ -21,12 +21,11 @@ graph TD;
     nf --> csec[Cybersecurity operations]
 	csec --> winint[Windows internals]
 	winint --> re[Reverse engineering]
-	winint --> api[Win32 API]
 	re --> sa[Static analysis]
 	re --> da[Dynamic analysis]
 	sa --> ed[Exploit development]
 	da --> ed
-	api --> ed
+	api[Win32 API] --> ed
 ```
 
 > [!TIP]
