@@ -147,6 +147,9 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 Covers the fundamentals of both offensive and defensive security skills, ethical hacking, penetration testing, and red teaming, providing hands-on experience with tools like Nmap, Burp Suite, and SQLmap. It includes topics such as reconnaissance, exploitation, privilege escalation, and persistence, with cheat sheets and scripting resources to aid practical learning.
 
 <details>
+<summary> Modules </summary>
+
+<details>
 <summary> Fundamentals & general info </summary>
 
 1. [Pentesting Fundamentals](/Cybersecurity_Operations/General/PentestingFundamentals.md)
@@ -227,6 +230,8 @@ Covers the fundamentals of both offensive and defensive security skills, ethical
 <summary> Scripting </summary>
 
 1. [Python for pentesters](/Cybersecurity_Operations/Scripting/PythonForPentesters.md)
+
+</details>
 
 </details>
 
