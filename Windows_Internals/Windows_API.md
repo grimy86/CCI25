@@ -52,4 +52,97 @@ Let’s break the Win32 API up via a top-down approach. We’ll assume the API i
 | API Calls | The API call used within a program, with function addresses obtained from pointers. |
 | In/Out Parameters | The parameter values that are defined by the call structures. |
 
-### OS Libraries
+## OS Libraries
+Each API call of the Win32 library resides in memory and requires a pointer to a memory address. The process of obtaining pointers to these functions is obscured because of `ASLR` (Address Space Layout Randomization) implementations; each language or package has a unique procedure to overcome ASLR.
+
+We will discuss the two most popular implementations: `P/Invoke` and the `Windows header file`.
+
+### Windows Header File
+Microsoft has released the Windows header file, also known as the `Windows loader`, as a direct solution to the problems associated with ASLR’s implementation.
+
+Keeping the concept at a high level, at runtime, the loader will determine what calls are being made and create a `thunk table` to obtain function addresses or pointers.
+
+Once the `windows.h` file is included at the top of an unmanaged program; any Win32 function can be called.
+
+Take a loot at the bottom [ExtProc.h](https://github.com/grimy86/AssaultCubeTrainer/blob/master/AssaultCubeTrainer/ExtProc.h) which uses [ReadProcessMemory](https://learn.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-readprocessmemory) and [WriteProcessMemory](https://learn.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-writeprocessmemory).
+
+### P/Invoke
+Microsoft describes P/Invoke or `platform invoke` as “a technology that allows you to access structs, callbacks, and functions in unmanaged libraries from your managed code.”
+
+- Managed code:
+  Code managed by a CLR (Common Language Runtime) like .NET which is used for C#, VB.NET and F#.
+
+  Managed code benefits from automatic garbage collection, type safety, and runtime security features.
+
+- Unmanaged code:
+  Unmanaged code manages its own memory and execution. It's code that runs directly on the OS, without CLR intervention.
+
+  Examples include: C, C++, Win32 API, and system DLLs like kernel32.dll or user32.dll (which are written in those unmanaged languages).
+
+P/invoke provides tools to handle the entire process of `invoking an unmanaged function from managed code` or, in other words, calling the Win32 API in a language like C#. P/invoke will kick off by importing the desired DLL that contains the unmanaged function or Win32 API call.
+
+Below is an example of importing a DLL with options.
+
+```cs
+using System;
+using System.Runtime.InteropServices;
+
+public class Program
+{
+  // Importing the DLL user32 using the attribute: DLLImport.
+  [DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+  ...
+} 
+```
+
+Note: a semicolon is not included because the p/invoke function is not yet complete. In the second step, we must `define a managed method as an external one`. The `extern` keyword will inform the runtime of the specific DLL that was previously imported.
+
+```cs
+using System;
+using System.Runtime.InteropServices;
+
+public class Program
+{
+...
+private static extern int MessageBox(IntPtr hWnd, string lpText, string lpCaption, uint uType);
+}
+```
+
+Now we can invoke the function as a managed method, but we are calling the unmanaged function!
+
+## API Call Structure
+API calls are the second main component of the Win32 library. These calls offer extensibility and flexibility that can be used to meet a plethora of use cases. Most Win32 API calls are well documented under the Windows API documentation and pinvoke.
+
+API call functionality can be extended by modifying the naming scheme and appending a representational character.
+
+Microsoft supported API calls naming scheme:
+
+| Character | Explanation |
+|-|-|
+| A | Represents an 8-bit character set with ANSI encoding |
+| W | Represents a Unicode encoding |
+| Ex | Provides extended functionality or in/out parameters to the API call |
+
+Each API call also has a pre-defined structure to define its in/out parameters. You can find most of these structures on the corresponding API call document page of the Windows documentation, along with explanations of each I/O parameter.
+
+Let’s take a look at the WriteProcessMemory API call as an example. Below is the I/O structure for the call obtained [here](https://learn.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-writeprocessmemory).
+
+```cpp
+BOOL WriteProcessMemory(
+  [in]  HANDLE  hProcess,
+  [in]  LPVOID  lpBaseAddress,
+  [in]  LPCVOID lpBuffer,
+  [in]  SIZE_T  nSize,
+  [out] SIZE_T  *lpNumberOfBytesWritten
+);
+```
+For each I/O parameter, Microsoft also explains its use, expected input or output, and accepted values.
+
+## C API Implementations
+Microsoft provides low-level programming languages such as C and C++ with a pre-configured set of libraries that we can use to access the API calls.
+
+The `windows.h header file`, is used to define call structures and obtain function pointers. To include the windows header, prepend the line below to any C or C++ program.
+
+```cpp
+#include <windows.h>
+```
