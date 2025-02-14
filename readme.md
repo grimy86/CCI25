@@ -6,8 +6,7 @@
 
 **An open-source guide / insights to C-style C++, x86, x86-64 assembly, cybersecurity operations and Windows internals into a unified learning resource.**
 
-> [!IMPORTANT]
-> This guide is catered towards cybersecurity development, not as much to cybersecurity operations / red teaming or blue teaming.
+**Brief disclaimer:** This guide is catered towards cybersecurity development, not as much to cybersecurity operations / red teaming or blue teaming.
 
 > [!TIP]
 >  No prior knowledge is needed.
@@ -21,17 +20,22 @@ graph TD;
     nf --> csec[Cybersecurity operations]
 	csec --> winint[Windows internals]
 	winint --> re[Reverse engineering]
+	cpp -.-> winint
+	cpp -.-> re
+	x86-64 -.-> re
 ```
 
 > [!TIP]
 > - Add this folder to your windows defender exclusions as it might remove valuable resources.
-> - Don't jump from topic to topic unless you know what you're doing. Most of the "steps" build on top of eachother.
+> - Don't jump from topic to topic unless you know what you're doing. Most of the "steps" build on top of each other.
 > - Install add-ons like [dark reader](https://darkreader.org/) and [remove HTML elements](https://chromewebstore.google.com/detail/remove-html-elements/enegojdnkeicfoiknhfjaedhlckeahmf?hl=en&pli=1) that make reading better.
 > - If you really can't wrap your head around something, just ask [ChatGPT](https://chatgpt.com/) to clarify it.
 > - Keep note of where you left off studying and make bookmarks in your browser application.
 
 ## <img src="/Images/cpp.png" alt="C++ logo" width="25"/> C-style C++
 A C-style C++ summary of 2024. This summary is entirely possible thanks to the authors of the Learncpp website (Alex, Nascardriver and James C.) who made their knowledge available for public use.
+
+**prerequisites:** None
 
 [Summary PDF](/Programming_Foundations/Cpp/C-Style_CPP_24.pdf)
 
@@ -74,6 +78,8 @@ A C-style C++ summary of 2024. This summary is entirely possible thanks to the a
 ## <img src="/Images/ASM.png" alt="ASM logo" width="25"/> x86 & x86-64 assembly
 Note this guide was reworked from x86 to x86-64 for really exact and specific differences you should do your own research.
 
+**prerequisites:** [C++](/readme.md#c-style-c)
+
 <details>
 <summary> Architecture </summary>
 
@@ -100,7 +106,7 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 5. [Reserved words](/Programming_Foundations/Assembly/Architecture/Reserved_words.md)
 6. [Identifiers](/Programming_Foundations/Assembly/Architecture/Identifiers.md)
 7. [Declaring variables](/Programming_Foundations/Assembly/Architecture/Declaring_Variables.md)
-8. [Operator presedence](/Programming_Foundations/Assembly/Architecture/Operator_Presedence.md)
+8. [Operator precedence](/Programming_Foundations/Assembly/Architecture/Operator_Presedence.md)
 
 </details>
 
@@ -140,6 +146,8 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 
 ## <img src="/Images/Network.png" alt="Network logo" width="25"/> Networking & Cybersecurity operations
 Covers the fundamentals of both offensive and defensive security skills, ethical hacking, penetration testing, and red teaming, providing hands-on experience with tools like Nmap, Burp Suite, and SQLmap. It includes topics such as reconnaissance, exploitation, privilege escalation, and persistence, with cheat sheets and scripting resources to aid practical learning.
+
+**prerequisites:** None
 
 <details>
 <summary> Modules </summary>
@@ -206,8 +214,8 @@ Covers the fundamentals of both offensive and defensive security skills, ethical
 <summary> Maintaining Access </summary>
 
 1. [Shells](/Cybersecurity_Operations/Maintaining%20Access/Shells.md)
-2. [Linux priveledge escalation](/Cybersecurity_Operations/Maintaining%20Access/LinPrivesc.md)
-3. [Windows priveledge escalation](/Cybersecurity_Operations/Maintaining%20Access/WinPrivesc.md)
+2. [Linux privilege escalation](/Cybersecurity_Operations/Maintaining%20Access/LinPrivesc.md)
+3. [Windows privilege escalation](/Cybersecurity_Operations/Maintaining%20Access/WinPrivesc.md)
 4. [Windows persistence](/Cybersecurity_Operations/Maintaining%20Access/WinPersistence.md)
 
 </details>
@@ -217,7 +225,7 @@ Covers the fundamentals of both offensive and defensive security skills, ethical
 
 1. [CAPA](/Analysis/CAPA.md)
 2. [REMnux & FlareVM](/Cybersecurity_Operations/Analysis/REMnux&FlareVM.md)
-3. [Malware analysis and reverse engineering](/readme.md#4-reverse-engineering)
+3. [Malware analysis and reverse engineering](/readme.md#reverse-engineering)
 
 </details>
 
@@ -243,6 +251,8 @@ Covers the fundamentals of both offensive and defensive security skills, ethical
 This part explores Windows system architecture focusing on components such as processes, memory management, the Portable Executable (PE) file format.
 
 It provides foundational knowledge for reverse engineering, malware analysis, and low-level Windows security research.
+
+**prerequisites:** [C++](/readme.md#c-style-c)
 
 <details>
 <summary> Modules </summary>
@@ -283,10 +293,11 @@ It provides foundational knowledge for reverse engineering, malware analysis, an
 ## <img src="/Images/Hexadecimal.png" alt="RE logo" width="25"/> Reverse Engineering
 Covers reverse engineering techniques, including static and dynamic analysis, debugging, and anti-reversing methods.
 
+**prerequisites:** [C++](/readme.md#c-style-c) & [x86-64 Assembly](/readme.md#x86--x86-64-assembly)
+
 <details>
 <summary> Modules </summary>
 
-0. [Understand assembly first](/readme.md#x86--x86-64-assembly)
 1. [Intro to (malware) analysis](/Reverse_Engineering/Intro.md)
 2. [Understand PE header files](/Windows_Internals/PE.md)
 3. [Basic static analysis](/Reverse_Engineering/Basic_static.md)
