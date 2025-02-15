@@ -15,14 +15,11 @@
 
 ```mermaid
 graph TD;
-	cpp[C-style C++] --> x86-64[x86 & x86-64 assembly]
-	x86-64 --> nf[Networking fundamentals]
-    nf --> csec[Cybersecurity operations]
-	csec --> winint[Windows internals]
-	winint --> re[Reverse engineering]
-	cpp -.-> winint
-	cpp -.-> re
-	x86-64 -.-> re
+	cpp[C-style C++] --> winint[Windows internals]
+	winint --> x86-64[x86 & x86-64 assembly]
+	x86-64 --> re[Reverse engineering]
+
+	nt[Networking fundamentals] --> csec[Cybersecurity operations]
 ```
 
 > [!TIP]
@@ -31,6 +28,7 @@ graph TD;
 > - Install add-ons like [dark reader](https://darkreader.org/) and [remove HTML elements](https://chromewebstore.google.com/detail/remove-html-elements/enegojdnkeicfoiknhfjaedhlckeahmf?hl=en&pli=1) that make reading better.
 > - If you really can't wrap your head around something, just ask [ChatGPT](https://chatgpt.com/) to clarify it.
 > - Keep note of where you left off studying and make bookmarks in your browser application.
+
 
 ## <img src="/Images/cpp.png" alt="C++ logo" width="35"/> C-style C++
 A C-style C++ summary of 2024. This summary is entirely possible thanks to the authors of the Learncpp website (Alex, Nascardriver and James C.) who made their knowledge available for public use.
@@ -74,6 +72,52 @@ A C-style C++ summary of 2024. This summary is entirely possible thanks to the a
 - [hackingcpp cheat sheets](https://hackingcpp.com/cpp/cheat_sheets.html)
 
 </details>
+
+
+## <img src="/Images/Windows.png" alt="Windows logo" width="35"/> Windows Internals
+This part explores Windows system architecture focusing on components such as processes, memory management, the Portable Executable (PE) file format.
+
+It provides foundational knowledge for reverse engineering, malware analysis, and low-level Windows security research.
+
+**prerequisites:** [C++](/readme.md#c-style-c)
+
+<details>
+<summary> Modules </summary>
+
+1. [Windows Internals Overview](/Windows_Internals/Internals.md)
+2. [Memory](/Windows_Internals/Memory.md)
+3. [PE file format](/Windows_Internals/PE.md)
+4. [Introduction to API's](/Windows_Internals/API.md)
+5. [Windows API](/Windows_Internals/Windows_API.md)
+
+</details>
+
+<!--Syscalls? Drivers, sockets?-->
+
+<details>
+<summary> References </summary>
+
+- [Pavel Yosifovich's windows internals](https://scorpiosoftware.net/)
+- [Pavel Yosifovich's youtube channel](https://www.youtube.com/@zodiacon)
+- [0xRick's dive into PE file format](https://0xrick.github.io/)
+- [Empyreal96's info depot](https://empyreal96.github.io/nt-info-depot/index.html)
+- [Alex Ionescu's blog](https://www.alex-ionescu.com/)
+- [Duncan Ogilvie's internals crash course](https://www.youtube.com/watch?v=I_nJltUokE0)
+- [Alexander Sotirov's internals talk](https://www.youtube.com/watch?v=vz15OqiYYXo&t=194s)
+- [Crow's malware development playlist](https://www.youtube.com/playlist?list=PL_z_ep2nxC57sHAlCcvvaYRrpdMIQXri1)
+- [Red Team Notes on reversing, forensics & misc](https://www.ired.team/miscellaneous-reversing-forensics/windows-kernel-internals)
+- [Rexir's Windows Internals Videos](https://www.youtube.com/playlist?list=PLt9cUwGw6CYF6Kj19mBZpfhQPsRIC5vGl)
+- [TheSourceLens's Windows Internals part 1 playlist](https://www.youtube.com/playlist?list=PLhx7-txsG6t5i-kIZ_hwJSgZrnka4GXvn)
+- [Nir Lichtman's diving into windows internals playlist](https://www.youtube.com/playlist?list=PL0tgH22U2S3G2QpiK-Q1wKW_Fe-Wiu7JS)
+- [Geoff Chappell](https://www.geoffchappell.com/index.htm?ta=5)
+- [Alex Ionescu's ReactOS](https://doxygen.reactos.org/index.html)
+- [Programming reference for the Win32 API](https://learn.microsoft.com/en-us/windows/win32/api/)
+- [ost2.fyi](https://p.ost2.fyi/courses)
+- [mr.d0x's malapi list](https://malapi.io/)
+- [pinvoke.net](https://www.pinvoke.net/)
+
+</details>
+
 
 ## <img src="/Images/ASM.png" alt="ASM logo" width="35"/> x86 & x86-64 assembly
 Note this guide was reworked from x86 to x86-64 for really exact and specific differences you should do your own research.
@@ -142,6 +186,80 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 - [asmtutor](https://asmtutor.com/)
 
 </details>
+
+
+## <img src="/Images/Hexadecimal.png" alt="RE logo" width="35"/> Reverse Engineering
+Covers reverse engineering techniques, including static and dynamic analysis, debugging, and anti-reversing methods.
+
+**prerequisites:** [C++](/readme.md#c-style-c) & [x86-64 Assembly](/readme.md#x86--x86-64-assembly)
+
+<details>
+<summary> Modules </summary>
+
+1. [Intro to (malware) analysis](/Reverse_Engineering/Intro.md)
+2. [Understand PE header files](/Windows_Internals/PE.md)
+3. [Basic static analysis](/Reverse_Engineering/Basic_static.md)
+4. [Advanced static analysis](/Reverse_Engineering/Advanced_static.md)
+5. [Basic dynamic analysis](/Reverse_Engineering/Dynamic.md)
+6. [Dynamic analysis: Debugging](/Reverse_Engineering/Dynamic_debugging.md)
+7. [Anti-reverse engineering](/Reverse_Engineering/Anti_reversing.md)
+
+</details>
+
+<details>
+<summary> References </summary>
+
+- [TryHackMe](https://tryhackme.com/)
+- [jstrosch's learning reverse engineering repo](https://github.com/jstrosch/learning-reverse-engineering)
+- [Dr Josh Stroschein - The Cyber Yeti youtube channel](https://www.youtube.com/@jstrosch/playlists)
+- [Godbolt Compiler Explorer](https://godbolt.org/)
+- [Programming reference for the Win32 API](https://learn.microsoft.com/en-us/windows/win32/api/)
+- [FLARE VM](https://github.com/mandiant/flare-vm)
+- [REMnux](https://github.com/REMnux)
+- [FLOSS](https://github.com/mandiant/flare-floss)
+- [Reverse Engineering Resources-Beginners to intermediate Guide/Links](https://bbinfosec.medium.com/reverse-engineering-resources-beginners-to-intermediate-guide-links-f64c207505ed)
+- [ost2.fyi](https://p.ost2.fyi/courses)
+- [0xZ0F's Reverse Engineering Course repo](https://github.com/0xZ0F/Z0FCourse_ReverseEngineering)
+- [wtsxDev's list of reverse engineering resources](https://github.com/wtsxDev/reverse-engineering)
+- [Malwareunicorn's workshops](https://malwareunicorn.org/#/workshops)
+
+</details>
+
+<!--
+## <img src="/Images/Unlock.png" alt="ED logo" width="25"/> Windows Exploit Development
+Work in progress...
+
+<details>
+<summary> Modules </summary>
+</details>
+
+<details>
+<summary> References </summary>
+</details>
+
+### Tooling
+1. Introduction to Windows API (win32 API
+2. Cheat engine
+3. ReClass.NET
+4. IDA pro
+5. Sysinternals tools
+6. Sysmon
+
+### Exploit development
+1. Basics
+2. ROP
+3. BufferOverflow
+4. Memory corruption
+5. Shellcoding
+
+### Anti-analysis
+1. Anti-Disassembly
+2. Anti-Debugging
+3. Game Integrity Checks
+4. Obfuscation
+5. Packers and unpacking
+6. Bypassing Anti-Tamper technology
+-->
 
 
 ## <img src="/Images/Network.png" alt="Network logo" width="35"/> Networking & Cybersecurity operations
@@ -246,120 +364,3 @@ Covers the fundamentals of both offensive and defensive security skills, ethical
 - [IANA's Service Name and Transport Protocol Port Number Registry](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml)
 
 </details>
-
-## <img src="/Images/Windows.png" alt="Windows logo" width="35"/> Windows Internals
-This part explores Windows system architecture focusing on components such as processes, memory management, the Portable Executable (PE) file format.
-
-It provides foundational knowledge for reverse engineering, malware analysis, and low-level Windows security research.
-
-**prerequisites:** [C++](/readme.md#c-style-c)
-
-<details>
-<summary> Modules </summary>
-
-1. [Windows Internals Overview](/Windows_Internals/Internals.md)
-2. [Memory](/Windows_Internals/Memory.md)
-3. [PE file format](/Windows_Internals/PE.md)
-4. [Introduction to API's](/Windows_Internals/API.md)
-5. [Windows API](/Windows_Internals/Windows_API.md)
-
-</details>
-
-<!--Syscalls? Drivers, sockets?-->
-
-<details>
-<summary> References </summary>
-
-- [Pavel Yosifovich's windows internals](https://scorpiosoftware.net/)
-- [Pavel Yosifovich's youtube channel](https://www.youtube.com/@zodiacon)
-- [0xRick's dive into PE file format](https://0xrick.github.io/)
-- [Empyreal96's info depot](https://empyreal96.github.io/nt-info-depot/index.html)
-- [Alex Ionescu's blog](https://www.alex-ionescu.com/)
-- [Duncan Ogilvie's internals crash course](https://www.youtube.com/watch?v=I_nJltUokE0)
-- [Alexander Sotirov's internals talk](https://www.youtube.com/watch?v=vz15OqiYYXo&t=194s)
-- [Crow's malware development playlist](https://www.youtube.com/playlist?list=PL_z_ep2nxC57sHAlCcvvaYRrpdMIQXri1)
-- [Red Team Notes on reversing, forensics & misc](https://www.ired.team/miscellaneous-reversing-forensics/windows-kernel-internals)
-- [Rexir's Windows Internals Videos](https://www.youtube.com/playlist?list=PLt9cUwGw6CYF6Kj19mBZpfhQPsRIC5vGl)
-- [TheSourceLens's Windows Internals part 1 playlist](https://www.youtube.com/playlist?list=PLhx7-txsG6t5i-kIZ_hwJSgZrnka4GXvn)
-- [Nir Lichtman's diving into windows internals playlist](https://www.youtube.com/playlist?list=PL0tgH22U2S3G2QpiK-Q1wKW_Fe-Wiu7JS)
-- [Geoff Chappell](https://www.geoffchappell.com/index.htm?ta=5)
-- [Alex Ionescu's ReactOS](https://doxygen.reactos.org/index.html)
-- [Programming reference for the Win32 API](https://learn.microsoft.com/en-us/windows/win32/api/)
-- [ost2.fyi](https://p.ost2.fyi/courses)
-- [mr.d0x's malapi list](https://malapi.io/)
-- [pinvoke.net](https://www.pinvoke.net/)
-
-</details>
-
-## <img src="/Images/Hexadecimal.png" alt="RE logo" width="35"/> Reverse Engineering
-Covers reverse engineering techniques, including static and dynamic analysis, debugging, and anti-reversing methods.
-
-**prerequisites:** [C++](/readme.md#c-style-c) & [x86-64 Assembly](/readme.md#x86--x86-64-assembly)
-
-<details>
-<summary> Modules </summary>
-
-1. [Intro to (malware) analysis](/Reverse_Engineering/Intro.md)
-2. [Understand PE header files](/Windows_Internals/PE.md)
-3. [Basic static analysis](/Reverse_Engineering/Basic_static.md)
-4. [Advanced static analysis](/Reverse_Engineering/Advanced_static.md)
-5. [Basic dynamic analysis](/Reverse_Engineering/Dynamic.md)
-6. [Dynamic analysis: Debugging](/Reverse_Engineering/Dynamic_debugging.md)
-7. [Anti-reverse engineering](/Reverse_Engineering/Anti_reversing.md)
-
-</details>
-
-<details>
-<summary> References </summary>
-
-- [TryHackMe](https://tryhackme.com/)
-- [jstrosch's learning reverse engineering repo](https://github.com/jstrosch/learning-reverse-engineering)
-- [Dr Josh Stroschein - The Cyber Yeti youtube channel](https://www.youtube.com/@jstrosch/playlists)
-- [Godbolt Compiler Explorer](https://godbolt.org/)
-- [Programming reference for the Win32 API](https://learn.microsoft.com/en-us/windows/win32/api/)
-- [FLARE VM](https://github.com/mandiant/flare-vm)
-- [REMnux](https://github.com/REMnux)
-- [FLOSS](https://github.com/mandiant/flare-floss)
-- [Reverse Engineering Resources-Beginners to intermediate Guide/Links](https://bbinfosec.medium.com/reverse-engineering-resources-beginners-to-intermediate-guide-links-f64c207505ed)
-- [ost2.fyi](https://p.ost2.fyi/courses)
-- [0xZ0F's Reverse Engineering Course repo](https://github.com/0xZ0F/Z0FCourse_ReverseEngineering)
-- [wtsxDev's list of reverse engineering resources](https://github.com/wtsxDev/reverse-engineering)
-- [Malwareunicorn's workshops](https://malwareunicorn.org/#/workshops)
-
-</details>
-
-<!--
-## <img src="/Images/Unlock.png" alt="ED logo" width="25"/> Windows Exploit Development
-Work in progress...
-
-<details>
-<summary> Modules </summary>
-</details>
-
-<details>
-<summary> References </summary>
-</details>
-
-### Tooling
-1. Introduction to Windows API (win32 API
-2. Cheat engine
-3. ReClass.NET
-4. IDA pro
-5. Sysinternals tools
-6. Sysmon
-
-### Exploit development
-1. Basics
-2. ROP
-3. BufferOverflow
-4. Memory corruption
-5. Shellcoding
-
-### Anti-analysis
-1. Anti-Disassembly
-2. Anti-Debugging
-3. Game Integrity Checks
-4. Obfuscation
-5. Packers and unpacking
-6. Bypassing Anti-Tamper technology
--->
