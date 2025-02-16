@@ -95,6 +95,8 @@ It provides foundational knowledge for reverse engineering, malware analysis, an
 9. [Virtual Memory](/Windows_Internals/Virtual_Memory.md)
 10. [Processor modes: Kernel-mode vs. User-mode](/Windows_Internals/Processor_modes.md)
 
+</details>
+
 <!--
 - Kernel mode vs. User mode
 - Hypervisors
