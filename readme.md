@@ -15,9 +15,11 @@
 
 ```mermaid
 graph TD;
-	cpp[C-style C++] --> winint[Windows internals]
-	winint --> x86-64[x86 & x86-64 assembly]
-	x86-64 --> re[Reverse engineering]
+	cpp[C-style C++]
+	cpp --> x86-64[x86 & x86-64 assembly]
+	x86-64 --> winint[Windows internals]
+	winint --> re[Reverse engineering]
+	x86-64 -.-> re
 
 	nt[Networking fundamentals] --> csec[Cybersecurity operations]
 ```
@@ -70,68 +72,6 @@ A C-style C++ summary of 2024. This summary is entirely possible thanks to the a
 - [cplusplus reference](https://cplusplus.com/reference/)
 - [W3Schools DSA Intro](https://www.w3schools.com/dsa/dsa_intro.php)
 - [hackingcpp cheat sheets](https://hackingcpp.com/cpp/cheat_sheets.html)
-
-</details>
-
-
-## <img src="/Images/Windows.png" alt="Windows logo" width="35"/> Windows Internals
-This part explores Windows system architecture focusing on components such as processes, memory management, the Portable Executable (PE) file format.
-
-It provides foundational knowledge for reverse engineering, malware analysis, and low-level Windows security research.
-
-**prerequisites:** [C++](/readme.md#c-style-c)
-
-<details>
-<summary> Modules </summary>
-
-1. [Windows Internals Introduction](/Windows_Internals/Introduction.md)
-2. [The .NET Framework](/Windows_Internals/Dotnet_Framework.md)
-3. [Introduction to Dynamic Link Libraries (DLLs)](/Windows_Internals/DLLs.md)
-4. [Introduction to API's](/Windows_Internals/API_Introduction.md)
-5. [Windows API and WinRT](/Windows_Internals/Windows_API.md)
-6. [Services, functions and routines terminology](/Windows_Internals/Services_functions_routines.md)
-7. [Processes, Threads, Fibers, UMS and Jobs](/Windows_Internals/Processes_And_Threads.md)
-8. [PE file format](/Windows_Internals/PE.md)
-9. [Virtual Memory](/Windows_Internals/Virtual_Memory.md)
-10. [Processor modes: Kernel-mode vs. User-mode](/Windows_Internals/Processor_modes.md)
-
-</details>
-
-<!--
-- Kernel mode vs. User mode
-- Hypervisors
-- Firmware
-- Terminal services and multiple sessions
-- Objects and handles
-- Security
-- Registry
-- Unicode
-
-Syscalls? Drivers, sockets?
- -->
-
-<details>
-<summary> References </summary>
-
-- [Pavel Yosifovich's windows internals](https://scorpiosoftware.net/)
-- [Pavel Yosifovich's youtube channel](https://www.youtube.com/@zodiacon)
-- [0xRick's dive into PE file format](https://0xrick.github.io/)
-- [Empyreal96's info depot](https://empyreal96.github.io/nt-info-depot/index.html)
-- [Alex Ionescu's blog](https://www.alex-ionescu.com/)
-- [Duncan Ogilvie's internals crash course](https://www.youtube.com/watch?v=I_nJltUokE0)
-- [Alexander Sotirov's internals talk](https://www.youtube.com/watch?v=vz15OqiYYXo&t=194s)
-- [Crow's malware development playlist](https://www.youtube.com/playlist?list=PL_z_ep2nxC57sHAlCcvvaYRrpdMIQXri1)
-- [Red Team Notes on reversing, forensics & misc](https://www.ired.team/miscellaneous-reversing-forensics/windows-kernel-internals)
-- [Rexir's Windows Internals Videos](https://www.youtube.com/playlist?list=PLt9cUwGw6CYF6Kj19mBZpfhQPsRIC5vGl)
-- [TheSourceLens's Windows Internals part 1 playlist](https://www.youtube.com/playlist?list=PLhx7-txsG6t5i-kIZ_hwJSgZrnka4GXvn)
-- [Nir Lichtman's diving into windows internals playlist](https://www.youtube.com/playlist?list=PL0tgH22U2S3G2QpiK-Q1wKW_Fe-Wiu7JS)
-- [Geoff Chappell](https://www.geoffchappell.com/index.htm?ta=5)
-- [Alex Ionescu's ReactOS](https://doxygen.reactos.org/index.html)
-- [Programming reference for the Win32 API](https://learn.microsoft.com/en-us/windows/win32/api/)
-- [ost2.fyi](https://p.ost2.fyi/courses)
-- [mr.d0x's malapi list](https://malapi.io/)
-- [pinvoke.net](https://www.pinvoke.net/)
-- [Vergilius project](https://www.vergiliusproject.com/)
 
 </details>
 
@@ -201,6 +141,68 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 - [OliveStem's x86 assembly with NASM playlist](https://www.youtube.com/playlist?list=PL2EF13wm-hWCoj6tUBGUmrkJmH1972dBB)
 - [ost2.fyi's Architecture 2001: x86-64 OS Internals](https://p.ost2.fyi/courses/course-v1:OpenSecurityTraining2+Arch2001_x86-64_OS_Internals+2021_v1/about)
 - [asmtutor](https://asmtutor.com/)
+
+</details>
+
+
+## <img src="/Images/Windows.png" alt="Windows logo" width="35"/> Windows Internals
+This part explores Windows system architecture focusing on components such as processes, memory management, the Portable Executable (PE) file format.
+
+It provides foundational knowledge for reverse engineering, malware analysis, and low-level Windows security research.
+
+**prerequisites:** [C++](/readme.md#c-style-c)
+
+<details>
+<summary> Modules </summary>
+
+1. [Windows Internals Introduction](/Windows_Internals/Introduction.md)
+2. [The .NET Framework](/Windows_Internals/Dotnet_Framework.md)
+3. [Introduction to Dynamic Link Libraries (DLLs)](/Windows_Internals/DLLs.md)
+4. [Introduction to API's](/Windows_Internals/API_Introduction.md)
+5. [Windows API and WinRT](/Windows_Internals/Windows_API.md)
+6. [Services, functions and routines terminology](/Windows_Internals/Services_functions_routines.md)
+7. [Processes, Threads, Fibers, UMS and Jobs](/Windows_Internals/Processes_And_Threads.md)
+8. [PE file format](/Windows_Internals/PE.md)
+9. [Virtual Memory](/Windows_Internals/Virtual_Memory.md)
+10. [Processor modes: Kernel-mode vs. User-mode](/Windows_Internals/Processor_modes.md)
+
+</details>
+
+<!--
+- Kernel mode vs. User mode
+- Hypervisors
+- Firmware
+- Terminal services and multiple sessions
+- Objects and handles
+- Security
+- Registry
+- Unicode
+
+Syscalls? Drivers, sockets?
+ -->
+
+<details>
+<summary> References </summary>
+
+- [Pavel Yosifovich's windows internals](https://scorpiosoftware.net/)
+- [Pavel Yosifovich's youtube channel](https://www.youtube.com/@zodiacon)
+- [0xRick's dive into PE file format](https://0xrick.github.io/)
+- [Empyreal96's info depot](https://empyreal96.github.io/nt-info-depot/index.html)
+- [Alex Ionescu's blog](https://www.alex-ionescu.com/)
+- [Duncan Ogilvie's internals crash course](https://www.youtube.com/watch?v=I_nJltUokE0)
+- [Alexander Sotirov's internals talk](https://www.youtube.com/watch?v=vz15OqiYYXo&t=194s)
+- [Crow's malware development playlist](https://www.youtube.com/playlist?list=PL_z_ep2nxC57sHAlCcvvaYRrpdMIQXri1)
+- [Red Team Notes on reversing, forensics & misc](https://www.ired.team/miscellaneous-reversing-forensics/windows-kernel-internals)
+- [Rexir's Windows Internals Videos](https://www.youtube.com/playlist?list=PLt9cUwGw6CYF6Kj19mBZpfhQPsRIC5vGl)
+- [TheSourceLens's Windows Internals part 1 playlist](https://www.youtube.com/playlist?list=PLhx7-txsG6t5i-kIZ_hwJSgZrnka4GXvn)
+- [Nir Lichtman's diving into windows internals playlist](https://www.youtube.com/playlist?list=PL0tgH22U2S3G2QpiK-Q1wKW_Fe-Wiu7JS)
+- [Geoff Chappell](https://www.geoffchappell.com/index.htm?ta=5)
+- [Alex Ionescu's ReactOS](https://doxygen.reactos.org/index.html)
+- [Programming reference for the Win32 API](https://learn.microsoft.com/en-us/windows/win32/api/)
+- [ost2.fyi](https://p.ost2.fyi/courses)
+- [mr.d0x's malapi list](https://malapi.io/)
+- [pinvoke.net](https://www.pinvoke.net/)
+- [Vergilius project](https://www.vergiliusproject.com/)
 
 </details>
 
