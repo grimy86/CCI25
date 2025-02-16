@@ -1,6 +1,10 @@
 # Windows API
-This is a type of local / OS API that provides native functionality to interact with key components of the Windows operating system.
+> [!NOTE]
+> IF you don't know what an API is, check out [API introduction](/Windows_Internals/API_Introduction.md).
 
+The Windows API is a type of local / OS API that provides native functionality in `User-mode` to interact with key components of the Windows operating system.
+
+## Windows API list
 Microsoft has brought out [a bunch of API's](https://learn.microsoft.com/en-us/windows/apps/api-reference/), all with different purposes:
 - Windows SDK:
     - WinRT API
@@ -20,15 +24,57 @@ Microsoft has brought out [a bunch of API's](https://learn.microsoft.com/en-us/w
 - Schema specifications
   - File and XML schema specifications for UWP apps
 
-You may see the `Win32 API` being used for offensive tool and malware development, EDR (Endpoint Detection & Response) engineering, and general software applications. For more information about all of the use cases for the API, check out the Windows API Index.
-
+## Win32 API
 > [!NOTE]
 > The Win32 API is the API commonly referred to as the Windows API. However, in reality the Windows API is the entire collection of API's listed above.
 >
 > We will be looking at the Win32 API, which might be referred to as the Windows API from here on out.
 
-## Win32 API
-The Win32 API is the name given to the original platform for [native C/C++ Windows applications](https://en.wikipedia.org/wiki/Windows.h) that require direct access to Windows and hardware. It provides a first-class development experience without depending on a managed runtime environment such as .NET. That makes the Win32 API a great choice for applications that need the highest level of performance, and direct access to system hardware. You can use the Win32 API on 32-bit and 64-bit Windows.
+The Win32 API is the name given to the original platform for [native C/C++ Windows applications](https://en.wikipedia.org/wiki/Windows.h) that require direct access to Windows and hardware.
+
+Before there were 64-bit version of Windows the programming interface to the 32-bit versions of Windows was named the Win32 API to distinguish it from the 16-bit Windows API. However, you can use the Win32 API on 32-bit and 64-bit Windows, it just hasn't been renamed.
+
+ It provides a first-class development experience without depending on a managed runtime environment such as .NET. That makes the Win32 API a great choice for applications that need the highest level of performance, and direct access to system hardware.
+
+## History: DDE, OLE & COM
+Originally, Windows provided system functions through the Windows API, which was just a huge collection of C functions. But over time, as Windows grew, this approach became messy. There were thousands of functions with no real organization—just a bunch of names that weren’t always consistent.
+
+Enter `COM (Component Object Model)`, to fix this, Microsoft introduced `COM (Component Object Model)`. You can think of COM as a better way to organize and access Windows features, making it easier for different programs to work together. Originally, COM was called `OLE 2` and it started as a way for Office programs (like Word and Excel) to share data with each other.
+
+The ability to exchange data was originally implemented through `OLE (Object Linking and Embedding)`. Which in turn implemented using and older Windows mechanism named `DDE (Dynamic Data Exchange)`. However, DDE also had it's own limitations and eventually OLE came along.
+
+COM is based on two simple ideas:
+1. Programs talk to COM objects using interfaces.
+
+   - An interface is just a list of functions that a program can call, like a menu of available actions.
+   - These interfaces are designed to work across different programming languages, so they don’t rely on how a specific language (like C++ or C#) handles function calls.
+   - This makes it easier for different programs to communicate without running into compatibility issues.
+
+2. COM objects are loaded dynamically.
+
+  - Instead of being built directly into a program, COM objects are stored in separate files (DLLs or EXEs).
+  - This means programs can load them only when needed, making the system more flexible and modular.
+
+In the end COM provided:
+- Better organization of Windows features
+- A way for different programs to work togheter.
+- It worked across many programming languages (C, C++, C#, VB, etc.).
+- It allowed Windows features to be updated separately without breaking programs.
+
+COM became the foundation for many later Microsoft technologies, like `ActiveX`, `DirectX`, `Windows Shell Extensions`, and even parts of `.NET`.
+
+## Practical COM example
+Let’s say you’re building a program that needs to generate a Word document, add some text, and save it without actually opening Word on the screen.
+
+How does this work?:
+- Microsoft Word exposes a COM object that allows other programs to control it.
+- Your program can ask Windows to load Word’s COM object in the background (inside a DLL).
+- Your program can then send commands to this hidden instance of Word to create a document, add text, and save it.
+
+## What is a COM server?
+A `COM server` is just a file (`a DLL or an EXE`) that contains COM objects / classes. These objects provide specific functionality, like handling files, networking, or controlling Microsoft Word from another program.
+
+For example, if a program wants to open and edit a Word document without launching Word itself, it can ask a COM object in Word’s DLL to do it in the background.
 
 ## Subsystem and Hardware Interaction
 Programs often need to access or modify Windows subsystems or hardware but are `restricted to maintain machine stability`. To solve this problem, Microsoft released the Win32 API, a library to `interface between user-mode applications and the kernel`.
@@ -52,29 +98,51 @@ Let’s break the Win32 API up via a top-down approach. We’ll assume the API i
 | API Calls | The API call used within a program, with function addresses obtained from pointers. |
 | In/Out Parameters | The parameter values that are defined by the call structures. |
 
-## OS Libraries
-Each API call of the Win32 library resides in memory and requires a pointer to a memory address. The process of obtaining pointers to these functions is obscured because of `ASLR` (Address Space Layout Randomization) implementations; each language or package has a unique procedure to overcome ASLR.
+## OS Libraries and ASLR
+Windows provides a bunch of built-in functions that programs can use. These functions live inside DLL files (Dynamic Link Libraries), which are like toolboxes full of useful code that programs can borrow instead of writing everything from scratch.
 
-We will discuss the two most popular implementations: `P/Invoke` and the `Windows header file`.
+Examples of Windows DLLs:
+- `kernel32.dll` → Handles things like memory, files, and processes.
+- `user32.dll` → Deals with windows, buttons, and user input.
+- `gdi32.dll` → Helps with graphics and drawing.
 
-### Windows Header File
-Microsoft has released the Windows header file, also known as the `Windows loader`, as a direct solution to the problems associated with ASLR’s implementation.
+Every time a program wants to use one of these functions, it needs to `find the function inside the DLL` and `get its memory address (a pointer)`.
+
+We can't just statically hand out references to the memory address of the function since `ASLR (Address Space Layout Randomization)` loads it randomly.
+
+This is a security feature called ASLR, which makes it harder for malware to predict where functions are in memory. Since the function address changes every time the program runs, we need a way to find it dynamically.
+
+The two most popular implementations to do this are:
+- `P/Invoke (Platform Invocation Services)`
+
+  Used in C#, VB.NET. other .NET languages to manually tell Windows to use a function from a DLL since because don’t natively work with Windows API functions.
+
+- The `Windows header file`
+
+  A header file that includes these function pointers provided by Windows that used in C and C++.
+
+## The Windows Header File
+Microsoft provides low-level programming languages such as C and C++ with a pre-configured set of libraries that we can use to access the API calls.
 
 Keeping the concept at a high level, at runtime, the loader will determine what calls are being made and create a `thunk table` to obtain function addresses or pointers.
 
 Once the `windows.h` file is included at the top of an unmanaged program; any Win32 function can be called.
 
+```cpp
+#include <windows.h>
+```
+
 Take a loot at the bottom [ExtProc.h](https://github.com/grimy86/AssaultCubeTrainer/blob/master/AssaultCubeTrainer/ExtProc.h) which uses [ReadProcessMemory](https://learn.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-readprocessmemory) and [WriteProcessMemory](https://learn.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-writeprocessmemory).
 
-### P/Invoke
+## P/Invoke
 Microsoft describes P/Invoke or `platform invoke` as “a technology that allows you to access structs, callbacks, and functions in unmanaged libraries from your managed code.”
 
-- Managed code:
+- `Managed code`:
   Code managed by a CLR (Common Language Runtime) like .NET which is used for C#, VB.NET and F#.
 
   Managed code benefits from automatic garbage collection, type safety, and runtime security features.
 
-- Unmanaged code:
+- `Unmanaged code`:
   Unmanaged code manages its own memory and execution. It's code that runs directly on the OS, without CLR intervention.
 
   Examples include: C, C++, Win32 API, and system DLLs like kernel32.dll or user32.dll (which are written in those unmanaged languages).
@@ -138,11 +206,22 @@ BOOL WriteProcessMemory(
 ```
 For each I/O parameter, Microsoft also explains its use, expected input or output, and accepted values.
 
-## C API Implementations
-Microsoft provides low-level programming languages such as C and C++ with a pre-configured set of libraries that we can use to access the API calls.
+## Commonly Abused API Calls
+Several API calls within the Win32 library lend themselves to be easily leveraged for malicious activity.
 
-The `windows.h header file`, is used to define call structures and obtain function pointers. To include the windows header, prepend the line below to any C or C++ program.
+While many calls are abused, some are seen in the wild more than others. Below is a table of the most commonly abused API organized by frequency in a collection of samples.
 
-```cpp
-#include <windows.h>
-```
+| API Call | Description |
+|-|-|
+| LoadLibraryA | Maps a specified DLL  into the address space of the calling process |
+| GetUserNameA | Retrieves the name of the user associated with the current thread |
+| GetComputerNameA | Retrieves a NetBIOS or DNS  name of the local computer |
+| GetVersionExA | Obtains information about the version of the operating system currently running |
+| GetModuleFileNameA | Retrieves the fully qualified path for the file of the specified module and process |
+| GetStartupInfoA | Retrieves contents of STARTUPINFO structure (window station, desktop, standard handles, and appearance of a process) |
+| GetModuleHandle | Returns a module handle for the specified module if mapped into the calling process's address space |
+| GetProcAddress | Returns the address of a specified exported DLL  function |
+| VirtualProtect | Changes the protection on a region of memory in the virtual address space of the calling process |
+
+## The Windows Runtime API / WinRT
+TO DO

@@ -1,4 +1,4 @@
-# Application Programming Interface (API)
+# Application Programming Interface (API) introduction
 An API is a way for two or more software components to communicate with each other.
 APIs define rules for how requests and responses should be structured.
 

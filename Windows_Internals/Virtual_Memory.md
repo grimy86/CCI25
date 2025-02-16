@@ -91,12 +91,49 @@ Directives are commands recognized by the compiler used for assembling the progr
 - `.heap`: Allocated for dynamically allocated memory (e.g., malloc, new).
 
 ## PEB
-The Process Environment Block (PEB) stores `information about the process and the loaded modules`. One piece of information the PEB contains is "`BeingDebugged`" which can be used to determine if the current process is being debugged.
+The Process Environment Block (PEB) is a small memory range that stores `information about the process and the loaded modules`. One piece of information the PEB contains is "`BeingDebugged`" which can be used to determine if the current process is being debugged.
 
 To read more about the PEB structure layout read [microsoft learn PEB structure (winternl.h)](https://learn.microsoft.com/en-us/windows/win32/api/winternl/ns-winternl-peb)
 
+| Storage for process-specific information |
+|-|
+| Environment variables (inherited from the previous process) |
+| Command line arguments |
+| Current working directory |
+| Current loaded modules |
+| Heap pointer |
+
 ## TEB
-The Thread Environment Block (TEB) `stores information about the currently running thread(s)`.
+The Thread Environment Block (TEB) is a small memory range that stores `information about the currently running thread(s)`.
+
+| Storage for thread-specific information |
+|-|
+| Thread ID |
+| Stack range |
+| GetLastError |
+| [TLS](/Windows_Internals/Processes_And_Threads.md#thread-context) |
+
+<details>
+<summary> Kernel structure </summary>
+
+```C
+//0x38 bytes (sizeof)
+struct _NT_TIB
+{
+    struct _EXCEPTION_REGISTRATION_RECORD* ExceptionList;                   //gs: [0x0]
+    VOID* StackBase;                                                        //0x8
+    VOID* StackLimit;                                                       //0x10
+    VOID* SubSystemTib;                                                     //0x18
+    union
+    {
+        VOID* FiberData;                                                    //0x20
+        ULONG Version;                                                      //0x20
+    };
+    VOID* ArbitraryUserPointer;                                             //0x28
+    struct _NT_TIB* Self;                                                   //0x30
+}; 
+```
+</details>
 
 ## Virtual memory
 `Virtual memory` is a critical component of how Windows internals work and interact with each other. Virtual memory allows other internal components to interact with memory `as if it was physical memory without the risk of collisions between applications`.

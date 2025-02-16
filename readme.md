@@ -84,15 +84,29 @@ It provides foundational knowledge for reverse engineering, malware analysis, an
 <details>
 <summary> Modules </summary>
 
-1. [Windows Internals Overview](/Windows_Internals/Internals.md)
-2. [Memory](/Windows_Internals/Memory.md)
-3. [PE file format](/Windows_Internals/PE.md)
-4. [Introduction to API's](/Windows_Internals/API.md)
-5. [Windows API](/Windows_Internals/Windows_API.md)
+1. [Windows Internals Introduction](/Windows_Internals/Introduction.md)
+2. [The .NET Framework](/Windows_Internals/Dotnet_Framework.md)
+3. [Introduction to Dynamic Link Libraries (DLLs)](/Windows_Internals/DLLs.md)
+4. [Introduction to API's](/Windows_Internals/API_Introduction.md)
+5. [Windows API and WinRT](/Windows_Internals/Windows_API.md)
+6. [Services, functions and routines terminology](/Windows_Internals/Services_functions_routines.md)
+7. [Processes, Threads, Fibers, UMS and Jobs](/Windows_Internals/Processes_And_Threads.md)
+8. [PE file format](/Windows_Internals/PE.md)
+9. [Virtual Memory](/Windows_Internals/Virtual_Memory.md)
+10. [Processor modes: Kernel-mode vs. User-mode](/Windows_Internals/Processor_modes.md)
 
-</details>
+<!--
+- Kernel mode vs. User mode
+- Hypervisors
+- Firmware
+- Terminal services and multiple sessions
+- Objects and handles
+- Security
+- Registry
+- Unicode
 
-<!--Syscalls? Drivers, sockets?-->
+Syscalls? Drivers, sockets?
+ -->
 
 <details>
 <summary> References </summary>
@@ -115,6 +129,7 @@ It provides foundational knowledge for reverse engineering, malware analysis, an
 - [ost2.fyi](https://p.ost2.fyi/courses)
 - [mr.d0x's malapi list](https://malapi.io/)
 - [pinvoke.net](https://www.pinvoke.net/)
+- [Vergilius project](https://www.vergiliusproject.com/)
 
 </details>
 

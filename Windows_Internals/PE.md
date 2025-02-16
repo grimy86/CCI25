@@ -334,6 +334,22 @@ SHA-512 hash: e122e4600ea201058352c97bb7549163a0a5bcfb079630b197fe135ae732e64f5a
 
 We see here that the section name is empty, and it is not a glitch in the tool we used to analyze the PE file.
 
+#### DllMain and TLS Callbacks
+- `DllMain` is just an entry point function inside the DLL’s .text (code) section:
+    - When a DLL is loaded, Windows calls DllMain, if it exists, to handle events like process/thread attach/detach.
+    - The address of DllMain is stored in the PE's `Optional Header` → `AddressOfEntryPoint` field.
+    - The actual function code for DllMain is stored in the `.text` section of the DLL.
+    - In memory, DllMain is simply an executable function within the DLL’s .text section.
+
+- TLS (Thread Local Storage) callbacks are special functions that execute when a thread is created or terminated:
+    - Their addresses are stored in the `TLS directory` of the PE file.
+    - The TLS directory is located in the PE's data directory (`IMAGE_DIRECTORY_ENTRY_TLS`).
+    - Inside this directory, there is a `pointer to an array of TLS callback function addresses`.
+    - The actual callback functions are located in the .text section, just like DllMain.
+
+> [!IMPORTANT]
+> Reads about [DllMain Loader Locks](https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-best-practices).
+
 #### Section entropy
 Another thing that we might notice here is that the Entropy of the .data section and three of the four unnamed sections is `higher than seven and is approaching 8`. As we discussed in a previous task, higher Entropy represents a `higher level of randomness in data`. Random data is generally generated when the original data is obfuscated, indicating that these values `might indicate a packed executable`.
 
