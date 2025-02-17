@@ -705,8 +705,49 @@ struct _ETHREAD
 </details>
 
 ## Fibers
+Think of fibers like a lightweight thread that you control / schedule yourself. Fibers are invisible to the kernel because they're implemented in user mode in Kernel32.dll, making scheduling of execution manual rather than relying on Windows priority-based scheduling mechanism.
+
+In most cases, letting Windows manage threads automatically is a better choice over managing User-mode fibers manually.
+
+### Working with fibers
+1. You start with a normal thread and call `ConvertThreadToFiber`. This function converts the thread to a running fiber.
+2. You can make more fibers using `CreateFiber`. Each fiber can have it's own set of fibers.
+3. Instead of Windows deciding which fiber runs, you call `SwitchToFiber` to manually choose which fiber gets to execute.
+4. The new fiber runs until it exits or until it calls SwitchToFiber, again selecting another fiber to run.
+
+### Downsides of fibers
+- Invisible to the kernel: Since the operating system doesn’t know fibers exist, it can’t schedule them properly. This can lead to bad performance.
+- TLS issues: Sharing thread local storage (TLS) can be an issue because several fibers can be running on the same thread.
+- No True Multithreading: Fibers don’t run on multiple processors at the same time, they are limited to cooperative multi-tasking only. Only one fiber runs per thread.
+- Poor I/O performance: Fiber local storage (FLS) exists but doesn't solve all the issues. If a fiber is waiting on a file or network request, the entire thread is stuck waiting.
+
+<details>
+<summary> User-mode structure </summary>
+
+```C
+typedef struct _NT_FIBER {
+    PVOID FiberData;         // Pointer to user-defined fiber-specific (storage) data, similar to TLS
+    struct _NT_FIBER *Self;  // Self-reference for integrity checks
+    PVOID StackBase;         // Base of the fiber’s stack (highest memory address)
+    PVOID StackLimit;        // Stack limit (where stack grows towards)
+    PVOID DeallocationStack; // Pointer to memory reserved for stack deallocation
+    CONTEXT FiberContext;    // CPU register state for fiber switching
+    BOOLEAN FiberFlags;      // Flags (e.g., Is this the primary fiber?) + other metadeta
+} NT_FIBER, *PNT_FIBER;
+```
+
+</details>
 
 ## User-mode Scheduling threads
+User-mode scheduling (UMS) threads, which are available only on 64-bit versions of Windows are an improved version of fibers, with fewer downsides.
+
+They still allow programs to manage their own scheduling instead of relying entirely on the Windows scheduler. However, UMS threads have their own kernel thread state, because of that they are visible to the kernel in contrast to fibers. This visibility to the kernel allows multiple UMS threads to issue blocking system calls and share and contend on resources.
+
+Or, when two or more UMS threads need to perform work in user mode, they can periodically switch execution contexts (by yielding from one thread to another) in user mode rather than involving the scheduler.
+
+From the kernel’s perspective, the same kernel thread is still running and nothing has changed. When a UMS thread performs an operation that requires entering the kernel (such as a system call), it switches to its dedicated kernel-mode thread (called a directed context switch). While concurrent UMS threads still cannot run on multiple processors, they do follow a pre-emptible model that’s not solely cooperative.
+
+Although threads have their own execution context, every thread within a process shares the process’s virtual address space (in addition to the rest of the resources belonging to the process), meaning that all the threads in a process have full read-write access to the process virtual address space. Threads cannot accidentally reference the address space of another process, however, unless the other process makes available part of its private address space as a shared memory section (called a file mapping object in the Windows API) or unless one process has the right to open another process to use crossprocess memory functions, such as ReadProcessMemory and WriteProcessMemory (which a process that’s running with the same user account, and not inside of an AppContainer or other type of sandbox, can get by default unless the target process has certain protections). In addition to a private address space and one or more threads, each process has a security context and a list of open handles to kernel objects such as files, shared memory sections, or one of the synchronization objects such as mutexes, events, or semaphores, as illustrated in Figure 1-2.
 
 ## Jobs
 

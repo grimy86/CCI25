@@ -161,7 +161,7 @@ It provides foundational knowledge for reverse engineering, malware analysis, an
 4. [Introduction to API's](/Windows_Internals/API_Introduction.md)
 5. [Windows API and WinRT](/Windows_Internals/Windows_API.md)
 6. [Services, functions and routines terminology](/Windows_Internals/Services_functions_routines.md)
-7. [Processes, Threads, Fibers, UMS and Jobs](/Windows_Internals/Processes_And_Threads.md)
+7. [Processes, Threads, Fibers, UMS and Jobs](/Windows_Internals/Processes.md)
 8. [PE file format](/Windows_Internals/PE.md)
 9. [Virtual Memory](/Windows_Internals/Virtual_Memory.md)
 10. [Processor modes: Kernel-mode vs. User-mode](/Windows_Internals/Processor_modes.md)
