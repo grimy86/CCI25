@@ -3,7 +3,7 @@ A process might seem a lot like a program, but they are two different things.
 
 The program contains the instructions that you want your machine to execute and the process contains the environment that it needs to be processing those instructions. It maintains and represents the execution of a program.
 
-When you actually run the program, it becomes a `process` (or multiple). It's an `instance` of the executable program that is being ran.
+When you actually run the program or .exe file, it becomes a `process` (or multiple). At this point you initialize an `instance` of the executable program that is being ran, this is the process.
 
 A process has `components` or `resources` that it compromises of or interact with. The [Microsoft docs](https://learn.microsoft.com/en-us/windows/win32/procthread/about-processes-and-threads) give brief break-down of these components.
 
@@ -451,8 +451,12 @@ struct _EPROCESS
 | `List of open handles` | A list of open handles to be used by the process's threads to interact with system resources. |
 | `Security context` | This is the access token that identifies the user, security groups, privileges, attributes, claims, capabilities, UAC virtualization state, session and limited user-account state associated with the process. It also identifies the AppContainer and it's also related to sandboxing information. |
 | `User name` | User that initiated the process. Can denote privilege of the process |
-| `Process ID` (PID) | A unique identifier for the process. Internally this is part of an identifier named "client ID". |
+| `Process ID (PID)` | A unique identifier for the process. Internally this is part of an identifier named "client ID". |
 | `Threads` (of execution) | A process contains at least one thread of execution. |
+| `Environment variables` | Metadata used by the process to understand what OS environment it's running in. |
+| `Priority class` | Tells the scheduler how often the CPU should look at the threads in this process. |
+| `Minimum and maximum working set sizes (RAM)` | The amount of RAM the process can use. |
+| `Process state` | The current state of the process like; Created, Terminated, Running, Waiting, Suspended, Blocked, etc. |
 
 ## Low-level components
 | Component | Purpose |
@@ -466,12 +470,16 @@ struct _EPROCESS
 ![Process](/Windows_Internals/Images/Process.png)
 
 ## Threads
+In essence, processes aren't even executed by the CPU. The threads inside of the process are executed by the CPU, they typically represent the code.
+
 A `thread` is an `executable unit- or entity` employed by a process and scheduled for execution based on device factors.
 
-Threads may seem like a bare-bones and simple component, but it's `function is critical` to processes. Without this a program wouldn't be able to "run". We can simplify the definition of a thread: `controlling the execution of a process`.
+When we have a process with two or more threads it's called a Multi-Threaded process. At first programs were Single-Threaded but as CPU's evolved and got multiple cores this gave us a way to get a lot more done with our threads.
+
+Threads may seem like a bare-bones and simple component, but it's `function is critical` to processes. Without this a process wouldn't be able to "run". We can simplify the definition of a thread: `controlling the execution of a process`.
 
 - Device factors can vary based on CPU and memory specifications, priority and logical factors, and others.
-- Threads share the same details and resources as their parent process, such as code, global variables, etc. 
+- All threads within a process share the process's virtual address space and system resources, such as code, global variables, etc.
 
 Threads can also switch between eachother to control execution (`context-switching`), commonly seen in multi-threaded applications. However, this involves the kernel scheduler and can become quite expensive. To solve this issue Windows implements two mechanisms to reduce the overhead cost for the CPU:
 - `Fibers`
@@ -485,8 +493,11 @@ Threads also have their unique values and architecture-specific components calle
 | `Context Structure` or `Volatile registers` | Holds a set of CPU registers that represent the state of the processor maintained by the kernel. |
 | `Two stacks` | All data relevant and specific to the thread (exceptions, procedure calls, etc.). One to execute Kernel-mode and one for User-mode execution. |
 | `Thread-Local Storage` (TLS) | A private storage area (a unique data environment) used for allocation by sub-systems, run-time libraries and DLLs. |
-| `Thread ID` or `Stack Argument` | Unique value assigned to each thread, part of the `client ID structure`. |
+| `Thread ID` or `Stack Argument` | Unique value (identifier) assigned to each thread, part of the `client ID structure`. |
 | `Security context` | Sometimes threads have their own security context or token. Commonly used by multi-threaded server applications that clone the security context of their served client. |
+| `Priority class` | Representing the priority of the execution of the thread. |
+
+![Threads](/Windows_Internals/Images/Threads.png)
 
 <details>
 <summary> Kernel structure </summary>
@@ -759,6 +770,37 @@ This visibility to the kernel means:
 ### UMS Threads limitations
 - UMS threads still can't run on multiple processors at the same time.
 - However, they do follow a pre-emptible model, meaning they aren't purely cooperative like fibers (they can be interrupted if needed).
+
+## Child-Parent processes
+It's also possible for processes to create / initialize other processes. The process that created the other is called the `parent process`. The process that got created is called the `child process`.
+
+E.g: explorer.exe initializing a msedge.exe process that initializes multiple other msedge.exe processes.
+
+```bash
+explorer.exe
+└── msedge.exe
+    ├── msedge.exe
+    ├── msedge.exe
+    ├── msedge.exe
+    ├── msedge.exe
+    ├── msedge.exe
+    ├── msedge.exe
+    ├── msedge.exe
+    ├── msedge.exe
+    └── msedge.exe
+```
+
+## Handles
+When threads are being run they often require system resources like registry keys, files, folders, session information, etc.
+
+A handle is basically a declaration from the thread saying that this system resource is being used by the process. 
+
+> [!NOTE]
+> A handle makes the specified system resource solely available to it's process.
+> 
+> It acts as if it's in a locked state from the perspective of outside processes.
+>
+> If you've ever tried to delete a file that's still open in some process like Word you'd get a message saying: "This action can't be completed because the file is open in Word.".
 
 ## Jobs / Job Object
 A job (object) in Windows is a management structure that groups multiple processes together into a singular unit. It allows the system (or an administrator) to control and apply limits (e.g., CPU, memory, I/O) to all processes inside the job as a single unit.

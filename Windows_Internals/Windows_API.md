@@ -41,6 +41,8 @@ Originally, Windows provided system functions through the Windows API, which was
 
 Enter `COM (Component Object Model)`, to fix this, Microsoft introduced `COM (Component Object Model)`. You can think of COM as a better way to organize and access Windows features, making it easier for different programs to work together. Originally, COM was called `OLE 2` and it started as a way for Office programs (like Word and Excel) to share data with each other.
 
+This sharing of data between processes is what we call `Inter-Process Communications (IPC)`.
+
 The ability to exchange data was originally implemented through `OLE (Object Linking and Embedding)`. Which in turn implemented using and older Windows mechanism named `DDE (Dynamic Data Exchange)`. However, DDE also had it's own limitations and eventually OLE came along.
 
 COM is based on two simple ideas:

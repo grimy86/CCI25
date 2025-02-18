@@ -1,4 +1,4 @@
-# Windows Internals
+`# Windows Internals
 ## Intro
 Windows Internals is an umbrella term that refers to the architecture and it's back-end components that make up the Windows Operating System.
 
@@ -26,6 +26,9 @@ Eventually this could lead to insecure permissions:
 
 This is something we dove into when covering [Windows Privesc](/Cybersecurity_Operations/Maintaining%20Access/WinPrivesc.md).
 
+## Architectural overview
+![Windows Architecture](/Windows_Internals/Images/Windows_Architecture.png)
+
 <!-- TO DO:
 11. Syscalls
 
@@ -34,4 +37,3 @@ User-mode syscalls start with `Zw`, E.g: `ZwSuspendThread`.
 
 12. Callbacks
 13. Process Monitor -->
-

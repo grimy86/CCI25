@@ -158,10 +158,10 @@ It provides foundational knowledge for reverse engineering, malware analysis, an
 1. [Windows Internals Introduction](/Windows_Internals/Introduction.md)
 2. [The .NET Framework](/Windows_Internals/Dotnet_Framework.md)
 3. [Introduction to Dynamic Link Libraries (DLLs)](/Windows_Internals/DLLs.md)
-4. [Introduction to API's](/Windows_Internals/API_Introduction.md)
-5. [Windows API and WinRT](/Windows_Internals/Windows_API.md)
-6. [Services, functions and routines terminology](/Windows_Internals/Services_functions_routines.md)
-7. [Processes, Threads, Fibers, UMS and Jobs](/Windows_Internals/Processes.md)
+4. [Processes, Threads, Fibers, UMS Threads, Handles and Jobs](/Windows_Internals/Processes.md)
+5. [Introduction to API's](/Windows_Internals/API_Introduction.md)
+6. [Windows API, IPC and WinRT](/Windows_Internals/Windows_API.md)
+7. [Services, functions and routines terminology](/Windows_Internals/Services_functions_routines.md)
 8. [Virtual Memory](/Windows_Internals/Virtual_Memory.md)
 9. [PE file format](/Windows_Internals/PE.md)
 10. [Processor modes: Kernel-mode vs. User-mode](/Windows_Internals/Processor_modes.md)
@@ -203,6 +203,7 @@ Syscalls? Drivers, sockets?
 - [mr.d0x's malapi list](https://malapi.io/)
 - [pinvoke.net](https://www.pinvoke.net/)
 - [Vergilius project](https://www.vergiliusproject.com/)
+- [TechsavvyProductions](https://www.youtube.com/@TechsavvyProductions)
 
 </details>
 
