@@ -709,7 +709,7 @@ Think of fibers like a lightweight thread that you control / schedule yourself. 
 
 In most cases, letting Windows manage threads automatically is a better choice over managing User-mode fibers manually.
 
-### Working with fibers
+### Fibers limitations
 1. You start with a normal thread and call `ConvertThreadToFiber`. This function converts the thread to a running fiber.
 2. You can make more fibers using `CreateFiber`. Each fiber can have it's own set of fibers.
 3. Instead of Windows deciding which fiber runs, you call `SwitchToFiber` to manually choose which fiber gets to execute.
@@ -732,7 +732,7 @@ typedef struct _NT_FIBER {
     PVOID StackLimit;        // Stack limit (where stack grows towards)
     PVOID DeallocationStack; // Pointer to memory reserved for stack deallocation
     CONTEXT FiberContext;    // CPU register state for fiber switching
-    BOOLEAN FiberFlags;      // Flags (e.g., Is this the primary fiber?) + other metadeta
+    BOOLEAN FiberFlags;      // Flags (e.g.: Is this the primary fiber?) + other metadeta
 } NT_FIBER, *PNT_FIBER;
 ```
 
@@ -741,15 +741,38 @@ typedef struct _NT_FIBER {
 ## User-mode Scheduling threads
 User-mode scheduling (UMS) threads, which are available only on 64-bit versions of Windows are an improved version of fibers, with fewer downsides.
 
-They still allow programs to manage their own scheduling instead of relying entirely on the Windows scheduler. However, UMS threads have their own kernel thread state, because of that they are visible to the kernel in contrast to fibers. This visibility to the kernel allows multiple UMS threads to issue blocking system calls and share and contend on resources.
+They still allow programs to manage their own scheduling instead of relying entirely on the Windows scheduler. However, UMS threads have their own kernel thread state, because of that they are visible to the kernel in contrast to fibers. 
 
-Or, when two or more UMS threads need to perform work in user mode, they can periodically switch execution contexts (by yielding from one thread to another) in user mode rather than involving the scheduler.
+This visibility to the kernel means:
+- Allow multiple UMS threads to issue system calls that block execution (e.g.: waiting for file access).
+- Share and manage resources properly, unlike fibers.
 
-From the kernel’s perspective, the same kernel thread is still running and nothing has changed. When a UMS thread performs an operation that requires entering the kernel (such as a system call), it switches to its dedicated kernel-mode thread (called a directed context switch). While concurrent UMS threads still cannot run on multiple processors, they do follow a pre-emptible model that’s not solely cooperative.
+### How UMS Threads work
+- When multiple UMS threads need to run in user mode, they can switch between each other without involving the Windows scheduler.
+- From the kernel’s perspective, it looks like the same thread is still running, even though UMS threads are switching internally.
+- When a UMS thread needs to enter the kernel (e.g., making a system call), it temporarily switches to a dedicated kernel-mode thread (this is called a directed context switch).
+- Every thread in a process shares the same virtual address space, meaning they can read and write the same memory.
+- Threads cannot access another process’s memory unless:
+    - The other process explicitly shares memory (e.g., using a file mapping object).
+    - The process has special permissions (e.g., using ReadProcessMemory and WriteProcessMemory).
 
-Although threads have their own execution context, every thread within a process shares the process’s virtual address space (in addition to the rest of the resources belonging to the process), meaning that all the threads in a process have full read-write access to the process virtual address space. Threads cannot accidentally reference the address space of another process, however, unless the other process makes available part of its private address space as a shared memory section (called a file mapping object in the Windows API) or unless one process has the right to open another process to use crossprocess memory functions, such as ReadProcessMemory and WriteProcessMemory (which a process that’s running with the same user account, and not inside of an AppContainer or other type of sandbox, can get by default unless the target process has certain protections). In addition to a private address space and one or more threads, each process has a security context and a list of open handles to kernel objects such as files, shared memory sections, or one of the synchronization objects such as mutexes, events, or semaphores, as illustrated in Figure 1-2.
+### UMS Threads limitations
+- UMS threads still can't run on multiple processors at the same time.
+- However, they do follow a pre-emptible model, meaning they aren't purely cooperative like fibers (they can be interrupted if needed).
 
-## Jobs
+## Jobs / Job Object
+A job (object) in Windows is a management structure that groups multiple processes together into a singular unit. It allows the system (or an administrator) to control and apply limits (e.g., CPU, memory, I/O) to all processes inside the job as a single unit.
+
+- When a process is assigned to a job, it cannot leave the job unless explicitly allowed.
+- If a job is terminated, all processes inside it are also terminated.
+- Jobs are often used in server environments to control resource usage for groups of processes.
+
+A job can:
+- Apply limits to processes inside the job (e.g., memory, CPU usage).
+- Monitor and track resource usage for all processes in the job.
+- Control process behavior, such as preventing them from creating new processes outside the job.
+
+Essentially, job objects make up for the lack of a structured process tree (unlike UNIX, where processes naturally have parent-child relationships). But jobs are actually more powerful because they allow fine-tuned control over multiple processes at once.
 
 ## Named pipes
 Named pipes are just a mechanism for two processes to talk to eachother. This comes with another more windows-specific vulnerability; name squatting.
@@ -793,9 +816,5 @@ There are multiple utilities available that make observing processes easier:
 
 <!--
 TO DO:
-- Fibers
-- UMS
-- Jobs
 - PICO processes, maybe [https://www.youtube.com/watch?v=GhG6Fc__HEE&list=PLt9cUwGw6CYF6Kj19mBZpfhQPsRIC5vGl&index=2]
-- 
 -->
