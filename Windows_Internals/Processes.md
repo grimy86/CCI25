@@ -771,6 +771,44 @@ This visibility to the kernel means:
 - UMS threads still can't run on multiple processors at the same time.
 - However, they do follow a pre-emptible model, meaning they aren't purely cooperative like fibers (they can be interrupted if needed).
 
+## Services
+A service is a process that is designed to perform a specific service for the operating system. These processes get started by the Windows `service control manager (SCM)` and are usually background processes.
+
+Since it runs in the background it doesn't have a GUI or require any interaction from the user.
+
+They run independently of user sessions and provide essential system functions, such as networking, printing, and security. They can start automatically, manually, or on demand.
+
+### Types of services
+| System services critical to the OS | Purpose |
+|-|-|
+| `wininit.exe` | Windows Initialization |
+| `lsass.exe` | Local Security Authority |
+| `services.exe` | Service Control Manager |
+
+| Networking Services to manage connections | Purpose |
+|-|-|
+| `Dhcp` | Dynamic Host Configuration Protocol |
+| `Dnscache` | DNS Client Service |
+| `LanmanServer` | File Sharing & Network Services |
+
+| Security Services to protect the system | purpose |
+|-|-|
+| WinDefend | Windows Defender Antivirus |
+| EventLog | Windows Event Logging |
+| W32Time | Windows Time Synchronization |
+
+| Hardware Services to manage devices | purpose |
+|-|-|
+| Spooler | Print Spooler |
+| PlugPlay | Plug and Play service |
+| AudioSrv | Windows Audio |
+
+| Application Services installed by third-party apps | purpose |
+|-|-|
+| SQL Server | MSSQLSERVER database services |
+| Apache or Nginx | Web server services |
+| VMware or VirtualBox | OS virtualization |
+
 ## Child-Parent processes
 It's also possible for processes to create / initialize other processes. The process that created the other is called the `parent process`. The process that got created is called the `child process`.
 

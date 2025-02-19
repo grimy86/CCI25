@@ -1,5 +1,4 @@
-`# Windows Internals
-## Intro
+# Windows Internals
 Windows Internals is an umbrella term that refers to the architecture and it's back-end components that make up the Windows Operating System.
 
 These internals cannot change without compromising how the operating system operates. Because of this, this architecture is also where the system is most vulnerable.
@@ -26,8 +25,43 @@ Eventually this could lead to insecure permissions:
 
 This is something we dove into when covering [Windows Privesc](/Cybersecurity_Operations/Maintaining%20Access/WinPrivesc.md).
 
-## Architectural overview
-![Windows Architecture](/Windows_Internals/Images/Windows_Architecture.png)
+## Oversimplified Architectural overview
+```mermaid
+graph BT;
+    subgraph Computer
+    direction BT
+        Hardware --> firmware["Firmware  (BIOS or UEFI)"]
+
+        subgraph OS[Windows Operating System]
+        direction BT
+            bootldr[Windows bootloader]
+
+            subgraph km[Kernel-mode]
+            direction BT
+                HAL["Kernel run-time
+                &
+                Hardware Abstraction Layer (HAL)"]
+                Kernel
+                dd[Device drivers]
+                es["Executive (Subsystems)"]
+                wg[Windowing and graphics]
+            end
+
+            subgraph um[User-mode]
+                SDLL[Subsystem DLLs] --> NTDLL["NTDLL.DLL (run-time library)"]
+                up[Processes] --> SDLL
+                servp[Services] --> SDLL
+                sysp[System processes] --> SDLL
+                sysp --> NTDLL
+                env[Environment subsystems] --> NTDLL
+            end
+        end
+    end
+
+    firmware -.-> bootldr
+    bootldr -.-> HAL
+    km <-.-> um
+```
 
 <!-- TO DO:
 11. Syscalls
