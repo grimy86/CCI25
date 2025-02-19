@@ -32,7 +32,7 @@ Microsoft has brought out [a bunch of API's](https://learn.microsoft.com/en-us/w
 
 The Win32 API is the name given to the original platform for [native C/C++ Windows applications](https://en.wikipedia.org/wiki/Windows.h) that require direct access to Windows and hardware.
 
-Before there were 64-bit version of Windows the programming interface to the 32-bit versions of Windows was named the Win32 API to distinguish it from the 16-bit Windows API. However, you can use the Win32 API on 32-bit and 64-bit Windows, it just hasn't been renamed.
+Before there were 64-bit version of Windows the programming interface to the 32-bit versions of Windows was named the `Win32 API (WinNT/Win9x)` to distinguish it from the 16-bit `Win16 API (DOS)`. However, you can use the Win32 API on 32-bit and 64-bit Windows, it just hasn't been renamed.
 
  It provides a first-class development experience without depending on a managed runtime environment such as .NET. That makes the Win32 API a great choice for applications that need the highest level of performance, and direct access to system hardware.
 
@@ -46,13 +46,13 @@ This sharing of data between processes is what we call `Inter-Process Communicat
 The ability to exchange data was originally implemented through `OLE (Object Linking and Embedding)`. Which in turn implemented using and older Windows mechanism named `DDE (Dynamic Data Exchange)`. However, DDE also had it's own limitations and eventually OLE came along.
 
 COM is based on two simple ideas:
-1. Programs talk to COM objects using interfaces.
+1. Programs talk to COM objects by obtaining `interfaces`.
 
    - An interface is just a list of functions that a program can call, like a menu of available actions.
    - These interfaces are designed to work across different programming languages, so they don’t rely on how a specific language (like C++ or C#) handles function calls.
    - This makes it easier for different programs to communicate without running into compatibility issues.
 
-2. COM objects are loaded dynamically.
+2. COM objects are `loaded dynamically`. Along with managed `object lifetime`.
 
   - Instead of being built directly into a program, COM objects are stored in separate files (DLLs or EXEs).
   - This means programs can load them only when needed, making the system more flexible and modular.
@@ -215,15 +215,48 @@ While many calls are abused, some are seen in the wild more than others. Below i
 
 | API Call | Description |
 |-|-|
-| LoadLibraryA | Maps a specified DLL  into the address space of the calling process |
-| GetUserNameA | Retrieves the name of the user associated with the current thread |
-| GetComputerNameA | Retrieves a NetBIOS or DNS  name of the local computer |
-| GetVersionExA | Obtains information about the version of the operating system currently running |
-| GetModuleFileNameA | Retrieves the fully qualified path for the file of the specified module and process |
-| GetStartupInfoA | Retrieves contents of STARTUPINFO structure (window station, desktop, standard handles, and appearance of a process) |
-| GetModuleHandle | Returns a module handle for the specified module if mapped into the calling process's address space |
-| GetProcAddress | Returns the address of a specified exported DLL  function |
-| VirtualProtect | Changes the protection on a region of memory in the virtual address space of the calling process |
+| `LoadLibraryA` | Maps a specified DLL  into the address space of the calling process |
+| `GetUserNameA` | Retrieves the name of the user associated with the current thread |
+| `GetComputerNameA` | Retrieves a NetBIOS or DNS  name of the local computer |
+| `GetVersionExA` | Obtains information about the version of the operating system currently running |
+| `GetModuleFileNameA` | Retrieves the fully qualified path for the file of the specified module and process |
+| `GetStartupInfoA` | Retrieves contents of STARTUPINFO structure (window station, desktop, standard handles, and appearance of a process) |
+| `GetModuleHandle` | Returns a module handle for the specified module if mapped into the calling process's address space |
+| `GetProcAddress` | Returns the address of a specified exported DLL  function |
+| `VirtualProtect` | Changes the protection on a region of memory in the virtual address space of the calling process |
 
-## The Windows Runtime API / WinRT
-TO DO
+## The Windows Runtime API (WinRT)
+Windows 8 introduced a new API and the `Windows Runtime (WinRT)`, the runtime is designed for Windows Apps (previously called Metro, Modern, Immersive, or Windows Store Apps). These apps run on various devices, from IoT and phones to desktops, Xbox One, even on HoloLens.
+
+> [!NOTE]
+> `WinRT` is not to be confused with `Windows RT`, a discontinued ARM-based OS version.
+
+### WinRT and COM
+WinRT is built on / and accesed by COM interfaces, but extends the base COM infrastructure with:
+- Complete type metadata stored in WINMD files (based on .NET metadata).
+- A more structured API with namespaces, consistent naming, and patterns.
+
+However, unlike traditional Windows applications (now called desktop or classic apps), Windows Apps follow stricter rules called "management mechanisms".
+
+### API Relationships
+WinRT is not a new completely separate or independent system-level API (native API) for the system. Similar to .NET, which provides a modern, high-level framework but still internally leverages the traditional Windows APIs for things like file handling, networking, and UI rendering.
+
+- Desktop apps can use some WinRT APIs.
+- Windows Apps can use a limited set of Win32 and COM APIs.
+- WinRT itself is not a new native API, it still relies on traditional Windows binaries and APIs, similar to .NET.
+
+Even though WinRT introduces a new programming model, at the binary level, it still interacts with legacy Windows binaries and APIs. In other words, WinRT is more of a structured wrapper around existing Windows functionality rather than a complete replacement.
+
+> [!NOTE]
+> Not all traditional Windows APIs are accessible from a Windows App. Likewise, not all WinRT APIs are available to classic desktop applications. Some APIs are documented and officially supported, while others exist but are restricted or undocumented.
+>
+> For precise details on which APIs can be used in different types of applications, Microsoft provides official documentation.
+
+### WinRT and Programming Languages
+WinRT APIs are accessible in multiple languages through `language projections`:
+- C++: Uses C++/CX, a Microsoft-specific extension to simplify WinRT usage.
+- C#/.NET: Works naturally with the existing COM interop layer.
+- JavaScript: Uses WinJS but requires HTML for UI design.
+
+> [!NOTE]
+> Windows Apps using HTML are still local client apps, not web applications loaded from a server.
