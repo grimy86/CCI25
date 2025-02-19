@@ -83,6 +83,8 @@ Programs often need to access or modify Windows subsystems or hardware but are `
 
 Windows distinguishes hardware access by two distinct modes: `user` and `kernel` mode. These modes determine the hardware, kernel, and memory access an application or driver is permitted. `API or system calls interface between each mode`, sending information to the system to be `processed in kernel mode`.
 
+Read [processor modes and system calls](/Windows_Internals/Processor_Modes.md) to learn more.
+
 ![Modes](/Windows_Internals/Images/Modes.png)
 
 ## Win32 API components
@@ -195,6 +197,29 @@ Microsoft supported API calls naming scheme:
 
 Each API call also has a pre-defined structure to define its in/out parameters. You can find most of these structures on the corresponding API call document page of the Windows documentation, along with explanations of each I/O parameter.
 
+The Win32 API functions follow a common format:
+ 
+- Prefix:
+  - Create
+  - Get
+  - Set
+  - Open
+  - Close
+- Keyword:
+  - Reg
+  - File
+  - Process
+  - Library
+- Suffix:
+  - Ex
+  - A
+  - W
+
+Examples:
+- `CreateProcess`
+- `LoadLibrary`
+- `CloseHandle`
+
 Let’s take a look at the WriteProcessMemory API call as an example. Below is the I/O structure for the call obtained [here](https://learn.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-writeprocessmemory).
 
 ```cpp
@@ -211,7 +236,21 @@ For each I/O parameter, Microsoft also explains its use, expected input or outpu
 ## Commonly Abused API Calls
 Several API calls within the Win32 library lend themselves to be easily leveraged for malicious activity.
 
-While many calls are abused, some are seen in the wild more than others. Below is a table of the most commonly abused API organized by frequency in a collection of samples.
+While many calls are abused, some are seen in the wild more than others. 
+
+Here's a list of the most common DLLs and what they're used for:
+
+| Win32 Dynamic Link Library | Purpose |
+|-|-|
+| `kernel32.dll` | Manage processes and threads |
+| `kernel32.dll` | Manage memory |
+| `kernel32.dll` | Manage files |
+| `user32.dll` | Manage the user interface (GUI) |
+| `advapi32.dll` | Manage the registry |
+| `ws2_32.dll` | Manage networking |
+| `ws2_32.dll` | Manage internet activities |
+
+Below is a table of the most commonly abused API organized by frequency in a collection of samples:
 
 | API Call | Description |
 |-|-|

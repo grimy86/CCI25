@@ -829,9 +829,11 @@ explorer.exe
 ```
 
 ## Handles
-When threads are being run they often require system resources like registry keys, files, folders, session information, etc.
+Like we've mentioned before in the overview, everything in Windows could be seen as an [object](/Windows_Internals/Introduction.md). Oversimplified but, a handle is a `reference` to a Windows object.
 
-A handle is basically a declaration from the thread saying that this system resource is being used by the process. 
+When threads are being run they often require system resources like registry keys, files, folders, session information, etc. 
+
+Essentially, it's a declaration from a thread saying that this `system resource` / `object` is being used by the process.
 
 > [!NOTE]
 > A handle makes the specified system resource solely available to it's process.

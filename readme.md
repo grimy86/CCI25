@@ -156,15 +156,15 @@ It provides foundational knowledge for reverse engineering, malware analysis, an
 <summary> Modules </summary>
 
 1. [Windows Internals Introduction](/Windows_Internals/Introduction.md)
-2. [The .NET Framework](/Windows_Internals/Dotnet_Framework.md)
-3. [Introduction to Dynamic Link Libraries (DLLs)](/Windows_Internals/DLLs.md)
-4. [Processes, Threads, Fibers, UMS Threads, Handles and Jobs](/Windows_Internals/Processes.md)
-5. [Introduction to API's](/Windows_Internals/API_Introduction.md)
-6. [Windows API, IPC and WinRT](/Windows_Internals/Windows_API.md)
-7. [Services, functions and routines terminology](/Windows_Internals/Services_functions_routines.md)
-8. [Virtual Memory](/Windows_Internals/Virtual_Memory.md)
-9. [PE file format](/Windows_Internals/PE.md)
-10. [Processor modes: Kernel-mode vs. User-mode](/Windows_Internals/Processor_modes.md)
+2. [Terminology](/Windows_Internals/Terminology.md)
+3. [The .NET Framework](/Windows_Internals/Dotnet_Framework.md)
+4. [Introduction to Dynamic Link Libraries (DLLs)](/Windows_Internals/DLLs.md)
+5. [Processes, Threads, Fibers, UMS Threads, Handles, Jobs and more](/Windows_Internals/Processes.md)
+6. [Virtual Memory](/Windows_Internals/Virtual_Memory.md)
+7. [Introduction to API's](/Windows_Internals/API_Introduction.md)
+8. [Windows API, IPC and WinRT](/Windows_Internals/Windows_API.md)
+9. [Processor modes, Privileges, Syscalls, the Kernel and more](/Windows_Internals/Processor_Modes.md)
+10. [PE file format](/Windows_Internals/PE.md)
 
 </details>
 
@@ -204,6 +204,7 @@ Syscalls? Drivers, sockets?
 - [pinvoke.net](https://www.pinvoke.net/)
 - [Vergilius project](https://www.vergiliusproject.com/)
 - [TechsavvyProductions](https://www.youtube.com/@TechsavvyProductions)
+- [Driver Verifier Tool](https://learn.microsoft.com/en-us/windows-hardware/drivers/devtest/driver-verifier)
 
 </details>
 

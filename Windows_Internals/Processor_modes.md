@@ -5,14 +5,105 @@ An application by default cannot interact with the kernel or modify critical OS 
 
  The processor will switch between these modes `depending on access and requested mode`. Even if the processor supports multiple modes, Windows will only ever use two for compatibility reasons with other operating systems.
 
+| User mode | Kernel Mode |
+|-|-|
+| No direct hardware access | Direct hardware access |
+| Creates a process in a private virtual address space | Ran in a single shared virtual address space |
+| Access to "owned memory locations" in the VAS | access to all system memory and all CPU instructions |
+| Runs user application code | Runes OS code |
+
+## Privilidge levels
+You might have noticed that these modes like user-mode and kernel-mode provide different priviledges associated with the mode. As a general rule: user-mode has access to anything that's withing userland or user-space: `ring 3`. Essentially, kernel-mode has access to everything: `ring 0`.
+
+> [!NOTE]
+> x86 and x86-64 processors define four rings. 
+>
+> Again, Windows will only use two for: compatibility reasons, efficiency and portability and because the other x86/x86-x64 ring levels do not provide the same guarantees.
+
+## System calls and the Switching Point
+Applications that start in `user mode` (also known as `userland`) remain in that mode until they make a `system call (syscall)` or interact with the OS via an API. When a syscall occurs, the application transitions into kernel mode to execute privileged operations.
+
+> [!NOTE]
+> User-mode has many terms; User-mode, userspace, userland, etc.
+>
+> Userland is a common term, however, it's not a term defined by Windows.
+
+- User applications switch to kernel mode when making system calls (e.g., `ReadFile`).
+- A special processor instruction triggers this transition, allowing access to protected system structures in `Ntoskrnl.exe` or `Win32k.sys`.
+- The processor switches back to user mode before returning control to the application, ensuring system protection.
+- Mode transitions are not context switches and do not affect thread scheduling.
+- Graphics-intensive apps spend more time in kernel mode since the windowing system runs there.
+- Newer technologies like `Direct2D` and `DirectComposition` reduce kernel mode time by handling more computations in user mode before passing data to the kernel.
+
+### Syscall naming conventions
+System calls in Windows are often prefixed with `Nt`, which stands for `Windows New Technology (NT)`. These calls are the lower-level APIs used internally by the OS. However, some system calls use the `Zw` prefix. While `Zw` has no official meaning, it was chosen to avoid naming conflicts with other APIs and to preserve other useful two-letter prefixes for future use.
+
+Additionally, many Windows driver support routines use standardized prefixes that indicate which kernel-mode system component implements them:
+| Prefix | Kernel component | Example routine |
+|-|-|-|
+| `Cm` | Configuration manager | `CmRegisterCallbackEx` |
+| `Ex` | Executive | `ExAllocatePool` |
+| `Hal` | Hardware abstraction layer | `HalGetAdapter` |
+| `Io` | I/O manager | `IoAllocateIrp` |
+| `Ke` | Kernel core | `KeSetEvent` |
+| `Mm` | Memory manager | `MmUnlockPages` |
+| `Ob` | Object manager | `ObReferenceObject` |
+| `Po` | Power manager | `PoSetPowerState` |
+| `Tm` | Transaction manager | `TmCommitTransaction` |
+| `Nt` and `Zw` | Native system services | `NtCreateFile` and `ZwCreateFile` |
+
+### The Switching Point
+The `switch between user mode and kernel mode` is facilitated by `system and API calls`. In some documentation, this transition is referred to as the `Switching Point`.
+
+![Switching point](/Windows_Internals/Images/Switching_point.png)
+
+### Performance Counters for Mode Transitions
+The following performance counters help track the time spent in user and kernel modes:
+
+| Object | Counter | Function |
+|-|-|-|
+| Processor | % Privileged Time | Percentage of time that an individual CPU (or all CPUs) has run in kernel mode during a specified interval. |
+| Processor | % User Time | Percentage of time that an individual CPU (or all CPUs) has run in user mode during a specified interval. |
+| Process | % Privileged Time | Percentage of time that the threads in a process have run in kernel mode during a specified interval. |
+| Process | % User Time | Percentage of time that the threads in a process have run in user mode during a specified interval. |
+| Thread | % Privileged Time | Percentage of time that a thread has run in kernel mode during a specified interval. |
+| Thread | % User Time | Percentage of time that a thread has run in user mode during a specified interval. |
+
 ## The kernel
-The kernel is the core / heart of the operating system. It is the software component that sits between your hardware and the rest of the OS and software.
+The `kernel` itself refers specifically to the OS core that enforces rules and handles system-wide operations. You could see it as the "heart" of the operating system. 
 
-- Abstract away the physical differences between hardware setups
+Essentially, it's a software component that sits / interfaces between your hardware and the rest of the OS and software.
 
-    It gives our other software a standardized surface area to interface with.
+Here's a simplified list of what the core kernel component actually does:
 
-- Provide security and stability
+-  Manage hardware interaction:
+
+    Abstract away the physical differences between hardware setups by providing other software with a standardized surface area to interface with.
+
+- Privilege Separation:
+
+    Provide a safety mechanism for security and stability by separating user-mode and kernel-mode operations, preventing regular applications from directly accessing hardware.
+
+- Manage processes & memory:
+
+    The kernel handles process creation, scheduling, and termination while also managing memory allocation and enforcing access protections.
+
+- Resource Scheduling & Allocation:
+
+    The kernel decides how CPU time, memory, and I/O resources are distributed among processes.
+
+- Inter-Process Communication (IPC):
+
+    It enables different processes to communicate and share data safely.
+
+- Event Handling & Interrupts:
+
+    The kernel responds to hardware and software interrupts to keep the system running smoothly.
+
+- Handle system calls:
+
+    The kernel provides a controlled way for user-mode applications to request services (e.g., file access, networking, or process management) through system calls.
+
 
 ### Types
 | Kernel type | Description | Advantage |
@@ -21,39 +112,28 @@ The kernel is the core / heart of the operating system. It is the software compo
 | Micro-Kernel | The kernel only handles basic functionality leaving other components to the user-space. | Ability to kill problematic processes without crashing the system. |
 | Hyrbid kernel | Tries to incorporate the advantage of both modules. | Fast and modular. |
 
-## Syscalls and the Switching Point
-Applications started in user mode or "`userland`" will `stay in that mode until a system call is made or interfaced through an API`. When a system call is made, the application will switch modes.
+### Memory
+Contrary to user-mode virtual address space, kernel-mode and device-driver code share a single virtual address space. Each page in virtual memory is protected with a "tag" that indicates which read and / or write-operation could be used on that memory based on the processor mode.
 
-![Switching point](/Windows_Internals/Images/Switching_point.png)
+However, read-only pages that contain static read-only data are not writable from any mode. Additionally, `Data Execution Prevention (DEP)` if enabled stops code from running in memory areas meant for data, preventing exploits like buffer overflows. However, in kernel mode, there are no such protections—drivers and system code can access any part of system memory without restrictions.
 
-The switch between user mode and kernel mode is often `facilitated by system and API calls`. In documentation, this point is sometimes referred to as the "`Switching Point`."
+### Driver signing and security
+Since kernel-mode code has full system access, Microsoft enforces strict driver-signing policies to improve security and stability.
 
-| User mode | Kernel Mode |
-|-|-|
-| No direct hardware access | Direct hardware access |
-| Creates a process in a private virtual address space | Ran in a single shared virtual address space |
-| Access to "owned memory locations" in the VAS | access to all system memory and all CPU instructions |
-| Runs user application code | Runes OS code |
+- Windows 2000 introduced `driver signing` to warn/block unsigned plug-and-play drivers.
+- Windows 8.1 (64-bit & ARM) requires all drivers to be signed by a `recognized certification authority` (`Kernel-Mode Code Signing, KMCS`). Users cannot install unsigned drivers unless they enable "Test Mode."
+- Windows 10 (Anniversary Update, 2016) tightened requirements:
+    - Drivers must be `SHA-2 EV signed and submitted` to Microsoft for attestation.
+    - Only `Microsoft-signed drivers` can load, except in "Test Mode."
+    - Pre-2015 signed drivers remain valid for now.
+- Windows Server 2016 further restricts drivers, requiring `WHQL certification` for additional security and stability.
+- Enterprise configurations (e.g., `Device Guard`) can customize these policies, enforcing stricter requirements where needed.
+
+These measures are an effort by Microsoft to reduce untrusted third-party drivers in kernel memory, strengthening system security.
+
 
 <!--
-Note The architectures of the x86 and x64 processors define four privilege levels (or rings) to protect system code and data from being overwritten either inadvertently or maliciously by code of lesser privilege. Windows uses privilege level 0 (or ring 0) for kernel mode and privilege level 3 (or ring 3) for user mode. The reason Windows uses only two levels is that some hardware architectures, such as ARM today and MIPS/Alpha in the past, implemented only two privilege levels. Settling on the lowest minimum bar allowed for a more efficient and portable architecture, especially as the other x86/x64 ring levels do not provide the same guarantees as the ring 0/ring 3 divide. 24 CHAPTER 1 Concepts and tools Although each Windows process has its own private memory space, the kernel-mode OS and device-driver code share a single virtual address space. Each page in virtual memory is tagged to indicate what access mode the processor must be in to read and/or write the page. Pages in system space can be accessed only from kernel mode, whereas all pages in the user address space are accessible from user mode and kernel mode. Read-only pages (such as those that contain static data) are not writable from any mode. Additionally, on processors that support no-execute memory protection, Windows marks pages containing data as non-executable, thus preventing inadvertent or malicious code execution in data areas (if this feature, Data Execution Prevention [DEP] is enabled). Windows doesn’t provide any protection for private read/write system memory being used by components running in kernel mode. In other words, once in kernel mode, OS and device-driver code has complete access to system-space memory and can bypass Windows security to access objects. Because the bulk of the Windows OS code runs in kernel mode, it is vital that components that run in kernel mode be carefully designed and tested to ensure they don’t violate system security or cause system instability. This lack of protection also emphasizes the need to remain vigilant when loading a third-party device driver, especially if it’s unsigned, because once in kernel mode, the driver has complete access to all OS data. This risk was one of the reasons behind the driver-signing mechanism introduced in Windows 2000, which warns (and, if configured as such, blocks) the user if an attempt is made to add an unsigned plug-and-play driver (see Chapter 6, “I/O system,” for more information on driver signing), but does not affect other types of drivers. Also, a mechanism called Driver Verifier helps device-driver writers find bugs, such as buffer overruns or memory leaks, that can cause security or reliability issues. (Chapter 6 also discusses Driver Verifier.) On 64-bit and ARM versions of Windows 8.1, the kernel-mode code-signing (KMCS) policy dictates that all device drivers (not just plug-and-play) must be signed with a cryptographic key assigned by one of the major code certification authorities. The user cannot explicitly force the installation of an unsigned driver, even as an administrator. As a one-time exception, however, this restriction can be disabled manually. This allows drivers to be self-signed and tested, places a watermark on the desktop wallpaper labeled “Test Mode,” and disables certain digital rights management (DRM) features. On Windows 10, Microsoft implemented an even more significant change, which was enforced starting one year after release as part of the July Anniversary Update (version 1607). As of that time, all new Windows 10 drivers must be signed by only two of the accepted certification authorities with a SHA-2 Extended Validation (EV) Hardware certificate instead of the regular file-based SHA-1 certificate and its 20 authorities. Once EV-signed, the hardware driver must be submitted to Microsoft through the System Device (SysDev) portal for attestation signing, which will see the driver receive a Microsoft signature. As such, the kernel will sign only Microsoft-signed Windows 10 drivers with no exemptions except the aforementioned Test Mode. Drivers signed before the release date of Windows 10 (July 2015) can continue to load with their regular signature for the time being. With Windows Server 2016, the operating system takes its strongest stance yet. On top of the aforementioned EV requirements, mere attestation signing is insufficient. For a Windows 10 driver to load on a server system, it must pass through stringent Windows Hardware Quality Labs (WHQL) certification as part of the Hardware Compatibility Kit (HCK) and be submitted for formal evaluation. Only WHQL-signed drivers— which provide certain compatibility, security, performance, and stability assurances to system administrators CHAPTER 1 Concepts and tools 25 —will be allowed to load on such systems. All in all, the reduction of third-party drivers that are allowed to load in kernel mode memory should result in significant stability and security improvements. Certain vendors, platforms, and even enterprise configurations of Windows can have any number of these signing policies customized, such as through the Device Guard technology, which we’ll briefly describe in the upcoming “Hypervisor” section, and later in Chapter 7. As such, an enterprise might require WHQL signatures even on Windows 10 client systems, or might request the omission of this requirement on a Windows Server 2016 system. As you’ll see in Chapter 2, “System architecture,” user applications switch from user mode to kernel mode when they make a system service call. For example, a Windows ReadFile function eventually needs to call the internal Windows routine that actually handles reading data from a file. That routine, because it accesses internal system data structures, must run in kernel mode. The use of a special processor instruction triggers the transition from user mode to kernel mode and causes the processor to enter the system service dispatching code in the kernel. This in turn calls the appropriate internal function in Ntoskrnl.exe or Win32k.sys. Before returning control to the user thread, the processor mode is switched back to user mode. In this way, the OS protects itself and its data from perusal and modification by user processes. Note A transition from user mode to kernel mode (and back) does not affect thread scheduling per se. A mode transition is not a context switch. Further details on system service dispatching are included in Chapter 2. Thus, it’s normal for a user thread to spend part of its time executing in user mode and part in kernel mode. In fact, because the bulk of the graphics and windowing system also runs in kernel mode, graphics-intensive applications spend more of their time in kernel mode than in user mode. An easy way to test this is to run a graphics-intensive application such as Microsoft Paint and watch the time split between user mode and kernel mode using one of the performance counters listed in Table 1-3. More advanced applications can use newer technologies such as Direct2D and DirectComposition, which perform bulk computations in user mode and send only the raw surface data to the kernel. This reduces the time spent transitioning between user and kernel modes. 
-
-Object: Counter Function
-Processor: % Privileged Time Percentage of time that an individual CPU (or all CPUs) has run in kernel mode during a
-specified interval
-Processor: % User Time Percentage of time that an individual CPU (or all CPUs) has run in user mode during a
-specified interval
-Process: % Privileged Time Percentage of time that the threads in a process have run in kernel mode during a
-specified interval
-Process: % User Time Percentage of time that the threads in a process have run in user mode during a specified interval
-Thread: % Privileged Time Percentage of time that a thread has run in kernel mode during a specified interval
-Thread: % User Time Percentage of time that a thread has run in user mode during a specified interval
-
-SYSCALL TABLE
-
-CPU MEM MANAGEMENT UNIT MMU
-
-KERNEL CRASH DUMP
-
-KERNEL PATCH PROTECTION / PATCHGUARD
+- CPU MEM MANAGEMENT UNIT MMU
+- KERNEL CRASH DUMP
+- KERNEL PATCH PROTECTION / PATCHGUARD
 -->
