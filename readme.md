@@ -163,7 +163,7 @@ It provides foundational knowledge for reverse engineering, malware analysis, an
 6. [Virtual Memory](/Windows_Internals/Virtual_Memory.md)
 7. [Introduction to API's](/Windows_Internals/API_Introduction.md)
 8. [Windows API, IPC and WinRT](/Windows_Internals/Windows_API.md)
-9. [Processor modes, Privileges, Syscalls, the Kernel and more](/Windows_Internals/Processor_Modes.md)
+9. [Processor modes, Privileges, Syscalls, the Kernel and more](/Windows_Internals/Kernel.md)
 10. [PE file format](/Windows_Internals/PE.md)
 
 </details>
