@@ -720,13 +720,13 @@ Think of fibers like a lightweight thread that you control / schedule yourself. 
 
 In most cases, letting Windows manage threads automatically is a better choice over managing User-mode fibers manually.
 
-### Fibers limitations
+### Working with Fibers
 1. You start with a normal thread and call `ConvertThreadToFiber`. This function converts the thread to a running fiber.
 2. You can make more fibers using `CreateFiber`. Each fiber can have it's own set of fibers.
 3. Instead of Windows deciding which fiber runs, you call `SwitchToFiber` to manually choose which fiber gets to execute.
 4. The new fiber runs until it exits or until it calls SwitchToFiber, again selecting another fiber to run.
 
-### Downsides of fibers
+### Fibers limitations
 - Invisible to the kernel: Since the operating system doesn’t know fibers exist, it can’t schedule them properly. This can lead to bad performance.
 - TLS issues: Sharing thread local storage (TLS) can be an issue because several fibers can be running on the same thread.
 - No True Multithreading: Fibers don’t run on multiple processors at the same time, they are limited to cooperative multi-tasking only. Only one fiber runs per thread.
