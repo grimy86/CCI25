@@ -1,7 +1,7 @@
 <h1 align="center">Cybersecurity & Code Insights '25</h1>
 
 <p align="center">
-  
+  <img src="/Images/Banner.png" alt="Banner" width="400">
 </p>
 
 **An open-source guide / insights to C-style C++, x86, x86-64 assembly, cybersecurity operations and Windows internals into a unified learning resource.**
