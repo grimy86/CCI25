@@ -49,68 +49,6 @@ graph TD;
 > - If you really can't wrap your head around something, just ask [ChatGPT](https://chatgpt.com/) to clarify it.
 > - Keep note of where you left off studying and make bookmarks in your browser application.
 
-# <img src="https://raw.githubusercontent.com/grimy86/CSharp25/refs/heads/main/Images/Csharp.png" alt="Csharp logo" width="35"/> C Sharp
-
-**prerequisites:** None
-
-Head over to the [CSharp25 repository](https://github.com/grimy86/CSharp25) for more.
-
-<details>
-<summary> Novice: The programming fundamentals </summary>
-
-1. Entry-point, variables, data types & operators
-2. Control flow
-3. Functions / Methods
-4. Type conversion & parsing
-5. Data collections
-6. Exception handling
-7. Preprocessor directives
-8. Object-oriented programming (OOP)
-
-</details>
-
-<details>
-<summary> Intermediate: More OOP & Functional concepts </summary>
-
-1. Operator overloading
-2. Nullable value types
-3. Pass by reference
-4. Generics
-5. Partial Classes & Partial Methods
-6. Tuples / ValueTuples
-7. Extension Methods
-8. Indexers
-9. Lambda expressions (Anonymous Functions)
-10. Delegates, Anonymous Methods, etc.
-11. Events
-12. Expression bodies
-13. Method hiding
-
-</details>
-
-<details>
-<summary> Proficient: Advanced Concepts & Performance Optimization </summary>
-
-1. LINQ
-2. IDisposable objects
-3. Multi-threading / Async programming
-4. Attributes & Reflection
-5. Events
-
-</details>
-
-<details>
-<summary> Expert: Design, architecture and lower-level concepts </summary>
-
-1. Dependency injection
-2. Pattern matching
-3. Unsafe Code & Pointers 
-4. Class Relations: Association and Composition
-5. SOLID Principles
-6. Design Patterns
-
-</details>
-
 ## <img src="/Images/cpp.png" alt="C++ logo" width="35"/> C-style C++
 A C-style C++ summary of 2024. This summary is entirely possible thanks to the authors of the Learncpp website (Alex, Nascardriver and James C.) who made their knowledge available for public use.
 
@@ -482,3 +420,12 @@ Covers the fundamentals of both offensive and defensive security skills, ethical
 - [IANA's Service Name and Transport Protocol Port Number Registry](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml)
 
 </details>
+
+# <img src="https://raw.githubusercontent.com/grimy86/CSharp25/refs/heads/main/Images/Csharp.png" alt="Csharp logo" width="35"/> C Sharp
+
+**prerequisites:** None
+
+Head over to the [CSharp25 repository](https://github.com/grimy86/CSharp25) for more.
+
+> [!TIP]
+> The Csharp25 repo also includes intresting notes on software architecture and design.
