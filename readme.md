@@ -4,42 +4,54 @@
   <img src="/Images/Banner.png" alt="Banner" width="400">
 </p>
 
-**An open-source guide / insights to C-style C++, x86, x86-64 assembly, cybersecurity operations and Windows internals into a unified learning resource.**
-
-**Brief disclaimer:** This guide is catered towards cybersecurity development, not as much to cybersecurity operations / red teaming or blue teaming.
+**An open-source guide / insights to C-style C++, x86, x86-64 assembly, C#, cybersecurity operations and Windows internals into a unified learning resource.**
 
 > [!TIP]
+> **Brief disclaimer:** This guide is catered towards **`Windows reverse engineering`**, not as much to cybersecurity operations / red teaming or blue teaming.
+> 
 >  No prior knowledge is needed.
->
-> However, if you are starting from the ground up I would recommend following path:
 
 ```mermaid
 graph TD;
 	
-	subgraph ll[Low-Level Concepts]
-		cpp[C-style C++]
-		cpp --> x86-64[x86 & x86-64 assembly]
-		x86-64 --> winint[Windows internals]
-		winint --> re[Reverse engineering]
-		x86-64 -.-> re
-	end
-
-	subgraph ops[Networking & Operations]
-		nt[Networking fundamentals] --> csec[Cybersecurity operations]
-	end
-
-	subgraph Coding
-		subgraph Web-Specific
-			JavaScript
-			PhP
+	subgraph Code[Programming fundamentals]
+		subgraph HL[High-Level]
+			cs["C# (C Sharp)"]
 		end
-		Python
-		PowerShell
-		cs["C# (C Sharp)"]
+		subgraph LL[Lower-Level]
+			cpp[C / C++]
+			--> x86-64[x86 / x86_64 assembly]
+		end
 	end
 
-	ll --> ops
-	ll -.-> Coding
+	subgraph OS[Operating System fundamentals]
+		os[Operating systems]
+		--> winint[Windows internals]
+	end
+
+	subgraph RE[Reverse Engineering]
+		sa[Static analysis]
+		da[Dynamic analysis]
+		dd[Debuggers & Disassemblers]
+	end
+
+	subgraph NS[Networking and security]
+		subgraph NET[Networking Concepts]
+			osi[OSI Model]
+			ip[IP Model]
+			tecp[TCP/IP Protocols]
+		end
+
+		subgraph PEN[Pentesting basics]
+			REC[Reconnaissance & Scanning]
+			EXP[Exploiting & Post-Exploitation]
+			SOC[SOC Techniques]
+		end
+	end
+
+LL <-.-> RE
+OS <-.-> RE
+NET -.-> PEN
 ```
 
 > [!TIP]
@@ -421,7 +433,7 @@ Covers the fundamentals of both offensive and defensive security skills, ethical
 
 </details>
 
-# <img src="https://raw.githubusercontent.com/grimy86/CSharp25/refs/heads/main/Images/Csharp.png" alt="Csharp logo" width="35"/> C Sharp
+## <img src="https://raw.githubusercontent.com/grimy86/CSharp25/refs/heads/main/Images/Csharp.png" alt="Csharp logo" width="35"/> C Sharp
 
 **prerequisites:** None
 
