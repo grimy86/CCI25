@@ -4,7 +4,7 @@
   <img src="/Images/Banner.png" alt="Banner" width="400">
 </p>
 
-**An open-source guide / insights to C-style C++, x86, x86-64 assembly, C#, cybersecurity operations and Windows internals into a unified learning resource.**
+**My open-source notes / insights on cybersecurity topics like: C-style C++, x86, x86-64 assembly, C#, networking, pentesting and Windows internals into a unified learning resource. Some files may get flagged as malware by your system.**
 
 > [!TIP]
 > **Brief disclaimer:** This guide is catered towards **`Windows reverse engineering`**, not as much to cybersecurity operations / red teaming or blue teaming.
