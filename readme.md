@@ -61,38 +61,23 @@ NET -.-> PEN
 > - If you really can't wrap your head around something, just ask [ChatGPT](https://chatgpt.com/) to clarify it.
 > - Keep note of where you left off studying and make bookmarks in your browser application.
 
+## <img src="https://raw.githubusercontent.com/grimy86/CSharp25/refs/heads/main/Images/Csharp.png" alt="Csharp logo" width="35"/> C Sharp
+
+**prerequisites:** None
+
+**disclaimer:** C# alone won't be enough to understand everything low-level-related later on, therefor it's entirely optional. However, it's a good starting point if you're having trouble with languages like C / C++.
+
+**course:** [CSharp25 repository](https://github.com/grimy86/CSharp25)
+
+> [!TIP]
+> The Csharp25 repo also includes intresting notes on software architecture and design.
+
 ## <img src="/Images/cpp.png" alt="C++ logo" width="35"/> C-style C++
 A C-style C++ summary of 2024. This summary is entirely possible thanks to the authors of the Learncpp website (Alex, Nascardriver and James C.) who made their knowledge available for public use.
 
 **prerequisites:** None
 
-[Summary PDF](/Programming_Foundations/Cpp/C-Style_CPP_24.pdf)
-
-<details>
-<summary> Modules </summary>
-
-- Keywords
-- Introduction / Getting started
-- Basics
-- Functions and files
-- Debugging
-- Fundamental data types
-- Constants and strings
-- Operators
-- Bit manipulation
-- Scope, duration & linkage
-- Control flow
-- Error detection and handling
-- Type conversion, type aliases & type deduction
-- Function overloading & function templates
-- Compound types: References and pointers
-- Compound types: Enums and structs
-- Summary intermezzo
-- C-style: Arrays & strings
-- Dynamic allocation
-- Functions
-
-</details>
+**course:** [PDF](/Programming_Foundations/Cpp/C-Style_CPP_24.pdf)
 
 <details>
 <summary> C++ Code Samples </summary>
@@ -330,7 +315,7 @@ Work in progress...
 -->
 
 
-## <img src="/Images/Network.png" alt="Network logo" width="35"/> Networking & Cybersecurity operations
+## <img src="/Images/Network.png" alt="Network logo" width="35"/> Networks & Pentesting basics
 Covers the fundamentals of both offensive and defensive security skills, ethical hacking, penetration testing, and red teaming, providing hands-on experience with tools like Nmap, Burp Suite, and SQLmap. It includes topics such as reconnaissance, exploitation, privilege escalation, and persistence, with cheat sheets and scripting resources to aid practical learning.
 
 **prerequisites:** None
@@ -432,12 +417,3 @@ Covers the fundamentals of both offensive and defensive security skills, ethical
 - [IANA's Service Name and Transport Protocol Port Number Registry](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml)
 
 </details>
-
-## <img src="https://raw.githubusercontent.com/grimy86/CSharp25/refs/heads/main/Images/Csharp.png" alt="Csharp logo" width="35"/> C Sharp
-
-**prerequisites:** None
-
-Head over to the [CSharp25 repository](https://github.com/grimy86/CSharp25) for more.
-
-> [!TIP]
-> The Csharp25 repo also includes intresting notes on software architecture and design.
