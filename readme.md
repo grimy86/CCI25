@@ -67,10 +67,61 @@ NET -.-> PEN
 
 **disclaimer:** C# alone won't be enough to understand everything low-level-related later on, therefor it's entirely optional. However, it's a good starting point if you're having trouble with languages like C / C++.
 
-**course:** [CSharp25 repository](https://github.com/grimy86/CSharp25)
+<details>
+<summary> Novice: Fundamental programming concepts </summary>
 
-> [!TIP]
-> The Csharp25 repo also includes intresting notes on software architecture and design.
+1. [Entry-point, variables, data types & operators](/Programming_Foundations/CSharp/Novice/Basics.md)
+2. [Control flow](/Programming_Foundations/CSharp/Novice/Control_Flow.md)
+3. [Functions / Methods](/Programming_Foundations/CSharp/Novice/Functions.md)
+4. [Type conversion & parsing](/Programming_Foundations/CSharp/Novice/Conversion_Parsing.md)
+5. [Data collections](/Programming_Foundations/CSharp/Novice/Collections.md)
+6. [Exception handling](/Programming_Foundations/CSharp/Novice/Exceptions.md)
+7. [Preprocessor directives](/Programming_Foundations/CSharp/Novice/Preprocessor_Directives.md)
+8.  [Object-oriented programming (OOP)](/Programming_Foundations/CSharp/Novice/OOP.md)
+
+</details>
+
+<details>
+<summary> Intermediate: Technical language concepts </summary>
+
+1. [Operator overloading](/Programming_Foundations/CSharp/Intermediate/Operator_Overloading.md)
+2. [Nullable value types](/Programming_Foundations/CSharp/Intermediate/Nullable_Types.md)
+3. [Pass by reference](/Programming_Foundations/CSharp/Intermediate/Ref.md)
+4. [Generics](/Programming_Foundations/CSharp/Intermediate/Generics.md)
+5. [Partial Classes & Partial Methods](/Programming_Foundations/CSharp/Intermediate/Partials.md)
+6. [Tuples / ValueTuples](/Programming_Foundations/CSharp/Intermediate/Tuples.md)
+7. [Extension Methods](/Programming_Foundations/CSharp/Intermediate/Extensions.md)
+8. [Indexers](/Programming_Foundations/CSharp/Intermediate/Indexers.md)
+9. [Lambda expressions (Anonymous Functions)](/Programming_Foundations/CSharp/Intermediate/Lambda.md)
+10. [Delegates, Anonymous Methods, etc.](/Programming_Foundations/CSharp/Intermediate/Delegates.md)
+11. [Events](/Programming_Foundations/CSharp/Intermediate/Events.md)
+12. [Expression bodies](/Programming_Foundations/CSharp/Intermediate/Expression_Bodies.md)
+13. [Method hiding](/Programming_Foundations/CSharp/Intermediate/Method_hiding.md)
+
+</details>
+
+<details>
+<summary> Proficient: Advanced language concepts </summary>
+
+1. [LINQ](/Programming_Foundations/CSharp/Proficient/LINQ.md)
+2. [IDisposable objects](/Programming_Foundations/CSharp/Proficient/IDisposable.md)
+   - [IDisposable code sample](/Programming_Foundations/CSharp/Proficient/IDisposable.cs)
+3. [Multi-threading / Async programming](Programming_Foundations/CSharp/Proficient/Multithread_Async.md)
+4. [Attributes & Reflection](/Programming_Foundations/CSharp/Proficient/Attributes_Reflection.md)
+5. [Events](Programming_Foundations\CSharp\Proficient\Events.md)
+
+</details>
+
+<details>
+<summary> Expert: Mastery / Architectural concepts </summary>
+
+1. [Dependency injection](/Programming_Foundations/CSharp/Expert/Dependency_Injection.md)
+2. [Unsafe](/Programming_Foundations/CSharp/Expert/Unsafe.md)
+3. [Shallow and deep copying]()
+4. [Software- Architecture, Patterns & Principles](#software--architecture-patterns--principles)
+
+</details>
+
 
 ## <img src="/Images/cpp.png" alt="C++ logo" width="35"/> C-style C++
 A C-style C++ summary of 2024. This summary is entirely possible thanks to the authors of the Learncpp website (Alex, Nascardriver and James C.) who made their knowledge available for public use.
@@ -415,5 +466,27 @@ Covers the fundamentals of both offensive and defensive security skills, ethical
 - [TryHackMe](https://tryhackme.com/)
 - [A-Z Index of the Linux command line: bash + utilities](https://ss64.com/bash/)
 - [IANA's Service Name and Transport Protocol Port Number Registry](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml)
+
+</details>
+
+## <img src="/Images/Prototype.png" alt="Software design logo" width="35"/> Software- Architecture, Patterns & Principles 
+
+**prerequisites:** A solid foundation of a programming language like C++, C#, python, etc.
+
+<details>
+<summary> Modules </summary>
+
+1. [Pattern matching](/Architecture/Pattern_matching.md)
+2. [Class relationships](/Architecture/Class_Relationships.md)
+3. [SOLID principles](/Architecture/SOLID.md)
+4. [Common architectures](/Architecture/Common_Architectures.md)
+5. [Design patterns](/Architecture/Design_Patterns.md)
+
+</details>
+
+<details>
+<summary> References </summary>
+
+- Various books
 
 </details>
