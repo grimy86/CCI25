@@ -1,15 +1,24 @@
+<!-- #region Header / Title -->
+
 <h1 align="center">Cybersecurity & Code Insights '25</h1>
 
-<p align="center">
-  <img src="/Images/Banner.png" alt="Banner" width="400">
-</p>
-
-**My open-source notes / insights on cybersecurity topics like: C-style C++, x86, x86-64 assembly, C#, networking, pentesting and Windows internals into a unified learning resource. Some files may get flagged as malware by your system.**
+<div style="display: flex; justify-content: space-between;">
+    <img src="/Images/Logo.png" alt="Banner" width="150">
+    <h2> A open-source collection of computer science topics into a unified learning resource.</h2>
+</div>
 
 > [!TIP]
-> **Brief disclaimer:** This guide is catered towards **`Windows reverse engineering`**, not as much to cybersecurity operations / red teaming or blue teaming.
-> 
->  No prior knowledge is needed.
+> **Disclaimer:**
+> 1. Some files may get flagged as malware by your system.
+> 2. This repo is catered towards **`Windows reverse engineering`**, not as much to cybersecurity operations / red teaming or blue teaming.
+> 3. No prior knowledge is needed.
+
+<!-- #endregion -->
+
+<!-- #region Roadmap -->
+
+<details>
+<summary><img src="/Images/Roadmap.png" alt="Roadmap logo" width="35"/><span style="font-size: 25px;"><strong> Roadmap </strong></span></summary>
 
 ```mermaid
 graph TD;
@@ -61,15 +70,51 @@ NET -.-> PEN
 > - If you really can't wrap your head around something, just ask [ChatGPT](https://chatgpt.com/) to clarify it.
 > - Keep note of where you left off studying and make bookmarks in your browser application.
 
-## <img src="https://raw.githubusercontent.com/grimy86/CSharp25/refs/heads/main/Images/Csharp.png" alt="Csharp logo" width="35"/> C Sharp
+</details>
+
+<!-- #endregion -->
+
+<!-- #region Programming -->
+
+<!--
+<details>
+<summary><img src="/Images/Code.png" alt="Csharp logo" width="35"/><span style="font-size: 25px;"><strong> Programming / developing software </strong></span></summary>
+
+**Note:** BIG REWORK IN PROGRESS TO BUNDLE C# AND C/C++ GUIDES
 
 **prerequisites:** None
 
-**disclaimer:** C# alone won't be enough to understand everything low-level-related later on, therefor it's entirely optional. However, it's a good starting point if you're having trouble with languages like C / C++.
+**disclaimer:** Learning a high-level language like C# isn’t necessary for low-level programming, but it can help if you find C or C++ challenging. Some prefer C++ since it has less abstraction, reducing the gap to low-level concepts.
+
+Basics:
+1. [Understanding the Language]()  
+2. [Program Entry-Point]()  
+3. [Variables & Data Types]()  
+4. [Operators & Instruction Statements]()  
+5. [Scope & Duration]()  
+6. [C/C++ Header Files & Linkage]()
+7. [Object lifetime]()
+8. [Control Flow]()  
+9. [References]()
+10. [C/C++ Pointers]()  
+11. [Structs & Enums]()
+
+Object-Oriented Programming:
+1. [Classes & "This"]()
+2. [Fields & Methods]()
+3. [Constructors & Destructors]()
+4. [Encapsulation]()
+5. [Inheritance]()
+6. [Polymorphism]()
+7. [Interfaces]()
+
+</details>
+-->
 
 <details>
-<summary> Novice: Fundamental programming concepts </summary>
+<summary><img src="/Images/Code.png" alt="Csharp logo" width="35"/><span style="font-size: 25px;"><strong> C# </strong></span></summary>
 
+**Novice:**
 1. [Entry-point, variables, data types & operators](/Programming_Foundations/CSharp/Novice/Basics.md)
 2. [Control flow](/Programming_Foundations/CSharp/Novice/Control_Flow.md)
 3. [Functions / Methods](/Programming_Foundations/CSharp/Novice/Functions.md)
@@ -79,11 +124,7 @@ NET -.-> PEN
 7. [Preprocessor directives](/Programming_Foundations/CSharp/Novice/Preprocessor_Directives.md)
 8.  [Object-oriented programming (OOP)](/Programming_Foundations/CSharp/Novice/OOP.md)
 
-</details>
-
-<details>
-<summary> Intermediate: Technical language concepts </summary>
-
+**Intermediate:**
 1. [Operator overloading](/Programming_Foundations/CSharp/Intermediate/Operator_Overloading.md)
 2. [Nullable value types](/Programming_Foundations/CSharp/Intermediate/Nullable_Types.md)
 3. [Pass by reference](/Programming_Foundations/CSharp/Intermediate/Ref.md)
@@ -98,11 +139,7 @@ NET -.-> PEN
 12. [Expression bodies](/Programming_Foundations/CSharp/Intermediate/Expression_Bodies.md)
 13. [Method hiding](/Programming_Foundations/CSharp/Intermediate/Method_hiding.md)
 
-</details>
-
-<details>
-<summary> Proficient: Advanced language concepts </summary>
-
+**Advanced:**
 1. [LINQ](/Programming_Foundations/CSharp/Proficient/LINQ.md)
 2. [IDisposable objects](/Programming_Foundations/CSharp/Proficient/IDisposable.md)
    - [IDisposable code sample](/Programming_Foundations/CSharp/Proficient/IDisposable.cs)
@@ -110,11 +147,7 @@ NET -.-> PEN
 4. [Attributes & Reflection](/Programming_Foundations/CSharp/Proficient/Attributes_Reflection.md)
 5. [Events](Programming_Foundations\CSharp\Proficient\Events.md)
 
-</details>
-
-<details>
-<summary> Expert: Mastery / Architectural concepts </summary>
-
+**Master:**
 1. [Dependency injection](/Programming_Foundations/CSharp/Expert/Dependency_Injection.md)
 2. [Unsafe](/Programming_Foundations/CSharp/Expert/Unsafe.md)
 3. [Shallow and deep copying]()
@@ -122,17 +155,16 @@ NET -.-> PEN
 
 </details>
 
+<details>
+<summary><img src="/Images/Code.png" alt="C++ logo" width="35"/><span style="font-size: 25px;"><strong> C/C++ </strong></span></summary>
 
-## <img src="/Images/cpp.png" alt="C++ logo" width="35"/> C-style C++
 A C-style C++ summary of 2024. This summary is entirely possible thanks to the authors of the Learncpp website (Alex, Nascardriver and James C.) who made their knowledge available for public use.
 
-**prerequisites:** None
+**Prerequisites:** None
 
-**course:** [PDF](/Programming_Foundations/Cpp/C-Style_CPP_24.pdf)
+**C++ PDF Course:** [PDF](/Programming_Foundations/Cpp/C-Style_CPP_24.pdf)
 
-<details>
-<summary> C++ Code Samples </summary>
-
+**C++ Code Samples:**
 - [Main file](/Programming_Foundations/Cpp/CodeSamples/Main.cpp)
 - [A log function](/Programming_Foundations/Cpp/CodeSamples/Log.cpp)
 - [Forward declarations / using multiple files](/Programming_Foundations/Cpp/CodeSamples/ForwardDecls.h)
@@ -146,20 +178,13 @@ A C-style C++ summary of 2024. This summary is entirely possible thanks to the a
 - [Strings](/Programming_Foundations/Cpp/CodeSamples/Strings.cpp)
 - [Conversions](/Programming_Foundations/Cpp/CodeSamples/Conversions.cpp)
 
+
 </details>
 
 <details>
-<summary> References </summary>
+<summary><img src="/Images/ASM.png" alt="ASM logo" width="35"/><span style="font-size: 25px;"><strong> x86/x86_64 </strong></span></summary>
 
-- [cppreference](https://en.cppreference.com/w/)
-- [cplusplus reference](https://cplusplus.com/reference/)
-- [W3Schools DSA Intro](https://www.w3schools.com/dsa/dsa_intro.php)
-- [hackingcpp cheat sheets](https://hackingcpp.com/cpp/cheat_sheets.html)
-
-</details>
-
-
-## <img src="/Images/ASM.png" alt="ASM logo" width="35"/> x86 & x86-64 assembly
+##  
 Note this guide was reworked from x86 to x86-64 for really exact and specific differences you should do your own research.
 
 **prerequisites:** [C++](/readme.md#c-style-c)
@@ -211,33 +236,37 @@ Note this guide was reworked from x86 to x86-64 for really exact and specific di
 > Use GCC to link the .obj file and create the final executable (.exe). Run this command:
 > ```gcc -mconsole -nostartfiles -o fileName.exe fileName.obj```
 
-<details>
-<summary> References </summary>
+## <img src="/Images/Prototype.png" alt="Software design logo" width="35"/> Software- Architecture, Patterns & Principles 
 
-- [Godbolt Compiler Explorer](https://godbolt.org/)
-- [JLearn PH's MASM32 assembly programming playlist](https://www.youtube.com/playlist?list=PLE6kld48wGGPEq1mDnFVfbLZ81gcP3nJj)
-- [MASM reference](https://learn.microsoft.com/en-us/cpp/assembler/masm/microsoft-macro-assembler-reference?view=msvc-170) for more information on x86 assembly in MASM32.
-- [x86 and amd64 instruction reference](https://www.felixcloutier.com/x86/) for more information on x86 instructions.
-- [Malwareunicorn's instruction searcher](https://malwareunicorn.org/x86)
-- [Tutorialspoint Nasm assembly](https://www.tutorialspoint.com/assembly_programming/index.htm)
-- [Davy Wybiral's intro to x86 assembly language playlist](https://www.youtube.com/playlist?list=PLmxT2pVYo5LB5EzTPZGfFN0c2GDiSXgQe)
-- [OliveStem's x86 assembly with NASM playlist](https://www.youtube.com/playlist?list=PL2EF13wm-hWCoj6tUBGUmrkJmH1972dBB)
-- [ost2.fyi's Architecture 2001: x86-64 OS Internals](https://p.ost2.fyi/courses/course-v1:OpenSecurityTraining2+Arch2001_x86-64_OS_Internals+2021_v1/about)
-- [asmtutor](https://asmtutor.com/)
+**prerequisites:** A solid foundation of a programming language like C++, C#, python, etc.
+
+<details>
+<summary> Modules </summary>
+
+1. [Pattern matching](/Architecture/Pattern_matching.md)
+2. [Class relationships](/Architecture/Class_Relationships.md)
+3. [SOLID principles](/Architecture/SOLID.md)
+4. [Common architectures](/Architecture/Common_Architectures.md)
+5. [Design patterns](/Architecture/Design_Patterns.md)
 
 </details>
 
+</details>
 
-## <img src="/Images/Windows.png" alt="Windows logo" width="35"/> Windows Internals
+<!-- #endregion -->
+
+<!-- #region Windows Internals -->
+
+<details>
+<summary><img src="/Images/Windows.png" alt="Windows logo" width="35"/><span style="font-size: 25px;"><strong> Windows Internals </strong></span></summary>
+
 This part explores Windows system architecture focusing on components such as processes, memory management, the Portable Executable (PE) file format.
 
 It provides foundational knowledge for reverse engineering, malware analysis, and low-level Windows security research.
 
 **prerequisites:** [C++](/readme.md#c-style-c)
 
-<details>
-<summary> Modules </summary>
-
+**Modules:**
 1. [Windows Internals Introduction](/Windows_Internals/Introduction.md)
 2. [Terminology](/Windows_Internals/Terminology.md)
 3. [The .NET Framework](/Windows_Internals/Dotnet_Framework.md)
@@ -249,10 +278,7 @@ It provides foundational knowledge for reverse engineering, malware analysis, an
 9. [Processor modes, Privileges, Syscalls, the Kernel and more](/Windows_Internals/Kernel.md)
 10. [PE file format](/Windows_Internals/PE.md)
 
-</details>
-
 <!--
-- Kernel mode vs. User mode
 - Hypervisors
 - Firmware
 - Terminal services and multiple sessions
@@ -264,42 +290,20 @@ It provides foundational knowledge for reverse engineering, malware analysis, an
 Syscalls? Drivers, sockets?
  -->
 
-<details>
-<summary> References </summary>
-
-- [Pavel Yosifovich's windows internals](https://scorpiosoftware.net/)
-- [Pavel Yosifovich's youtube channel](https://www.youtube.com/@zodiacon)
-- [0xRick's dive into PE file format](https://0xrick.github.io/)
-- [Empyreal96's info depot](https://empyreal96.github.io/nt-info-depot/index.html)
-- [Alex Ionescu's blog](https://www.alex-ionescu.com/)
-- [Duncan Ogilvie's internals crash course](https://www.youtube.com/watch?v=I_nJltUokE0)
-- [Alexander Sotirov's internals talk](https://www.youtube.com/watch?v=vz15OqiYYXo&t=194s)
-- [Crow's malware development playlist](https://www.youtube.com/playlist?list=PL_z_ep2nxC57sHAlCcvvaYRrpdMIQXri1)
-- [Red Team Notes on reversing, forensics & misc](https://www.ired.team/miscellaneous-reversing-forensics/windows-kernel-internals)
-- [Rexir's Windows Internals Videos](https://www.youtube.com/playlist?list=PLt9cUwGw6CYF6Kj19mBZpfhQPsRIC5vGl)
-- [TheSourceLens's Windows Internals part 1 playlist](https://www.youtube.com/playlist?list=PLhx7-txsG6t5i-kIZ_hwJSgZrnka4GXvn)
-- [Nir Lichtman's diving into windows internals playlist](https://www.youtube.com/playlist?list=PL0tgH22U2S3G2QpiK-Q1wKW_Fe-Wiu7JS)
-- [Geoff Chappell](https://www.geoffchappell.com/index.htm?ta=5)
-- [Alex Ionescu's ReactOS](https://doxygen.reactos.org/index.html)
-- [Programming reference for the Win32 API](https://learn.microsoft.com/en-us/windows/win32/api/)
-- [ost2.fyi](https://p.ost2.fyi/courses)
-- [mr.d0x's malapi list](https://malapi.io/)
-- [pinvoke.net](https://www.pinvoke.net/)
-- [Vergilius project](https://www.vergiliusproject.com/)
-- [TechsavvyProductions](https://www.youtube.com/@TechsavvyProductions)
-- [Driver Verifier Tool](https://learn.microsoft.com/en-us/windows-hardware/drivers/devtest/driver-verifier)
-
 </details>
 
+<!-- #endregion -->
 
-## <img src="/Images/Hexadecimal.png" alt="RE logo" width="35"/> Reverse Engineering
+<!-- #region Reverse Engineering -->
+
+<details>
+<summary><img src="/Images/Hexadecimal.png" alt="RE logo" width="35"/><span style="font-size: 25px;"><strong> Reverse Engineering </strong></span></summary>
+
 Covers reverse engineering techniques, including static and dynamic analysis, debugging, and anti-reversing methods.
 
 **prerequisites:** [C++](/readme.md#c-style-c) & [x86-64 Assembly](/readme.md#x86--x86-64-assembly)
 
-<details>
-<summary> Modules </summary>
-
+**Modules:**
 1. [Intro to (malware) analysis](/Reverse_Engineering/Intro.md)
 2. [Understand PE header files](/Windows_Internals/PE.md)
 3. [Basic static analysis](/Reverse_Engineering/Basic_static.md)
@@ -310,37 +314,7 @@ Covers reverse engineering techniques, including static and dynamic analysis, de
 
 </details>
 
-<details>
-<summary> References </summary>
-
-- [TryHackMe](https://tryhackme.com/)
-- [jstrosch's learning reverse engineering repo](https://github.com/jstrosch/learning-reverse-engineering)
-- [Dr Josh Stroschein - The Cyber Yeti youtube channel](https://www.youtube.com/@jstrosch/playlists)
-- [Godbolt Compiler Explorer](https://godbolt.org/)
-- [Programming reference for the Win32 API](https://learn.microsoft.com/en-us/windows/win32/api/)
-- [FLARE VM](https://github.com/mandiant/flare-vm)
-- [REMnux](https://github.com/REMnux)
-- [FLOSS](https://github.com/mandiant/flare-floss)
-- [Reverse Engineering Resources-Beginners to intermediate Guide/Links](https://bbinfosec.medium.com/reverse-engineering-resources-beginners-to-intermediate-guide-links-f64c207505ed)
-- [ost2.fyi](https://p.ost2.fyi/courses)
-- [0xZ0F's Reverse Engineering Course repo](https://github.com/0xZ0F/Z0FCourse_ReverseEngineering)
-- [wtsxDev's list of reverse engineering resources](https://github.com/wtsxDev/reverse-engineering)
-- [Malwareunicorn's workshops](https://malwareunicorn.org/#/workshops)
-
-</details>
-
 <!--
-## <img src="/Images/Unlock.png" alt="ED logo" width="25"/> Windows Exploit Development
-Work in progress...
-
-<details>
-<summary> Modules </summary>
-</details>
-
-<details>
-<summary> References </summary>
-</details>
-
 ### Tooling
 1. Introduction to Windows API (win32 API
 2. Cheat engine
@@ -365,29 +339,25 @@ Work in progress...
 6. Bypassing Anti-Tamper technology
 -->
 
+<!-- endregion -->
 
-## <img src="/Images/Network.png" alt="Network logo" width="35"/> Networks & Pentesting basics
+<!-- #region Networks -->
+
+<details>
+<summary><img src="/Images/Network.png" alt="Network logo" width="35"/><span style="font-size: 25px;"><strong> Networks & Pentesting basics </strong></span></summary>
+
 Covers the fundamentals of both offensive and defensive security skills, ethical hacking, penetration testing, and red teaming, providing hands-on experience with tools like Nmap, Burp Suite, and SQLmap. It includes topics such as reconnaissance, exploitation, privilege escalation, and persistence, with cheat sheets and scripting resources to aid practical learning.
 
 **prerequisites:** None
 
-<details>
-<summary> Modules </summary>
-
-<details>
-<summary> Fundamentals & general info </summary>
-
+**Fundamentals & general info:**
 1. [Pentesting Fundamentals](/Cybersecurity_Operations/General/PentestingFundamentals.md)
 2. [Principles of Security](/Cybersecurity_Operations/General/SecurityPrinciples.md)
 3. [Red teaming fundamentals](/Cybersecurity_Operations/General/RTFundamentals.md)
 4. [Red teaming engagements](/Cybersecurity_Operations/General/RTEngagements)
 5. [Governance & Regulation](/Cybersecurity_Operations/General/Governance%26Regulation.md)
 
-</details>
-
-<details>
-<summary> Cheat Sheets </summary>
-
+**Cheat Sheets:**
 1. [Networking](/Cybersecurity_Operations/Cheat%20Sheets/Networking.md)
 2. [Linux](/Cybersecurity_Operations/Cheat%20Sheets/Linux.md)
 3. [Windows](/Cybersecurity_Operations/Cheat%20Sheets/Windows.md)
@@ -395,98 +365,113 @@ Covers the fundamentals of both offensive and defensive security skills, ethical
 5. [Cryptography](/Cybersecurity_Operations/Cheat%20Sheets/Cryptography.md)
 6. [Vulnerabilities](/Cybersecurity_Operations/Cheat%20Sheets/Vulnerabilities.md)
 
-</details>
-
-<details>
-<summary> Planning & Recon </summary>
-
+**Planning & Recon:**
 1. [Planning](/Cybersecurity_Operations/Planning%20%26%20Recon/Planning.md)
 2. [Recon](/Cybersecurity_Operations/Planning%20%26%20Recon/Recon.md)
 
-</details>
-
-<details>
-<summary> Scanning </summary>
-
+**Scanning:**
 1. [Nmap](/Cybersecurity_Operations/Scanning/Nmap.md)
 2. [Directory Scanners](/Cybersecurity_Operations/Scanning/DirectoryScanners.md)
 3. [SQLmap](/Cybersecurity_Operations/Scanning/SQLmap.md)
 
-</details>
-
-<details>
-<summary> Gaining Access </summary>
-
+**Gaining Access:**
 1. [Web Enumeration](/Cybersecurity_Operations/Gaining%20Access/WebEnum.md)
 2. [OWASP Top 10](/Cybersecurity_Operations/Gaining%20Access/OWASP10.md)
 3. [Exploitation](/Cybersecurity_Operations/Gaining%20Access/Exploitation.md)
 4. [Phishing](/Cybersecurity_Operations/Gaining%20Access/Phishing.md)
 
-</details>
-
-<details>
-<summary> Tools used to gain access </summary>
-
+**Tools used to gain access:**
 1. [Burpsuite](/Cybersecurity_Operations/Gaining%20Access/Burpsuite.md)
 2. [Hydra](/Cybersecurity_Operations/Gaining%20Access/Hydra.md)
 
-</details>
-
-<details>
-<summary> Maintaining Access </summary>
-
+**Maintaining Access:**
 1. [Shells](/Cybersecurity_Operations/Maintaining%20Access/Shells.md)
 2. [Linux privilege escalation](/Cybersecurity_Operations/Maintaining%20Access/LinPrivesc.md)
 3. [Windows privilege escalation](/Cybersecurity_Operations/Maintaining%20Access/WinPrivesc.md)
 4. [Windows persistence](/Cybersecurity_Operations/Maintaining%20Access/WinPersistence.md)
 
-</details>
-
-<details>
-<summary> Analysis </summary>
-
+**Analysis:**
 1. [CAPA](/Analysis/CAPA.md)
 2. [REMnux & FlareVM](/Cybersecurity_Operations/Analysis/REMnux&FlareVM.md)
 3. [Malware analysis and reverse engineering](/readme.md#reverse-engineering)
 
-</details>
-
-<details>
-<summary> Scripting </summary>
-
+**Scripting:**
 1. [Python for pentesters](/Cybersecurity_Operations/Scripting/PythonForPentesters.md)
 
 </details>
 
-</details>
+<!-- #endregion -->
+
+<!-- #region References -->
+
 
 <details>
-<summary> References </summary>
+<summary><img src="/Images/References.png" alt="Network logo" width="35"/><span style="font-size: 25px;"><strong> References </strong></span></summary>
 
+**C/C++:**
+- [cppreference](https://en.cppreference.com/w/)
+- [cplusplus reference](https://cplusplus.com/reference/)
+- [W3Schools DSA Intro](https://www.w3schools.com/dsa/dsa_intro.php)
+- [hackingcpp cheat sheets](https://hackingcpp.com/cpp/cheat_sheets.html)
+
+**x86/x86_64:***
+- [Godbolt Compiler Explorer](https://godbolt.org/)
+- [JLearn PH's MASM32 assembly programming playlist](https://www.youtube.com/playlist?list=PLE6kld48wGGPEq1mDnFVfbLZ81gcP3nJj)
+- [MASM reference](https://learn.microsoft.com/en-us/cpp/assembler/masm/microsoft-macro-assembler-reference?view=msvc-170) for more information on x86 assembly in MASM32.
+- [x86 and amd64 instruction reference](https://www.felixcloutier.com/x86/) for more information on x86 instructions.
+- [Malwareunicorn's instruction searcher](https://malwareunicorn.org/x86)
+- [Tutorialspoint Nasm assembly](https://www.tutorialspoint.com/assembly_programming/index.htm)
+- [Davy Wybiral's intro to x86 assembly language playlist](https://www.youtube.com/playlist?list=PLmxT2pVYo5LB5EzTPZGfFN0c2GDiSXgQe)
+- [OliveStem's x86 assembly with NASM playlist](https://www.youtube.com/playlist?list=PL2EF13wm-hWCoj6tUBGUmrkJmH1972dBB)
+- [ost2.fyi's Architecture 2001: x86-64 OS Internals](https://p.ost2.fyi/courses/course-v1:OpenSecurityTraining2+Arch2001_x86-64_OS_Internals+2021_v1/about)
+- [asmtutor](https://asmtutor.com/)
+
+Design & Architecture:
+- [Various books]()
+
+**Windows Internals:**
+- [Pavel Yosifovich's windows internals](https://scorpiosoftware.net/)
+- [Pavel Yosifovich's youtube channel](https://www.youtube.com/@zodiacon)
+- [0xRick's dive into PE file format](https://0xrick.github.io/)
+- [Empyreal96's info depot](https://empyreal96.github.io/nt-info-depot/index.html)
+- [Alex Ionescu's blog](https://www.alex-ionescu.com/)
+- [Duncan Ogilvie's internals crash course](https://www.youtube.com/watch?v=I_nJltUokE0)
+- [Alexander Sotirov's internals talk](https://www.youtube.com/watch?v=vz15OqiYYXo&t=194s)
+- [Crow's malware development playlist](https://www.youtube.com/playlist?list=PL_z_ep2nxC57sHAlCcvvaYRrpdMIQXri1)
+- [Red Team Notes on reversing, forensics & misc](https://www.ired.team/miscellaneous-reversing-forensics/windows-kernel-internals)
+- [Rexir's Windows Internals Videos](https://www.youtube.com/playlist?list=PLt9cUwGw6CYF6Kj19mBZpfhQPsRIC5vGl)
+- [TheSourceLens's Windows Internals part 1 playlist](https://www.youtube.com/playlist?list=PLhx7-txsG6t5i-kIZ_hwJSgZrnka4GXvn)
+- [Nir Lichtman's diving into windows internals playlist](https://www.youtube.com/playlist?list=PL0tgH22U2S3G2QpiK-Q1wKW_Fe-Wiu7JS)
+- [Geoff Chappell](https://www.geoffchappell.com/index.htm?ta=5)
+- [Alex Ionescu's ReactOS](https://doxygen.reactos.org/index.html)
+- [Programming reference for the Win32 API](https://learn.microsoft.com/en-us/windows/win32/api/)
+- [ost2.fyi](https://p.ost2.fyi/courses)
+- [mr.d0x's malapi list](https://malapi.io/)
+- [pinvoke.net](https://www.pinvoke.net/)
+- [Vergilius project](https://www.vergiliusproject.com/)
+- [TechsavvyProductions](https://www.youtube.com/@TechsavvyProductions)
+- [Driver Verifier Tool](https://learn.microsoft.com/en-us/windows-hardware/drivers/devtest/driver-verifier)
+
+**Reverse Engineering:**
+- [TryHackMe](https://tryhackme.com/)
+- [jstrosch's learning reverse engineering repo](https://github.com/jstrosch/learning-reverse-engineering)
+- [Dr Josh Stroschein - The Cyber Yeti youtube channel](https://www.youtube.com/@jstrosch/playlists)
+- [Godbolt Compiler Explorer](https://godbolt.org/)
+- [Programming reference for the Win32 API](https://learn.microsoft.com/en-us/windows/win32/api/)
+- [FLARE VM](https://github.com/mandiant/flare-vm)
+- [REMnux](https://github.com/REMnux)
+- [FLOSS](https://github.com/mandiant/flare-floss)
+- [Reverse Engineering Resources-Beginners to intermediate Guide/Links](https://bbinfosec.medium.com/reverse-engineering-resources-beginners-to-intermediate-guide-links-f64c207505ed)
+- [ost2.fyi](https://p.ost2.fyi/courses)
+- [0xZ0F's Reverse Engineering Course repo](https://github.com/0xZ0F/Z0FCourse_ReverseEngineering)
+- [wtsxDev's list of reverse engineering resources](https://github.com/wtsxDev/reverse-engineering)
+- [Malwareunicorn's workshops](https://malwareunicorn.org/#/workshops)
+
+**Networks & Cybersecurity:**
 - [TryHackMe](https://tryhackme.com/)
 - [A-Z Index of the Linux command line: bash + utilities](https://ss64.com/bash/)
 - [IANA's Service Name and Transport Protocol Port Number Registry](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml)
 
 </details>
 
-## <img src="/Images/Prototype.png" alt="Software design logo" width="35"/> Software- Architecture, Patterns & Principles 
-
-**prerequisites:** A solid foundation of a programming language like C++, C#, python, etc.
-
-<details>
-<summary> Modules </summary>
-
-1. [Pattern matching](/Architecture/Pattern_matching.md)
-2. [Class relationships](/Architecture/Class_Relationships.md)
-3. [SOLID principles](/Architecture/SOLID.md)
-4. [Common architectures](/Architecture/Common_Architectures.md)
-5. [Design patterns](/Architecture/Design_Patterns.md)
-
-</details>
-
-<details>
-<summary> References </summary>
-
-- Various books
-
-</details>
+<!-- #endregion -->
