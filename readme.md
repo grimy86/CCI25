@@ -1,17 +1,15 @@
 <!-- #region Header / Title -->
-
-<h1 align="center">Cybersecurity & Code Insights '25</h1>
-
-<div style="display: flex; justify-content: space-between;">
-    <img src="/Images/Logo.png" alt="Banner" width="150">
-    <h2> A open-source collection of computer science topics into a unified learning resource.</h2>
-</div>
+<h1 align="center">Cybersecurity & Code Insights '25: A open-source collection of computer science topics into a unified learning resource.</h1>
+<img src="/Images/Logo.png" alt="Banner" width="150">
 
 > [!TIP]
 > **Disclaimer:**
-> 1. Some files may get flagged as malware by your system.
-> 2. This repo is catered towards **`Windows reverse engineering`**, not as much to cybersecurity operations / red teaming or blue teaming.
-> 3. No prior knowledge is needed.
+> Some files may get flagged as malware by your system.
+> 
+> This repo is catered towards **`Windows reverse engineering`**, not as much to cybersecurity operations / red teaming or blue teaming.
+> 
+> No prior knowledge is needed.
+> 
 
 <!-- #endregion -->
 
