@@ -1,6 +1,9 @@
 <!-- #region Header / Title -->
-<h1 align="center">Cybersecurity & Code Insights '25: A open-source collection of computer science topics into a unified learning resource.</h1>
-<img src="/Images/Logo.png" alt="Banner" width="150">
+<div style="display: flex; align-items: center;">
+  <img src="/Images/Logo.png" alt="Banner" width="150" style="margin-right: 20px;">
+  <h1>Cybersecurity & Code Insights '25</h1>
+</div>
+<strong>An open-source collection of notes, summaries, insights, etc. on computer science topics into a unified learning resource.</strong>
 
 > [!TIP]
 > **Disclaimer:**
@@ -60,6 +63,7 @@ LL <-.-> RE
 OS <-.-> RE
 NET -.-> PEN
 ```
+</details>
 
 > [!TIP]
 > - Add this folder to your windows defender exclusions as it might remove valuable resources.
@@ -67,8 +71,6 @@ NET -.-> PEN
 > - Install add-ons like [dark reader](https://darkreader.org/) and [remove HTML elements](https://chromewebstore.google.com/detail/remove-html-elements/enegojdnkeicfoiknhfjaedhlckeahmf?hl=en&pli=1) that make reading better.
 > - If you really can't wrap your head around something, just ask [ChatGPT](https://chatgpt.com/) to clarify it.
 > - Keep note of where you left off studying and make bookmarks in your browser application.
-
-</details>
 
 <!-- #endregion -->
 
